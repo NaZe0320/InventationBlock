@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="update_time"
+            type="com.oneandonly.inventationblock.viewmodel.UpdateViewModel" />
+    </data>
+
+    <TextView
+        android:id="@+id/update_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{update_time.Companion.updateTime}"
+        android:textSize="@dimen/update_time_text_size">
+
+    </TextView>
+</layout>
