@@ -8,16 +8,12 @@ import com.oneandonly.inventationblock.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private var mainBinding: ActivityMainBinding? = null
-    private val binding get() = mainBinding!!
-
-    val text = "QWERTY"
-
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-
+        binding.main = this
     }
 }

@@ -1,41 +1,37 @@
 package com.oneandonly.inventationblock.viewmodel
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.oneandonly.inventationblock.datasource.Setting
-import com.oneandonly.inventationblock.datasource.model.LoginModel
-import com.oneandonly.inventationblock.datasource.repository.LoginRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
+import com.oneandonly.inventationblock.datasource.model.data.LoginResult
+import com.oneandonly.inventationblock.datasource.model.repository.LoginRepository
+import com.oneandonly.inventationblock.datasource.model.retrofit.API
+import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
-class LoginViewModel(context: Context):ViewModel() {
+class LoginViewModel(private val repository: LoginRepository):ViewModel() {
 
     private val TAG = "Login_ViewModel"
+    var result:Boolean = false
 
-    var isAutoLogin: Boolean = false
-    private var loginRepository: LoginRepository = Setting.getInstance().getLoginDataStore()
+    fun postLogin(param: HashMap<String, String>) {
 
-    fun getAutoLogin() {
-        viewModelScope.launch {
-            isAutoLogin = loginRepository.isAutoLogin.first()
-        }
+        repository.postLogin(param).enqueue(object: Callback<LoginResult> {
+            override fun onResponse(call: Call<LoginResult>, response: Response<LoginResult>) {
+                Log.d(TAG,response.toString())
+                Log.d(TAG,response.message().toString())
+                Log.d(TAG, response.body()?.message.toString().contains("성공").toString())
+
+                //TODO(response 로 값 변경)
+                result = response.body()?.message.toString().contains("성공")
+            }
+            override fun onFailure(call: Call<LoginResult>, t: Throwable) {
+                Log.d(TAG,t.message.toString())
+                Log.d(TAG,"fail")
+            }
+        })
     }
-
-    fun updateAutoLogin(isAutoLogin: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
-            loginRepository.saveToDataStore(isAutoLogin)
-        }
-    }
-
-    fun loginCheck(loginModel: LoginModel) : Boolean {
-        Log.d(TAG,"loginCheck $loginModel")
-        return loginRepository.loginCheck(login = loginModel)
-    }
-
 
 }

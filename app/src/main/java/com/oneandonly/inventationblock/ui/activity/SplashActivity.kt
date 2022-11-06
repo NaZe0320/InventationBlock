@@ -8,9 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import com.oneandonly.inventationblock.R
-import com.oneandonly.inventationblock.datasource.Setting
-import com.oneandonly.inventationblock.viewmodel.LoginViewModel
-import kotlinx.coroutines.flow.onEach
+import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -18,9 +16,10 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val loginViewModel = LoginViewModel(this)
-        loginViewModel.getAutoLogin()
-        if (loginViewModel.isAutoLogin) moveToMain() else moveToLogin()
+        val autoLoginViewModel = AutoLoginViewModel()
+
+        autoLoginViewModel.getAutoLogin()
+        if (autoLoginViewModel.isAutoLogin) moveToMain() else moveToLogin()
     }
 
     private fun moveToLogin() {

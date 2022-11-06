@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">재고블록</string>
+
+    <string name="title">테스트</string>
 </resources>

@@ -1,10 +1,12 @@
 package com.oneandonly.inventationblock.datasource
 
 import android.app.Application
-import com.oneandonly.inventationblock.datasource.repository.LoginRepository
+import com.oneandonly.inventationblock.datasource.setting.AutoLoginSetting
+import com.oneandonly.inventationblock.datasource.setting.UpdateTimeSetting
 
 class Setting: Application() {
-    private lateinit var loginDataStore: LoginRepository
+    private lateinit var loginDataStore: AutoLoginSetting
+    private lateinit var updateTimeDataStore: UpdateTimeSetting
 
     companion object {
         private lateinit var setting: Setting
@@ -14,9 +16,10 @@ class Setting: Application() {
     override fun onCreate() {
         super.onCreate()
         setting = this
-        loginDataStore = LoginRepository(this)
-
+        loginDataStore = AutoLoginSetting(this)
+        updateTimeDataStore = UpdateTimeSetting(this)
     }
 
-    fun getLoginDataStore(): LoginRepository = loginDataStore
+    fun getLoginDataStore(): AutoLoginSetting = loginDataStore
+    fun getUpdateTimeDataStore(): UpdateTimeSetting = updateTimeDataStore
 }
