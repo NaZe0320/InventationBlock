@@ -16,10 +16,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val autoLoginViewModel = AutoLoginViewModel()
-
-        autoLoginViewModel.getAutoLogin()
-        if (autoLoginViewModel.isAutoLogin) moveToMain() else moveToLogin()
+        moveToLogin()
     }
 
     private fun moveToLogin() {
@@ -31,12 +28,5 @@ class SplashActivity : AppCompatActivity() {
         }, 2000)
     }
 
-    private fun moveToMain() {
-        Log.d("Splash","moveToMain")
-        Handler(Looper.myLooper()!!).postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }, 2000)
-    }
+
 }

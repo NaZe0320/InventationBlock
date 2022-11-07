@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:checked="false"
+                android:checked="true"
                 android:text="자동 로그인"
                 android:textSize="12sp">
 

@@ -6,7 +6,7 @@ import retrofit2.Call
 
 class Repository {
 
-    suspend fun getInformation(token: String?): Call<InformationResult> {
+    suspend fun getInformation(token: String?): InformationResult {
         return RetrofitBuilder.api.getInformation(token)
     }
 }
