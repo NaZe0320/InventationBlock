@@ -28,7 +28,3 @@ class Setting: Application() {
     fun getUpdateTimeDataStore(): UpdateTimeSetting = updateTimeDataStore
     fun getTokenDataStore(): TokenSetting = tokenDataStore
 }
-
-object Set {
-    var token: String = ""
-}

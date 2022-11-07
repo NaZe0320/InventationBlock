@@ -1,6 +1,7 @@
 package com.oneandonly.inventationblock.datasource.setting
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
@@ -24,6 +25,7 @@ class TokenSetting(private val context: Context) {
     suspend fun savaToken(token: String) {
         context.dataStore.edit {
             it[TOKEN] = token
+            Log.d("Token","it[TOKEN] ${it[TOKEN]}")
         }
     }
 

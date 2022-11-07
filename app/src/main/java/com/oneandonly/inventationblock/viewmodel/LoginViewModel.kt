@@ -19,6 +19,7 @@ class LoginViewModel(private val repository: LoginRepository):ViewModel() {
     private val TAG = "Login_ViewModel"
 
     val loginResult: MutableLiveData<LoginState> = MutableLiveData()
+    val token: MutableLiveData<String> = MutableLiveData()
 
     fun postLogin(id: String, pw: String) {
         val param = HashMap<String, String>()
@@ -34,6 +35,7 @@ class LoginViewModel(private val repository: LoginRepository):ViewModel() {
 
             if (response.isSuccessful) {
                 if (response.body()?.message.toString().contains("성공")) {
+                    token.value = response.message()
                     loginResult.value = LoginState.Success //성공처리
                 } else {
                     loginResult.value = LoginState.Fail //실패

@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ActivityMainBinding
 import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
+import com.oneandonly.inventationblock.viewmodel.TokenViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,8 +30,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun logout() {
         val autoLoginViewModel = AutoLoginViewModel()
+        val tokenViewModel = TokenViewModel()
+
+        tokenViewModel.updateToken("null")
+
         autoLoginViewModel.updateAutoLogin(false)
         moveToLogin()
+
     }
 
     private fun moveToLogin() {

@@ -2,12 +2,9 @@ package com.oneandonly.inventationblock.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ActivityLoginBinding
@@ -19,14 +16,15 @@ import com.oneandonly.inventationblock.viewmodel.LoginViewModel
 import com.oneandonly.inventationblock.viewmodel.TokenViewModel
 import com.oneandonly.inventationblock.viewmodel.factory.LoginViewModelFactory
 import kotlinx.coroutines.*
-import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityLoginBinding
     private lateinit var loginViewModel:LoginViewModel
 
+    //Setting
     private val autoLoginViewModel = AutoLoginViewModel()
+    private val tokenViewModel = TokenViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,13 +39,15 @@ class LoginActivity : AppCompatActivity() {
             when (it) {
                 LoginState.Loading -> {
                     Log.d("LoginCheck","Loading")
-
                     showLoading()
                 }
                 LoginState.Success -> {
                     Log.d("LoginCheck","Success")
                     stopLoading()
                     //TODO(토큰 저장)
+                    tokenViewModel.updateToken(loginViewModel.token.value.toString())
+                    tokenViewModel.getToken()
+                    Log.d("Token","2 ${tokenViewModel.token}/${loginViewModel.token}")
                     moveToMain()
                 }
                 LoginState.Fail -> {
@@ -77,7 +77,14 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         autoLoginViewModel.getAutoLogin()
-        if (autoLoginViewModel.isAutoLogin) moveToMain()
+        if (autoLoginViewModel.isAutoLogin){
+            moveToMain()
+            Log.d("Token","1-1 ${tokenViewModel.token}")
+            tokenViewModel.getToken()
+            Log.d("Token","1-2 ${tokenViewModel.token}")
+        }
+
+
     }
 
     private fun showLoading() {
