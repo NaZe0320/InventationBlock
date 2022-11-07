@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import com.oneandonly.inventationblock.Constants.Companion.tokens
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ActivityMainBinding
 import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             logout()
         }
+        Log.d("Token Main",tokens.toString())
 
     }
 

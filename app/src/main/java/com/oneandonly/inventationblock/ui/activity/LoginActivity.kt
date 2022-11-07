@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.oneandonly.inventationblock.Constants.Companion.tokens
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ActivityLoginBinding
 import com.oneandonly.inventationblock.datasource.model.data.LoginState
@@ -46,8 +47,6 @@ class LoginActivity : AppCompatActivity() {
                     stopLoading()
                     //TODO(토큰 저장)
                     tokenViewModel.updateToken(loginViewModel.token.value.toString())
-                    tokenViewModel.getToken()
-                    Log.d("Token","2 ${tokenViewModel.token}/${loginViewModel.token}")
                     moveToMain()
                 }
                 LoginState.Fail -> {
@@ -72,6 +71,8 @@ class LoginActivity : AppCompatActivity() {
                 Log.d("Login_Check","Error : ${e.message}")
             }
         }
+
+        Log.d("Token Login",tokens.toString())
     }
 
     override fun onStart() {
@@ -79,9 +80,8 @@ class LoginActivity : AppCompatActivity() {
         autoLoginViewModel.getAutoLogin()
         if (autoLoginViewModel.isAutoLogin){
             moveToMain()
-            Log.d("Token","1-1 ${tokenViewModel.token}")
-            tokenViewModel.getToken()
-            Log.d("Token","1-2 ${tokenViewModel.token}")
+            //TODO(토큰 받아오기)
+            tokenViewModel.getToken() //토큰 받아오기
         }
 
 

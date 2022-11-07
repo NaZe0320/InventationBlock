@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import com.oneandonly.inventationblock.Constants
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
 
@@ -17,6 +18,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         moveToLogin()
+        Log.d("Token Splash", Constants.tokens.toString())
     }
 
     private fun moveToLogin() {
