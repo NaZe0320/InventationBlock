@@ -1,8 +1,6 @@
 package com.oneandonly.inventationblock.datasource.model.data
 
-import com.google.gson.annotations.SerializedName
-
-data class JSON(
+data class USER(
     var result: String?,
     var message: String?,
     var response: Responses?
@@ -13,10 +11,13 @@ data class Responses(
 )
 
 
-
-
-
 enum class LoginState {
+    Loading(),
+    Success(),
+    Fail()
+}
+
+enum class State {
     Loading(),
     Success(),
     Fail()

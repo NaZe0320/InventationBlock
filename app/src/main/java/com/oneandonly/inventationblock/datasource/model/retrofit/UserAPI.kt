@@ -1,17 +1,25 @@
 package com.oneandonly.inventationblock.datasource.model.retrofit
 
-import com.oneandonly.inventationblock.datasource.model.data.JSON
-import retrofit2.Call
+import com.oneandonly.inventationblock.datasource.model.data.USER
 import retrofit2.Response
 import retrofit2.http.*
 
-interface API {
+interface UserAPI {
 
     @FormUrlEncoded
     @POST("/user/login")
     suspend fun postLogin(
-        @FieldMap params: HashMap<String, String>): Response<JSON>
+        @FieldMap params: HashMap<String, String>
+    ): Response<USER>
     //Login 정보 서버로 전달
+
+    @FormUrlEncoded
+    @POST("/user/{users}")
+    suspend fun postUser(
+        @Path("users") users: String,
+        @FieldMap params: HashMap<String, String>
+    ): Response<USER>
+
 /*
     @GET("/user/information")
     fun getInformation(

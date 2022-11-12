@@ -3,6 +3,7 @@ package com.oneandonly.inventationblock.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -12,10 +13,11 @@ import com.oneandonly.inventationblock.databinding.ActivityLoginBinding
 import com.oneandonly.inventationblock.datasource.model.data.LoginState
 import com.oneandonly.inventationblock.datasource.model.repository.LoginRepository
 import com.oneandonly.inventationblock.makeToast
+import com.oneandonly.inventationblock.ui.fragment.FragmentRegister
 import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
 import com.oneandonly.inventationblock.viewmodel.LoginViewModel
 import com.oneandonly.inventationblock.viewmodel.TokenViewModel
-import com.oneandonly.inventationblock.viewmodel.factory.LoginViewModelFactory
+import com.oneandonly.inventationblock.viewmodel.factory.LoginFactory
 import kotlinx.coroutines.*
 
 class LoginActivity : AppCompatActivity() {
@@ -32,9 +34,10 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_login)
 
         val repository = LoginRepository()
-        val viewModelFactory = LoginViewModelFactory(repository)
+        val viewModelFactory = LoginFactory(repository)
 
         loginViewModel = ViewModelProvider(this,viewModelFactory)[LoginViewModel::class.java]
+        Log.d("LoginViewModel Test","${loginViewModel.loginResult}/${loginViewModel.token}")
 
         loginViewModel.loginResult.observe(this) {
             when (it) {
@@ -61,15 +64,16 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            autoLoginViewModel.updateAutoLogin(binding.cbAutoLogin.isChecked)
-            Log.d("LoginCheck","login button click")
-            try {
-                CoroutineScope(Dispatchers.Main).launch {
-                    loginViewModel.postLogin(binding.editId.text.toString(),binding.editPw.text.toString())
-                }
-            }  catch (e : Exception) {
-                Log.d("Login_Check","Error : ${e.message}")
-            }
+            onClickLogin()
+        }
+
+        binding.btnRegister.setOnClickListener {
+            openFragment()
+
+        }
+
+        binding.btnSearchIdpw.setOnClickListener {
+            //TODO(아이디 비밀번호 찾기)
         }
 
         Log.d("Token Login",tokens.toString())
@@ -83,8 +87,6 @@ class LoginActivity : AppCompatActivity() {
             //TODO(토큰 받아오기)
             tokenViewModel.getToken() //토큰 받아오기
         }
-
-
     }
 
     private fun showLoading() {
@@ -104,4 +106,29 @@ class LoginActivity : AppCompatActivity() {
         finish()
     } //메인 화면으로 이동
 
+    private fun onClickLogin() {
+        autoLoginViewModel.updateAutoLogin(binding.cbAutoLogin.isChecked)
+        Log.d("LoginCheck","login button click")
+        try {
+            CoroutineScope(Dispatchers.Main).launch {
+                loginViewModel.postLogin(binding.editId.text.toString(),binding.editPw.text.toString())
+            }
+        }  catch (e : Exception) {
+            Log.d("Login_Check","Error : ${e.message}")
+        }
+    }
+
+    private fun openFragment() {
+        binding.loginFragment.visibility = View.VISIBLE
+        binding.mainLayout.visibility = View.GONE
+
+        supportFragmentManager.beginTransaction()
+            .add(R.id.login_fragment,FragmentRegister())
+            .commit()
+    } //Fragment 열기
+
+    private fun closeFragment() {
+        binding.loginFragment.visibility = View.GONE
+        binding.mainLayout.visibility = View.VISIBLE
+    } //fragment 종료
 }

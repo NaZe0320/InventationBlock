@@ -4,9 +4,11 @@ import com.oneandonly.inventationblock.datasource.model.data.USER
 import com.oneandonly.inventationblock.datasource.model.retrofit.RetrofitBuilder
 import retrofit2.Response
 
-class LoginRepository {
+class UserRepository {
 
-    suspend fun postLogin(params: HashMap<String, String>): Response<USER> {
-        return RetrofitBuilder.api.postLogin(params)
+    suspend fun postUser(params: HashMap<String, String>, users: String) : Response<USER> {
+        return RetrofitBuilder.api.postUser(params = params, users = users)
     }
+
+
 }

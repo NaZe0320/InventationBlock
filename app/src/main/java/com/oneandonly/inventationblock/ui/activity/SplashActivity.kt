@@ -9,7 +9,6 @@ import android.os.Looper
 import android.util.Log
 import com.oneandonly.inventationblock.Constants
 import com.oneandonly.inventationblock.R
-import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {

@@ -13,5 +13,5 @@
     <color name="background">#FFF5F5F5</color>
     <color name="background_content">#FFFFFFFF</color>
 
-
+    <color name="stroke_grey">#54888888</color>
 </resources>

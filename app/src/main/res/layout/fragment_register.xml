@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/text_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/register_text"
+        android:bufferType="spannable"
+        android:textSize="@dimen/text_size_register"
+        android:layout_marginTop="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/text_register"
+        android:layout_marginTop="40dp">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_reg_id"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_layout_height"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_reg_id"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext_height"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_edit_grey"
+                android:hint="아이디"
+                android:inputType="text"
+                android:autofillHints="" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_reg_pw"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_layout_height"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_reg_pw"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext_height"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_edit_grey"
+                android:hint="비밀번호"
+                android:inputType="textPassword"
+                android:autofillHints="" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_reg_pw_check"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_layout_height"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_reg_pw_check"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext_height"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_edit_grey"
+                android:hint="비밀번호 확인"
+                android:inputType="textPassword"
+                android:autofillHints="" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_reg_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_layout_height"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_reg_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext_height"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_edit_grey"
+                android:hint="이름"
+                android:inputType="text"
+                android:autofillHints="" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_reg_email"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_layout_height"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_reg_email"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext_height"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_edit_grey"
+                android:hint="이메일"
+                android:inputType="textEmailAddress"
+                android:autofillHints="" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_reg_business_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_layout_height"
+            app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_reg_business_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_height"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_edit_grey"
+            android:hint="사업자명"
+            android:inputType="text"
+            android:autofillHints="" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_reg_business_num"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_layout_height"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_reg_business_num"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext_height"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_edit_grey"
+                android:hint="사업자등록번호"
+                android:inputType="number"
+                android:maxLength="10"
+                android:autofillHints="" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="확인"
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>
