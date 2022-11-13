@@ -7,13 +7,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.oneandonly.inventationblock.Constants.Companion.tokens
+import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ActivityLoginBinding
 import com.oneandonly.inventationblock.datasource.model.data.LoginState
 import com.oneandonly.inventationblock.datasource.model.repository.LoginRepository
 import com.oneandonly.inventationblock.makeToast
-import com.oneandonly.inventationblock.ui.fragment.FragmentRegister
 import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
 import com.oneandonly.inventationblock.viewmodel.LoginViewModel
 import com.oneandonly.inventationblock.viewmodel.TokenViewModel
@@ -48,7 +47,9 @@ class LoginActivity : AppCompatActivity() {
                 LoginState.Success -> {
                     Log.d("LoginCheck","Success")
                     stopLoading()
-                    //TODO(토큰 저장)
+
+                    autoLoginViewModel.updateAutoLogin(binding.cbAutoLogin.isChecked)
+
                     tokenViewModel.updateToken(loginViewModel.token.value.toString())
                     moveToMain()
                 }
@@ -68,8 +69,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnRegister.setOnClickListener {
-            openFragment()
-
+            moveToRegister()
         }
 
         binding.btnSearchIdpw.setOnClickListener {
@@ -106,8 +106,13 @@ class LoginActivity : AppCompatActivity() {
         finish()
     } //메인 화면으로 이동
 
+    private fun moveToRegister() {
+        Log.d("Splash","moveToRegister")
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun onClickLogin() {
-        autoLoginViewModel.updateAutoLogin(binding.cbAutoLogin.isChecked)
         Log.d("LoginCheck","login button click")
         try {
             CoroutineScope(Dispatchers.Main).launch {
@@ -118,17 +123,4 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun openFragment() {
-        binding.loginFragment.visibility = View.VISIBLE
-        binding.mainLayout.visibility = View.GONE
-
-        supportFragmentManager.beginTransaction()
-            .add(R.id.login_fragment,FragmentRegister())
-            .commit()
-    } //Fragment 열기
-
-    private fun closeFragment() {
-        binding.loginFragment.visibility = View.GONE
-        binding.mainLayout.visibility = View.VISIBLE
-    } //fragment 종료
 }

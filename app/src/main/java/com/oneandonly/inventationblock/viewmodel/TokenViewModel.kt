@@ -3,7 +3,7 @@ package com.oneandonly.inventationblock.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.oneandonly.inventationblock.Constants.Companion.tokens
+import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.datasource.Setting
 import com.oneandonly.inventationblock.datasource.setting.TokenSetting
 import kotlinx.coroutines.Dispatchers

@@ -1,6 +1,6 @@
 package com.oneandonly.inventationblock.datasource.model.retrofit
 
-import com.oneandonly.inventationblock.Constants.Companion.BASE_URL
+import com.oneandonly.inventationblock.Constants.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

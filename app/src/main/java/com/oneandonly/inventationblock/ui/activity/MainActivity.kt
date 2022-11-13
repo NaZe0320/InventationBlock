@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.oneandonly.inventationblock.Constants.Companion.tokens
+import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ActivityMainBinding
 import com.oneandonly.inventationblock.datasource.model.repository.LoginRepository
