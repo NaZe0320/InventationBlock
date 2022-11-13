@@ -61,7 +61,7 @@ class RegisterFragment: ContainerFragment() {
 
         userVM.state.observe(viewLifecycleOwner) {
             //TODO(회원가입 상태 확인)
-       }
+        }
     }
 
 
