@@ -1,6 +1,7 @@
 package com.oneandonly.inventationblock.ui.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -42,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
             when (it) {
                 LoginState.Loading -> {
                     Log.d("LoginCheck","Loading")
+
                     showLoading()
                 }
                 LoginState.Success -> {
@@ -69,6 +71,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
+            loginViewModel.loginResult.value = LoginState.Loading //로그인 중
             onClickLogin()
         }
 
@@ -95,11 +98,18 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showLoading() {
         //TODO(로딩창 생성 or 보여주기)
+        binding.btnLogin.apply {
+            isEnabled = false
+        }
+
         Log.d("Loading","로딩창 보여주기")
     }
 
     private fun stopLoading() {
         //TODO(로딩창 닫기)
+        binding.btnLogin.apply {
+            isEnabled = true
+        }
         Log.d("Loading","로딩창 닫기")
     }
 

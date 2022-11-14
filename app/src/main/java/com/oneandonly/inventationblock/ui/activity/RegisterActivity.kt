@@ -47,7 +47,6 @@ class RegisterActivity : AppCompatActivity() {
                         "Register" -> {
                             Log.d("Register_Activity", "${userVM.state.value}")
                             userVM.state.value = State.Loading //진행 중 상태로 변경
-
                         }
                         "RegisterComplete" -> {
                             finish()
@@ -67,14 +66,14 @@ class RegisterActivity : AppCompatActivity() {
         userVM.state.observe(this) { it ->
             when (it) {
                 State.Success -> {
-                    //changeFragment(RegisterCompleteFragment(),"RegisterComplete")
+                    changeFragment(RegisterCompleteFragment(),"RegisterComplete")
+                    binding.btnRegister.isEnabled = true
                 }
                 State.Fail -> {
-                    
+                    binding.btnRegister.isEnabled = true
                 }
                 State.Loading -> {
-                    //TODO(회원가입 신청)
-
+                    binding.btnRegister.isEnabled = false
                 }
             }
         }

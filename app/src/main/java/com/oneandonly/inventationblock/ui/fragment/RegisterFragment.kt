@@ -24,6 +24,9 @@ import com.oneandonly.inventationblock.datasource.model.repository.UserRepositor
 import com.oneandonly.inventationblock.ui.adapter.RegisterAdapter
 import com.oneandonly.inventationblock.viewmodel.UserViewModel
 import com.oneandonly.inventationblock.viewmodel.factory.UserFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RegisterFragment: ContainerFragment() {
 
@@ -70,6 +73,14 @@ class RegisterFragment: ContainerFragment() {
                         Log.d("Register_Fragment","${register.hint} - ${register.content}")
                         params[register.id] = register.content
                     }
+
+                    try {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            userVM.postRegister(params)
+                        }
+                    } catch (e: Exception) {
+                        Log.d("FragmentRegister","Error : ${e.message}")
+                    }
                     Log.d("Register_Fragment","$params")
                 }
                 State.Success -> {
@@ -77,6 +88,11 @@ class RegisterFragment: ContainerFragment() {
                 }
                 State.Fail -> {
                     //TODO(회원가입 실패)
+                    //회원가입 실패 원인 받아서 해당 이유 표시해주기
+                    //원인 viewmodel reason 체크
+                    when (userVM.reason) {
+
+                    }
                 }
             }
 

@@ -16,6 +16,7 @@ class UserViewModel(private val repository: UserRepository):ViewModel() {
     private val TAG = "User_ViewModel"
 
     val state: MutableLiveData<State> = MutableLiveData()
+    var reason: String? = null // 필요하다면 LiveData로 변경
 
     init {
         Log.d(TAG,"User_ViewModel init")
@@ -35,14 +36,12 @@ class UserViewModel(private val repository: UserRepository):ViewModel() {
             e.printStackTrace()
         }
 
-
     }
 
     fun postRegister(params: HashMap<String, String>) {
         try {
             viewModelScope.launch {
                 val response = repository.postUser(params = params, users = "register")
-                state.value = State.Loading
 
                 Log.d(TAG,"${response.errorBody()?.string()} \n ${response.body()?.response}")
                 when (response.code()) {
@@ -52,6 +51,7 @@ class UserViewModel(private val repository: UserRepository):ViewModel() {
                     }
                     400 -> {
                         Log.d(TAG,"회원가입 실패 ${response.body()}")
+                        reason = response.body()?.message.toString()
                         state.value = State.Fail
                     }
                     else -> {

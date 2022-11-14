@@ -26,7 +26,6 @@ class LoginViewModel(private val repository: LoginRepository):ViewModel() {
         try {
             viewModelScope.launch {
                 val response = repository.postLogin(param)
-                loginResult.value = LoginState.Loading //로그인 중
 
                 when (response.code()) {
                     200 -> {
