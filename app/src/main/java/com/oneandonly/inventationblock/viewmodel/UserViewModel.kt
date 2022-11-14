@@ -9,12 +9,17 @@ import com.oneandonly.inventationblock.datasource.model.data.State
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.time.LocalDate
 
 class UserViewModel(private val repository: UserRepository):ViewModel() {
 
     private val TAG = "User_ViewModel"
 
     val state: MutableLiveData<State> = MutableLiveData()
+
+    init {
+        Log.d(TAG,"User_ViewModel init")
+    }
 
     fun postLogin(id:String, pw: String) {
         val param = HashMap<String, String>()

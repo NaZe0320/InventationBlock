@@ -52,11 +52,15 @@ class LoginActivity : AppCompatActivity() {
 
                     tokenViewModel.updateToken(loginViewModel.token.value.toString())
                     moveToMain()
+
+                    loginViewModel.loginResult.value = LoginState.Null
                 }
                 LoginState.Fail -> {
                     Log.d("LoginCheck","Fail")
                     stopLoading()
                     makeToast("아이디나 비밀번호를 화인해 주세요")
+
+                    loginViewModel.loginResult.value = LoginState.Null
                 }
                 else -> {
                     Log.d("LoginCheck","Nothing")

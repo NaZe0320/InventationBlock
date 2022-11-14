@@ -3,18 +3,23 @@ package com.oneandonly.inventationblock.ui.fragment
 import android.graphics.Typeface
 import android.graphics.Typeface.*
 import android.os.Bundle
+import android.text.InputType
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.Spanned.*
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oneandonly.inventationblock.Constants
+import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.FragmentRegisterBinding
 import com.oneandonly.inventationblock.datasource.model.data.RegisterModel
+import com.oneandonly.inventationblock.datasource.model.data.State
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
 import com.oneandonly.inventationblock.ui.adapter.RegisterAdapter
 import com.oneandonly.inventationblock.viewmodel.UserViewModel
@@ -26,29 +31,27 @@ class RegisterFragment: ContainerFragment() {
         fun newInstance() = RegisterFragment
     }
 
-    private var _binding: FragmentRegisterBinding?= null
-    private val binding get() = _binding!!
-
+    private lateinit var binding: FragmentRegisterBinding
     private lateinit var userVM: UserViewModel
 
-    private lateinit var registerList: ArrayList<RegisterModel>
+    private var registerList: ArrayList<RegisterModel> = ArrayList()
+    private lateinit var registerAdapter: RegisterAdapter
 
-    private var registerAdapter: RegisterAdapter?= null
+    private val params = HashMap<String,String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRegisterBinding.inflate(inflater,container,false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_register, container, false)
         val view = binding.root
 
         val repo = UserRepository()
         val vmFactory = UserFactory(repo)
 
-        userVM = ViewModelProvider(this@RegisterFragment, vmFactory)[UserViewModel::class.java]
+        userVM = ViewModelProvider(requireActivity(), vmFactory)[UserViewModel::class.java]
 
-        registerList = Constants.registerList()
         textBold() //텍스트 Bold 처리
 
         setupRegisterRecyclerView()
@@ -61,10 +64,24 @@ class RegisterFragment: ContainerFragment() {
 
         userVM.state.observe(viewLifecycleOwner) {
             //TODO(회원가입 상태 확인)
+            when (it) {
+                State.Loading -> {
+                    registerList.forEachIndexed { index, register ->
+                        Log.d("Register_Fragment","${register.hint} - ${register.content}")
+                        params[register.id] = register.content
+                    }
+                    Log.d("Register_Fragment","$params")
+                }
+                State.Success -> {
+                    //TODO(회원가입 성공)
+                }
+                State.Fail -> {
+                    //TODO(회원가입 실패)
+                }
+            }
+
         }
     }
-
-
 
     private fun textBold() {
         val builder = SpannableStringBuilder(binding.textRegister.text)
@@ -74,9 +91,22 @@ class RegisterFragment: ContainerFragment() {
     }
 
     private fun setupRegisterRecyclerView(){
-        binding.rvRegister.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false )
-
+        setRegisterList()
         registerAdapter = RegisterAdapter(registerList)
+
+        binding.rvRegister.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false )
         binding.rvRegister.adapter = registerAdapter
+    }
+
+    private fun setRegisterList() {
+        registerList.add(RegisterModel("id","아이디",InputType.TYPE_CLASS_TEXT))
+        registerList.add(RegisterModel("password","비밀번호",81))
+        registerList.add(RegisterModel("passwordCheck","비밀번호 확인",81))
+        registerList.add(RegisterModel("name","사용자명",InputType.TYPE_CLASS_TEXT))
+        registerList.add(RegisterModel("email","이메일",InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS))
+        registerList.add(RegisterModel("businessName","사업자명",InputType.TYPE_CLASS_TEXT))
+        registerList.add(RegisterModel("businessNum","사업자등록번호",InputType.TYPE_CLASS_NUMBER))
+
+        //TODO(비밀번호 형식 지정안됨 수정 필요요)
     }
 }

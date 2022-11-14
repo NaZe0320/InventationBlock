@@ -14,7 +14,8 @@ data class Responses(
 enum class LoginState {
     Loading(),
     Success(),
-    Fail()
+    Fail(),
+    Null()
 }
 
 enum class State {
