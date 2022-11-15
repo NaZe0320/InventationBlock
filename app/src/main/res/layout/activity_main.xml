@@ -5,34 +5,41 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="main"
-            type="com.oneandonly.inventationblock.ui.activity.MainActivity" />
-        <variable
-            name="time"
-            type="com.oneandonly.inventationblock.viewmodel.UpdateViewModel" />
+    <variable
+        name="user"
+        type="com.oneandonly.inventationblock.viewmodel.UserViewModel" />
     </data>
 
-    <LinearLayout
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/main_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activity.MainActivity"
-        android:orientation="vertical">
+        tools:openDrawer="left">
 
-        <include layout="@layout/item_tool_bar"
-            android:id="@+id/tool_bar"
-            app:title="@{@string/title}">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        </include>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.user.response.businessName}"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="로그아웃"/>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/main_nav_view"
+            android:layout_width="256dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/background"
+            app:headerLayout="@layout/nav_header_main"
+            app:menu="@menu/nav_main_menu_list">
 
+        </com.google.android.material.navigation.NavigationView>
 
+    </androidx.drawerlayout.widget.DrawerLayout>
 
-    </LinearLayout>
 
 </layout>

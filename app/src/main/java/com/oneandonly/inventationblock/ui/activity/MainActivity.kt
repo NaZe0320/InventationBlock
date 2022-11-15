@@ -4,43 +4,63 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ActivityMainBinding
-import com.oneandonly.inventationblock.datasource.model.repository.LoginRepository
+import com.oneandonly.inventationblock.databinding.NavHeaderMainBinding
+import com.oneandonly.inventationblock.datasource.model.data.State
+import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
 import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
-import com.oneandonly.inventationblock.viewmodel.LoginViewModel
 import com.oneandonly.inventationblock.viewmodel.TokenViewModel
-import com.oneandonly.inventationblock.viewmodel.factory.LoginFactory
+import com.oneandonly.inventationblock.viewmodel.UserViewModel
+import com.oneandonly.inventationblock.viewmodel.factory.UserFactory
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-        binding.lifecycleOwner = this
-        binding.main = this
+        binding = DataBindingUtil.setContentView(this@MainActivity,R.layout.activity_main)
+        binding.lifecycleOwner = this@MainActivity
 
-        val repository = LoginRepository()
-        val viewModelFactory = LoginFactory(repository)
+        setViewModel()
 
-        loginViewModel = ViewModelProvider(this,viewModelFactory)[LoginViewModel::class.java]
-
-        Log.d("LoginViewModel Test","${loginViewModel.loginResult}/${loginViewModel.token}")
-
-        binding.btnLogin.setOnClickListener {
-            onClickLogout()
-        }
         Log.d("Token Main",tokens.toString())
 
+        val navBind: NavHeaderMainBinding = NavHeaderMainBinding.bind(binding.mainNavView.getHeaderView(0))
+        navBind.user = userViewModel //실시간 변경이 안됨 //TODO(수정 필요)
+        binding.user = userViewModel
+
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        userViewModel.getInformation()
+    }
+
+    private fun observeViewModel() {
+        userViewModel.user.observe(this@MainActivity, Observer { user ->
+            user?.let {
+
+            }
+        })
+    }
+
+    private fun setViewModel() {
+        val repository = UserRepository()
+        val viewModelFactory = UserFactory(repository)
+
+        userViewModel = ViewModelProvider(this@MainActivity,viewModelFactory)[UserViewModel::class.java]
     }
 
     private fun onClickLogout() {
@@ -51,11 +71,10 @@ class MainActivity : AppCompatActivity() {
 
         autoLoginViewModel.updateAutoLogin(false)
         moveToLogin()
-
     }
 
     private fun moveToLogin() {
-        Log.d("Splash_","moveToLogin")
+        Log.d("Main_Activity","moveToLogin")
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()

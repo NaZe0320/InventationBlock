@@ -69,7 +69,7 @@ class RegisterFragment: ContainerFragment() {
             //TODO(회원가입 상태 확인)
             when (it) {
                 State.Loading -> {
-                    registerList.forEachIndexed { index, register ->
+                    registerList.forEachIndexed { _, register ->
                         Log.d("Register_Fragment","${register.hint} - ${register.content}")
                         params[register.id] = register.content
                     }
@@ -93,6 +93,9 @@ class RegisterFragment: ContainerFragment() {
                     when (userVM.reason) {
 
                     }
+                }
+                null -> {
+
                 }
             }
 

@@ -91,8 +91,6 @@ class LoginActivity : AppCompatActivity() {
         autoLoginViewModel.getAutoLogin()
         if (autoLoginViewModel.isAutoLogin){
             moveToMain()
-            //TODO(토큰 받아오기)
-            tokenViewModel.getToken() //토큰 받아오기
         }
     }
 
@@ -115,6 +113,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun moveToMain() {
         Log.d("Splash","moveToMain")
+        tokenViewModel.getToken()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
@@ -127,7 +126,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onClickLogin() {
-        Log.d("LoginCheck","login button click")
+        Log.d("Login_Check","login button click")
         try {
             CoroutineScope(Dispatchers.Main).launch {
                 loginViewModel.postLogin(binding.editId.text.toString(),binding.editPw.text.toString())

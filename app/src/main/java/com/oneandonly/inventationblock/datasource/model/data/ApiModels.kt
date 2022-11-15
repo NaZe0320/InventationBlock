@@ -7,13 +7,14 @@ data class USER(
 )
 
 data class Responses(
+    var uid: String?,
+    var id: String?,
+    var name: String?,
+    var email: String?,
+    var businessName: String?,
+    var businessNum: String?,
     var token: String?
 )
-
-data class Information(
-    var information: Information
-)
-
 
 enum class LoginState {
     Loading(),

@@ -6,12 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oneandonly.inventationblock.Constants.tokens
-import com.oneandonly.inventationblock.datasource.model.data.Information
 import com.oneandonly.inventationblock.datasource.model.data.State
+import com.oneandonly.inventationblock.datasource.model.data.USER
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
 import kotlinx.coroutines.launch
 import java.io.IOException
-import java.time.LocalDate
 
 class UserViewModel(private val repository: UserRepository):ViewModel() {
 
@@ -20,7 +19,7 @@ class UserViewModel(private val repository: UserRepository):ViewModel() {
     val state: MutableLiveData<State> = MutableLiveData()
     var reason: String? = null // 필요하다면 LiveData로 변경
 
-    val information: MutableLiveData<Information> = MutableLiveData()
+    var user: MutableLiveData<USER> = MutableLiveData()
 
     init {
         Log.d(TAG,"User_ViewModel init")
@@ -63,8 +62,6 @@ class UserViewModel(private val repository: UserRepository):ViewModel() {
                         state.value = State.Fail
                     }
                 }
-
-
             }
         } catch (e: IOException) {
             e.printStackTrace()
@@ -77,21 +74,30 @@ class UserViewModel(private val repository: UserRepository):ViewModel() {
         try {
             viewModelScope.launch {
                 val response = repository.getInformation(token = tokens)
-
+                Log.d(TAG,"$tokens")
                 when (response.code()) {
                     200 -> {
-                        Log.d(TAG,"정보 받아오기 성공 ${response.body()}")
+                        Log.d(TAG,"정보 받아오기 성공 ${response.body()} ${response.errorBody()?.string()}")
+                        user.value = response.body()
+                        state.value = State.Success //임시방편
                     }
                     401 -> {
-                        Log.d(TAG,"정보 받아오기 실패 ${response.body()}")
+                        Log.d(TAG,"정보 받아오기 실패1 ${response.body()}")
+                        state.value = State.Fail
                     }
                     else -> {
-                        Log.d(TAG,"정보 받아오기 실패 ${response.errorBody()?.string()}")
+                        Log.d(TAG,"정보 받아오기 실패2 ${response.errorBody()?.string()}")
+                        state.value = State.Fail
                     }
                 }
+
             }
         } catch (e : Exception) {
-            Log.d("User_ViewModel","${e.message}")
+            Log.d(TAG,"${e.message}")
         }
+    }
+
+    private fun getData() {
+
     }
 }

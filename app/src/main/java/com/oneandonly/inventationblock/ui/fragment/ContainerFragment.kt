@@ -15,12 +15,12 @@ open class ContainerFragment: Fragment(){
         transaction.commit()
     }
 
-    fun popFragment() : Boolean {
+/*    fun popFragment() : Boolean {
         if (mFragmentId == -1) {
             return false
         }
 
         val fv: FragmentContainerView = view?.findViewById<View>(mFragmentId) as FragmentContainerView
         return false
-    }
+    }*/
 }

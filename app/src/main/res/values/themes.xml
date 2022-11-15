@@ -12,6 +12,7 @@
         <item name="android:fontFamily">@font/notosanskr</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:textColor">@color/black</item>
+
         <!-- Customize your theme here. -->
         <item name="editTextStyle">@style/EditTextStyle</item>
         <item name="buttonStyle">@style/DefaultButtonStyle</item>
