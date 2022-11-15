@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.oneandonly.inventationblock.Constants.tokens
+import com.oneandonly.inventationblock.datasource.model.data.Information
 import com.oneandonly.inventationblock.datasource.model.data.State
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
 import kotlinx.coroutines.launch
@@ -17,6 +19,8 @@ class UserViewModel(private val repository: UserRepository):ViewModel() {
 
     val state: MutableLiveData<State> = MutableLiveData()
     var reason: String? = null // 필요하다면 LiveData로 변경
+
+    val information: MutableLiveData<Information> = MutableLiveData()
 
     init {
         Log.d(TAG,"User_ViewModel init")
@@ -66,6 +70,28 @@ class UserViewModel(private val repository: UserRepository):ViewModel() {
             e.printStackTrace()
         } catch (e: ErrnoException) {
             e.printStackTrace()
+        }
+    }
+
+    fun getInformation() {
+        try {
+            viewModelScope.launch {
+                val response = repository.getInformation(token = tokens)
+
+                when (response.code()) {
+                    200 -> {
+                        Log.d(TAG,"정보 받아오기 성공 ${response.body()}")
+                    }
+                    401 -> {
+                        Log.d(TAG,"정보 받아오기 실패 ${response.body()}")
+                    }
+                    else -> {
+                        Log.d(TAG,"정보 받아오기 실패 ${response.errorBody()?.string()}")
+                    }
+                }
+            }
+        } catch (e : Exception) {
+            Log.d("User_ViewModel","${e.message}")
         }
     }
 }

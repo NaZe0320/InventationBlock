@@ -10,6 +10,10 @@ data class Responses(
     var token: String?
 )
 
+data class Information(
+    var information: Information
+)
+
 
 enum class LoginState {
     Loading(),

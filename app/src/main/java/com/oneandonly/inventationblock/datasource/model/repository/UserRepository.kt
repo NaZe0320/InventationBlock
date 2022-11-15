@@ -1,5 +1,6 @@
 package com.oneandonly.inventationblock.datasource.model.repository
 
+import com.oneandonly.inventationblock.datasource.model.data.Information
 import com.oneandonly.inventationblock.datasource.model.data.USER
 import com.oneandonly.inventationblock.datasource.model.retrofit.RetrofitBuilder
 import retrofit2.Response
@@ -10,5 +11,8 @@ class UserRepository {
         return RetrofitBuilder.api.postUser(params = params, users = users)
     }
 
+    suspend fun getInformation(token: String?) : Response<Information> {
+        return RetrofitBuilder.api.getInformation(token)
+    }
 
 }
