@@ -10,6 +10,7 @@ import com.oneandonly.inventationblock.datasource.model.data.State
 import com.oneandonly.inventationblock.datasource.model.data.USER
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import java.io.IOException
 
 class UserViewModel(private val repository: UserRepository):ViewModel() {
@@ -20,6 +21,8 @@ class UserViewModel(private val repository: UserRepository):ViewModel() {
     var reason: String? = null // 필요하다면 LiveData로 변경
 
     var user: MutableLiveData<USER> = MutableLiveData()
+
+    var businessName: MutableLiveData<String> = MutableLiveData()
 
     init {
         Log.d(TAG,"User_ViewModel init")
@@ -80,6 +83,7 @@ class UserViewModel(private val repository: UserRepository):ViewModel() {
                         Log.d(TAG,"정보 받아오기 성공 ${response.body()} ${response.errorBody()?.string()}")
                         user.value = response.body()
                         state.value = State.Success //임시방편
+                        getData(response)
                     }
                     401 -> {
                         Log.d(TAG,"정보 받아오기 실패1 ${response.body()}")
@@ -97,7 +101,7 @@ class UserViewModel(private val repository: UserRepository):ViewModel() {
         }
     }
 
-    private fun getData() {
-
+    private fun getData(response: Response<USER>) {
+        businessName.value = response.body()?.response?.businessName.toString()
     }
 }

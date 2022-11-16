@@ -4,11 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.R
+import com.oneandonly.inventationblock.afterUpdate
 import com.oneandonly.inventationblock.databinding.ActivityMainBinding
 import com.oneandonly.inventationblock.databinding.NavHeaderMainBinding
 import com.oneandonly.inventationblock.datasource.model.data.State
@@ -38,8 +42,10 @@ class MainActivity : AppCompatActivity() {
         val navBind: NavHeaderMainBinding = NavHeaderMainBinding.bind(binding.mainNavView.getHeaderView(0))
         navBind.user = userViewModel //실시간 변경이 안됨 //TODO(수정 필요)
         binding.user = userViewModel
+        binding.mainToolBar.user = userViewModel
 
-
+        //UI
+        uiSetting()
 
     }
 
@@ -79,4 +85,52 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    private fun uiSetting() {
+        drawerSetting()
+        toolBarSetting()
+    }
+
+    private fun drawerSetting() {
+        binding.mainDrawer.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)  //열 때는 드로우 잠김, 닫을 때는 드로우 가능
+        binding.mainNavView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_myPage -> {
+                    afterUpdate()
+                }
+                R.id.menu_logout -> {
+                    onClickLogout()
+                }
+                R.id.menu_stockSetting -> {
+                    afterUpdate()
+                }
+                R.id.menu_stockReport -> {
+                    afterUpdate()
+                }
+            }
+            binding.mainDrawer.closeDrawers()
+            return@setNavigationItemSelectedListener false
+        }
+    }
+
+    private fun toolBarSetting() {
+        binding.mainToolBar.toolBarDrawerBtn.setOnClickListener {
+            binding.mainDrawer.openDrawer(GravityCompat.START)
+        }
+
+        binding.mainToolBar.toolBarAlarmBtn.setOnClickListener {
+            afterUpdate()
+            //TODO(아직 결정된 바 없음)
+        }
+
+        binding.mainToolBar.toolBarMyPageBtn.setOnClickListener {
+            afterUpdate()
+            //TODO(마이페이지로 연결)
+        }
+
+        binding.mainToolBar.toolBarTitle.setOnClickListener {
+            //TODO(리사이클러뷰 리스트 초기화)
+        }
+    }
+
 }

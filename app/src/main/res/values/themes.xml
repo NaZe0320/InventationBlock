@@ -17,6 +17,7 @@
         <item name="editTextStyle">@style/EditTextStyle</item>
         <item name="buttonStyle">@style/DefaultButtonStyle</item>
         <item name="checkboxStyle">@style/CheckButtonStyle</item>
+        <item name="imageButtonStyle">@style/ImageButtonStyle</item>
     </style>
 
     <style name="Calendar" parent="Theme.MaterialComponents.Light.NoActionBar">

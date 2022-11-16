@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/toolbar_height">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</RelativeLayout>
+    <data>
+        <variable
+            name="user"
+            type="com.oneandonly.inventationblock.viewmodel.UserViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+        
+        <ImageButton
+            android:id="@+id/tool_bar_drawer_btn"
+            android:layout_width="@dimen/toolbar_button_dimen"
+            android:layout_height="@dimen/toolbar_button_dimen"
+            android:layout_marginStart="8dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_menu" />
+
+        <TextView
+            android:id="@+id/tool_bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/primary_color"
+            android:textSize="@dimen/text_size_tool_bar_title"
+            android:textStyle="bold"
+            android:text="@{user.businessName}"
+            tools:text="가게명"/>
+
+        <ImageButton
+            android:id="@+id/tool_bar_my_page_btn"
+            android:layout_width="@dimen/toolbar_button_dimen"
+            android:layout_height="@dimen/toolbar_button_dimen"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_my_page" />
+
+        <ImageButton
+            android:id="@+id/tool_bar_alarm_btn"
+            android:layout_width="@dimen/toolbar_button_dimen"
+            android:layout_height="@dimen/toolbar_button_dimen"
+            android:layout_marginEnd="4dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/tool_bar_my_page_btn"
+            android:src="@drawable/ic_alarm"/>
+
+
+    </RelativeLayout>
+</layout>

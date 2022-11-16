@@ -17,15 +17,22 @@
         android:layout_height="match_parent"
         tools:openDrawer="left">
 
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <include
+                android:id="@+id/main_tool_bar"
+                layout="@layout/item_main_tool_bar"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{user.user.response.businessName}"
+                android:text="@{user.businessName}"
                 android:layout_centerInParent="true"/>
+
         </RelativeLayout>
 
         <com.google.android.material.navigation.NavigationView
