@@ -22,4 +22,10 @@
     <dimen name="text_size_register">18sp</dimen>
     <dimen name="text_size_tool_bar_title">20sp</dimen>
 
+    <dimen name="layout_margin">20dp</dimen>
+    <dimen name="layout_between_margin">8dp</dimen>
+
+    <dimen name="fab_size">48dp</dimen>
+
+
 </resources>

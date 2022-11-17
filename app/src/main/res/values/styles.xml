@@ -20,7 +20,29 @@
     </style>
 
     <style name="ImageButtonStyle" parent="Widget.AppCompat.ImageButton">
-        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="UpdateTimeText" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:text">"업데이트 일시"</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textColor">@color/text_color_gray</item>
+        <item name="android:textSize">10sp</item>
+
+    </style>
+
+    <style name="ColorBackgroundImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:backgroundTint">@color/primary_color</item>
+    </style>
+    
+    <style name="FabStyle" parent="Widget.Design.FloatingActionButton">
+        <item name="android:width">@dimen/fab_size</item>
+        <item name="android:height">@dimen/fab_size</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">@dimen/layout_between_margin</item>
+        <item name="android:scaleType">centerInside</item>
     </style>
 
 </resources>

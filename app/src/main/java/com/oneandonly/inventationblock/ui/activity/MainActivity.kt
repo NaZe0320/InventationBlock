@@ -133,4 +133,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun stockListSetting() {
+
+    }
 }

@@ -8,6 +8,9 @@
     <variable
         name="user"
         type="com.oneandonly.inventationblock.viewmodel.UserViewModel" />
+    <variable
+        name="time"
+        type="com.oneandonly.inventationblock.viewmodel.UpdateViewModel" />
     </data>
 
 
@@ -15,9 +18,8 @@
         android:id="@+id/main_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
         tools:openDrawer="left">
-
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -32,7 +34,118 @@
                 android:layout_height="wrap_content"
                 android:text="@{user.businessName}"
                 android:layout_centerInParent="true"/>
+            
+            <RelativeLayout
+                android:id="@+id/main_search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_tool_bar"
+                android:layout_marginTop="@dimen/layout_margin"
+                android:layout_marginStart="@dimen/layout_margin"
+                android:layout_marginEnd="@dimen/layout_margin">
+                
+                <RelativeLayout
+                    android:id="@+id/main_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edittext_height"
+                    android:backgroundTint="@color/white">
 
+                    <ImageButton
+                        style="@style/ColorBackgroundImageButton"
+                        android:id="@+id/main_icon"
+                        android:layout_width="48dp"
+                        android:layout_height="@dimen/edittext_height"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_btn_search_icon"
+                        android:paddingEnd="8dp"
+                        android:clickable="false"
+                        android:src="@drawable/ic_logo"
+                        tools:ignore="RtlSymmetry">
+
+                    </ImageButton>
+
+                    <AutoCompleteTextView
+                        android:id="@+id/main_search_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/edittext_height"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/main_icon"
+                        android:background="@drawable/bg_edit_search"
+                        android:hint="검색"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:layout_marginStart="-8dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:textSize="@dimen/text_size">
+
+                    </AutoCompleteTextView>
+
+                    <ImageButton
+                        android:id="@+id/main_search_btn"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/ic_search_btn">
+
+                    </ImageButton>
+
+                </RelativeLayout>
+
+                <Spinner
+                    android:id="@+id/main_list_align"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/main_search"
+                    android:layout_alignEnd="@+id/main_search"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/layout_between_margin"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="@drawable/bg_spinner_unit"
+                    android:elevation="4dp"
+                    android:entries="@array/align_list"
+                    android:textSize="11sp">
+
+                </Spinner>
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/stock_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/main_fab"
+                android:layout_below="@+id/main_search_layout"
+                android:layout_alignStart="@+id/main_search_layout"
+                android:layout_alignEnd="@+id/main_search_layout"
+                android:layout_marginBottom="@dimen/layout_between_margin"
+                android:layout_marginTop="@dimen/layout_between_margin">
+
+            </androidx.recyclerview.widget.RecyclerView>
+            
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/main_fab"
+                android:layout_width="@dimen/fab_size"
+                android:layout_height="@dimen/fab_size"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="@dimen/layout_margin"
+                android:layout_marginBottom="@dimen/layout_margin"/>
+
+            <TextView
+                android:id="@+id/update_time"
+                style="@style/UpdateTimeText"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/layout_margin"
+                android:layout_marginTop="@dimen/layout_margin"
+                android:layout_marginEnd="@dimen/layout_margin"
+                android:layout_marginBottom="@dimen/layout_margin"/>
         </RelativeLayout>
 
         <com.google.android.material.navigation.NavigationView
@@ -42,7 +155,8 @@
             android:layout_gravity="start"
             android:background="@color/background"
             app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/nav_main_menu_list">
+            app:menu="@menu/nav_main_menu_list"
+            android:visibility="gone">
 
         </com.google.android.material.navigation.NavigationView>
 
