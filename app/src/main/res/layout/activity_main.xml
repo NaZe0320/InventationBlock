@@ -155,8 +155,7 @@
             android:layout_gravity="start"
             android:background="@color/background"
             app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/nav_main_menu_list"
-            android:visibility="gone">
+            app:menu="@menu/nav_main_menu_list">
 
         </com.google.android.material.navigation.NavigationView>
 

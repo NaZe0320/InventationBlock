@@ -2,6 +2,8 @@
 <resources>
 
     <dimen name="text_size">14sp</dimen>
+    <dimen name="sub_text_size">12sp</dimen>
+    <dimen name="sub_text_size2">10sp</dimen>
 
     <dimen name="login_title_text_size">32sp</dimen>
 
