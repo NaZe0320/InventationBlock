@@ -6,7 +6,7 @@
     <data>
         <variable
             name="stock"
-            type="com.oneandonly.inventationblock.viewmodel.StockViewModel" />
+            type="com.oneandonly.inventationblock.datasource.model.data.Stock" />
     </data>
 
     <RelativeLayout
