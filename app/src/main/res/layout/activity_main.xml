@@ -29,12 +29,6 @@
                 android:id="@+id/main_tool_bar"
                 layout="@layout/item_main_tool_bar"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{user.businessName}"
-                android:layout_centerInParent="true"/>
-            
             <RelativeLayout
                 android:id="@+id/main_search_layout"
                 android:layout_width="match_parent"

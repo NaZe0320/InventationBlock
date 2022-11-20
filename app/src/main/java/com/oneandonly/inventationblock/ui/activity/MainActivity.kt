@@ -1,25 +1,32 @@
 package com.oneandonly.inventationblock.ui.activity
 
 import android.content.Intent
+import android.net.wifi.WifiManager.LocalOnlyHotspotCallback
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.afterUpdate
 import com.oneandonly.inventationblock.databinding.ActivityMainBinding
 import com.oneandonly.inventationblock.databinding.NavHeaderMainBinding
+import com.oneandonly.inventationblock.datasource.model.data.Stock
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
+import com.oneandonly.inventationblock.ui.adapter.StockAdapter
 import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
 import com.oneandonly.inventationblock.viewmodel.StockViewModel
 import com.oneandonly.inventationblock.viewmodel.TokenViewModel
 import com.oneandonly.inventationblock.viewmodel.UserViewModel
+import com.oneandonly.inventationblock.viewmodel.factory.StockFactory
 import com.oneandonly.inventationblock.viewmodel.factory.UserFactory
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +35,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var stockViewModel: StockViewModel
+
+    private val stockList = MutableLiveData<ArrayList<Stock>>()
+    private lateinit var stockAdapter: StockAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +56,9 @@ class MainActivity : AppCompatActivity() {
 
         //UI
         uiSetting()
+
+        //Observer
+        stockListObserver()
 
     }
 
@@ -69,6 +82,9 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = UserFactory(repository)
         userViewModel = ViewModelProvider(this@MainActivity,viewModelFactory)[UserViewModel::class.java]
 
+        val stockViewModelFactory = StockFactory(stockRepo)
+        stockViewModel = ViewModelProvider(this@MainActivity,stockViewModelFactory)[StockViewModel::class.java]
+
     }
 
     private fun onClickLogout() {
@@ -91,6 +107,7 @@ class MainActivity : AppCompatActivity() {
     private fun uiSetting() {
         drawerSetting()
         toolBarSetting()
+        stockListSetting(stockViewModel)
     }
 
     private fun drawerSetting() {
@@ -135,7 +152,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun stockListSetting() {
+    private fun stockListSetting(stockViewModel: StockViewModel) {
+        binding.stockList.layoutManager = LinearLayoutManager(this)
+        stockAdapter = StockAdapter(stockViewModel.stockList)
 
+        binding.stockList.adapter = stockAdapter
+        Log.d("Main_Activity","ASDF")
+    }
+
+    private fun stockListObserver() {
+        val stockObserver: Observer<ArrayList<Stock>> = Observer {
+            stockList.value = it
+            val adapter = StockAdapter(stockList)
+            binding.stockList.adapter = adapter
+            Log.d("Main_Activity","stockObserver 이거 실행되나?")
+        }
+
+        stockViewModel.stockList.observe(this,stockObserver)
     }
 }

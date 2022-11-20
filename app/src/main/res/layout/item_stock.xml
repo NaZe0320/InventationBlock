@@ -12,6 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="72dp"
+        android:background="@color/white"
         android:elevation="2dp"
         android:layout_margin="4dp">
 
@@ -52,7 +53,7 @@
                 android:id="@+id/stock_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{stock.unit}"
+                android:text="@{@string/unit_format(stock.unit)}"
                 android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/sub_text_size"
                 app:layout_constraintBottom_toTopOf="@+id/stock_bar"
@@ -66,12 +67,12 @@
                 android:id="@+id/stock_bar"
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
-                android:max="100"
+                android:max="@{stock.stockSafe * 5}"
                 android:maxHeight="10dp"
                 android:minHeight="10dp"
                 android:paddingStart="1dp"
                 android:paddingEnd="1dp"
-                android:progress="45"
+                android:progress="@{stock.stockCurrent}"
                 android:progressDrawable="@drawable/custom_progressbar"
                 android:splitTrack="false"
                 android:thumb="@drawable/custom_seek_thumb"
@@ -87,12 +88,13 @@
                 android:id="@+id/list_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="구입한지 N일째"
+                android:text="@{@string/expired_format(stock.expired)}"
                 android:textColor="@color/primary_color"
                 android:textSize="@dimen/sub_text_size2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/stock_bar">
+                app:layout_constraintTop_toBottomOf="@+id/stock_bar"
+                tools:text="구입한지 N일째">
 
             </TextView>
 
