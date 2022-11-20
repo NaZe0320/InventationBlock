@@ -23,6 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="8dp"
             android:scaleType="center"
+            app:selected="@{stock.fixed}"
             android:src="@drawable/selector_pin" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

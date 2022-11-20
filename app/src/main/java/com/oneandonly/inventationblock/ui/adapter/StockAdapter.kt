@@ -1,5 +1,6 @@
 package com.oneandonly.inventationblock.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
@@ -27,6 +28,7 @@ class StockAdapter(private val items: LiveData<ArrayList<Stock>>):RecyclerView.A
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
         items.value?.get(position)?.let {
             holder.bind(it)
+            Log.d("Stock_Adapter","$it")
         }
         holder.btnPin.setOnClickListener {
             holder.btnPin.isSelected = !holder.btnPin.isSelected
