@@ -24,7 +24,6 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var userVM: UserViewModel
 
-
     //TEST 코드
     private val registerList : ArrayList<RegisterModel> = ArrayList()
     private lateinit var registerAdapter: RegisterAdapter
@@ -54,10 +53,6 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
             }
-        /*TODO(버튼 클릭 시 회원가입 정보를 Fragment로부터 받아와서 (ViewModel에서 처리하면 될 듯하다.
-           회원가입 성공일 때 State를 Success로 변경하여 다음 화면으로 넘어가기
-           ViewModel에서 Model과 통신하기)*/
-
         }
     }
 

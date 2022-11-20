@@ -124,7 +124,8 @@
                 android:layout_alignStart="@+id/main_search_layout"
                 android:layout_alignEnd="@+id/main_search_layout"
                 android:layout_marginBottom="@dimen/layout_between_margin"
-                android:layout_marginTop="@dimen/layout_between_margin">
+                android:layout_marginTop="@dimen/layout_between_margin"
+                tools:listitem="@layout/item_stock">
 
             </androidx.recyclerview.widget.RecyclerView>
             

@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
@@ -15,19 +14,20 @@ import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.afterUpdate
 import com.oneandonly.inventationblock.databinding.ActivityMainBinding
 import com.oneandonly.inventationblock.databinding.NavHeaderMainBinding
-import com.oneandonly.inventationblock.datasource.model.data.State
+import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
 import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
+import com.oneandonly.inventationblock.viewmodel.StockViewModel
 import com.oneandonly.inventationblock.viewmodel.TokenViewModel
 import com.oneandonly.inventationblock.viewmodel.UserViewModel
 import com.oneandonly.inventationblock.viewmodel.factory.UserFactory
-import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var userViewModel: UserViewModel
+    private lateinit var stockViewModel: StockViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,9 +64,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setViewModel() {
         val repository = UserRepository()
-        val viewModelFactory = UserFactory(repository)
+        val stockRepo = StockRepository()
 
+        val viewModelFactory = UserFactory(repository)
         userViewModel = ViewModelProvider(this@MainActivity,viewModelFactory)[UserViewModel::class.java]
+
     }
 
     private fun onClickLogout() {
