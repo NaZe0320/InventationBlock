@@ -32,25 +32,7 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
                 val response = repo.getList(tokens,"list", 0)
 
                 Log.d("Response Test", "${response.body()?.response?.get(0)}")
-                val stockListItem: ArrayList<Stock> = ArrayList()
-
-                for (i in 0 until response.body()?.response?.size!!) {
-                    response.body()?.response?.get(i).let {
-                        stockListItem.add(
-                            Stock(
-                                it?.name ?: "0",
-                                it?.amount ?: 0,
-                                it?.safeStandard ?: 0,
-                                (it?.pinned ?: 0) != 0,
-                                it?.unit ?: "",
-                                0
-                            )
-                        )
-                    }
-                }
-                Log.d("Response Test", "$stockListItem")
-
-                setStockList(stockListItem)
+                postToStock(response)
 
             }
         } catch (e: Exception) {
@@ -58,8 +40,26 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
         }
     }
 
-    private fun stockToPost(res: Response<StockModel>) {
+    private fun postToStock(response: Response<StockModel>) {
+        val stockListItem: ArrayList<Stock> = ArrayList()
 
+        for (i in 0 until response.body()?.response?.size!!) {
+            response.body()?.response?.get(i).let {
+                stockListItem.add(
+                    Stock(
+                        it?.name ?: "0",
+                        it?.amount ?: 0,
+                        it?.safeStandard ?: 0,
+                        (it?.pinned ?: 0) != 0,
+                        it?.unit ?: "",
+                        0
+                    )
+                )
+            }
+        }
+        Log.d("Response Test", "$stockListItem")
+
+        setStockList(stockListItem)
     }
 
     private fun getToStock() {
