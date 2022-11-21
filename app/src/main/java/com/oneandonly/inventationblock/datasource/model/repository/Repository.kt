@@ -6,6 +6,6 @@ import retrofit2.Call
 class Repository {
 
 /*    suspend fun getInformation(token: String?):  {
-        return RetrofitBuilder.api.getInformation(token)
+        return RetrofitBuilder.userAPI.getInformation(token)
     }*/
 }

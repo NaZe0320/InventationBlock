@@ -28,6 +28,9 @@ import com.oneandonly.inventationblock.viewmodel.TokenViewModel
 import com.oneandonly.inventationblock.viewmodel.UserViewModel
 import com.oneandonly.inventationblock.viewmodel.factory.StockFactory
 import com.oneandonly.inventationblock.viewmodel.factory.UserFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -158,6 +161,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.stockList.adapter = stockAdapter
         Log.d("Main_Activity","ASDF")
+        CoroutineScope(Dispatchers.Main).launch {
+            stockViewModel.getList()
+        }
+
     }
 
     private fun stockListObserver() {

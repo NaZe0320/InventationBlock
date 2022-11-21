@@ -7,6 +7,6 @@ import retrofit2.Response
 class LoginRepository {
 
     suspend fun postLogin(params: HashMap<String, String>): Response<USER> {
-        return RetrofitBuilder.api.postLogin(params)
+        return RetrofitBuilder.userAPI.postLogin(params)
     }
 }

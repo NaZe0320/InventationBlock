@@ -1,14 +1,18 @@
 package com.oneandonly.inventationblock.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
+import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.datasource.model.data.Stock
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.ui.adapter.StockAdapter
+import kotlinx.coroutines.launch
 
-class StockViewModel(repo: StockRepository) : ViewModel() {
+class StockViewModel(private val repo: StockRepository) : ViewModel() {
 
     private val TAG = "Stock_ViewModel"
 
@@ -30,5 +34,16 @@ class StockViewModel(repo: StockRepository) : ViewModel() {
         _stockList.value = stockItems
     }
 
+    fun getList() {
+        try {
+            viewModelScope.launch {
+                val response = repo.getList(tokens,"list", 0)
+
+                Log.d("Response Test", "${response.body()?.response}")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 
 }
