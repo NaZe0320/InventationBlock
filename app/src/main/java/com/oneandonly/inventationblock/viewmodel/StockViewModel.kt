@@ -8,9 +8,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.datasource.model.data.Stock
+import com.oneandonly.inventationblock.datasource.model.data.StockModel
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.ui.adapter.StockAdapter
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class StockViewModel(private val repo: StockRepository) : ViewModel() {
 
@@ -19,18 +21,8 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
     private val _stockList = MutableLiveData<ArrayList<Stock>>()
     val stockList: LiveData<ArrayList<Stock>> get() = _stockList
 
-    init {
-        val stockListItem: ArrayList<Stock> = ArrayList()
-        stockListItem.add(Stock("돼지고기",100, 40,true,"g",5))
-        stockListItem.add(Stock("?",4, 2,false,"kg",3))
-        stockListItem.add(Stock("양파",3, 5,false,"개",1))
-        stockListItem.add(Stock("?",60, 40,false,"L",2))
 
-        _stockList.value = stockListItem
-
-    }
-
-    fun setStockList(stockItems: ArrayList<Stock>) {
+    private fun setStockList(stockItems: ArrayList<Stock>) {
         _stockList.value = stockItems
     }
 
@@ -39,11 +31,39 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
             viewModelScope.launch {
                 val response = repo.getList(tokens,"list", 0)
 
-                Log.d("Response Test", "${response.body()?.response}")
+                Log.d("Response Test", "${response.body()?.response?.get(0)}")
+                val stockListItem: ArrayList<Stock> = ArrayList()
+
+                for (i in 0 until response.body()?.response?.size!!) {
+                    response.body()?.response?.get(i).let {
+                        stockListItem.add(
+                            Stock(
+                                it?.name ?: "0",
+                                it?.amount ?: 0,
+                                it?.safeStandard ?: 0,
+                                (it?.pinned ?: 0) != 0,
+                                it?.unit ?: "",
+                                0
+                            )
+                        )
+                    }
+                }
+                Log.d("Response Test", "$stockListItem")
+
+                setStockList(stockListItem)
+
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun stockToPost(res: Response<StockModel>) {
+
+    }
+
+    private fun getToStock() {
+
     }
 
 }

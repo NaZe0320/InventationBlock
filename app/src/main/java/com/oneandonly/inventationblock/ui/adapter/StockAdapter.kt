@@ -36,7 +36,7 @@ class StockAdapter(private val items: LiveData<ArrayList<Stock>>):RecyclerView.A
     }
 
     override fun getItemCount(): Int {
-        return items.value?.size!!
+        return items.value?.size?:0
     }
 
     fun setData(newStockItems: ArrayList<Stock>) {

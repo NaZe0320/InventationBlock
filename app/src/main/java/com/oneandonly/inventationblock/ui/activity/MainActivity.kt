@@ -157,10 +157,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun stockListSetting(stockViewModel: StockViewModel) {
         binding.stockList.layoutManager = LinearLayoutManager(this)
+        Log.d("Main_Activity","1")
         stockAdapter = StockAdapter(stockViewModel.stockList)
-
+        Log.d("Main_Activity","2")
         binding.stockList.adapter = stockAdapter
-        Log.d("Main_Activity","ASDF")
+        Log.d("Main_Activity","3")
         CoroutineScope(Dispatchers.Main).launch {
             stockViewModel.getList()
         }
@@ -169,10 +170,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun stockListObserver() {
         val stockObserver: Observer<ArrayList<Stock>> = Observer {
-            stockList.value = it
-            val adapter = StockAdapter(stockList)
-            binding.stockList.adapter = adapter
-            Log.d("Main_Activity","stockObserver 이거 실행되나?")
+                stockList.value = it
+                val adapter = StockAdapter(stockList)
+                binding.stockList.adapter = adapter
+                Log.d("Main_Activity","4")
         }
 
         stockViewModel.stockList.observe(this,stockObserver)

@@ -18,6 +18,8 @@ data class UserResponses(
     var token: String?
 )
 
+
+
 data class StockModel(
     var result: String?,
     var message: String?,
@@ -32,6 +34,9 @@ data class StockResponses(
     var safeStandard: Int?,
     var pinned: Int?
 )
+
+
+
 
 enum class LoginState {
     Loading(),
