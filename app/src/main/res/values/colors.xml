@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primary_color">#FFA6D500</color>
+    <color name="primary_color_80">#CCA6D500</color>
     <color name="primary_color_variant">#dbff4f</color>
     <color name="disable_color">#c4c4c4</color>
     <color name="background">#FFF5F5F5</color>
