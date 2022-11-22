@@ -6,8 +6,12 @@ import retrofit2.Response
 
 class StockRepository {
 
-    suspend fun getList(token: String?, path: String, orderBy: Int) : Response<StockModel> {
-        return RetrofitBuilder.stockAPI.getList(token, path, orderBy)
+    suspend fun getList(token: String?, orderBy: Int) : Response<StockModel> {
+        return RetrofitBuilder.stockAPI.getList(token,orderBy)
+    }
+
+    suspend fun getSearchList(token: String?,search: String) : Response<StockModel> {
+        return RetrofitBuilder.stockAPI.getSearchList(token, search)
     }
 
     //TODO(수정 필요)

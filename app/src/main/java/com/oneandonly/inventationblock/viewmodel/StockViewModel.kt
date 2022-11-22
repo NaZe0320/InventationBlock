@@ -28,11 +28,23 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
     fun getList(orderBy: Int) {
         try {
             viewModelScope.launch {
-                val response = repo.getList(tokens,"list", orderBy)
+                val response = repo.getList(tokens, orderBy)
 
                 Log.d("Response Test", "${response.body()?.response?.get(0)}")
-                postToStock(response)
+                postToStock(response) //데이터 변환
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 
+    fun getSearchList(search: String) {
+        try {
+            viewModelScope.launch {
+                val response = repo.getSearchList(tokens, search)
+                Log.d("Search_Test","$search")
+                Log.d("Search_Test","${response.body()?.response}")
+                postToStock(response)
             }
         } catch (e: Exception) {
             e.printStackTrace()

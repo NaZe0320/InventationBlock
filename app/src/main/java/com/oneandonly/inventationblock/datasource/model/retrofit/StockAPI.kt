@@ -9,10 +9,14 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface StockAPI {
-    @GET("/stock/{path}")
+    @GET("/stock/list")
     suspend fun getList(
         @Header("Token-key") token:String?,
-        @Path("path") path: String,
-        @Query("orderBy") orderBy: Int): Response<StockModel>
+        @Query("orderBy") orderBy: Int?): Response<StockModel>
     //토큰을 전송하고, 해당 정보 받아오기
+
+    @GET("/stock/search")
+    suspend fun getSearchList(
+        @Header("Token-key") token:String?,
+        @Query("search") search: String?): Response<StockModel>
 }

@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.core.view.GravityCompat
 import androidx.core.view.get
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
 import androidx.lifecycle.MutableLiveData
@@ -42,6 +45,9 @@ class MainActivity : AppCompatActivity() {
 
     private val stockList = MutableLiveData<ArrayList<Stock>>()
     private lateinit var stockAdapter: StockAdapter
+
+    private var searchState = false
+    // true: 검색 중/ false: 검색 중 아닐 때
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,6 +118,7 @@ class MainActivity : AppCompatActivity() {
         drawerSetting()
         toolBarSetting()
         stockListSetting(stockViewModel)
+        searchEditSetting()
     }
 
     private fun drawerSetting() {
@@ -166,6 +173,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun searchEditSetting() {
+        binding.mainSearchEdit.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                changeStateSearch(true)
+            }
+        }
+
+        binding.mainSearchEdit.setOnEditorActionListener { _, i, _ ->
+            if ( i == EditorInfo.IME_ACTION_SEARCH) {
+                search()
+                return@setOnEditorActionListener true
+            } else {
+                return@setOnEditorActionListener false
+            }
+        }
+
+        binding.mainIcon.setOnClickListener {
+            changeStateSearch(false)
+        }
+
+        binding.mainSearchBtn.setOnClickListener {
+            search()
+        }
+    }
+
+
     private fun stockListObserver() {
         val stockObserver: Observer<ArrayList<Stock>> = Observer {
                 stockList.value = it
@@ -174,5 +207,27 @@ class MainActivity : AppCompatActivity() {
                 Log.d("Main_Activity","4")
         }
         stockViewModel.stockList.observe(this,stockObserver)
+    }
+
+    private fun changeStateSearch(state: Boolean) { //검색 모드 변경 시 체크
+        searchState = state //모드 변경
+        Log.d("State_Change","변경 $searchState")
+
+        binding.let {
+            it.mainListAlign.visibility = if (searchState) View.GONE else View.VISIBLE
+            it.mainFab.isInvisible = searchState
+            it.stockList.isInvisible = searchState
+            it.mainIcon.isClickable = searchState
+            it.mainIcon.setImageResource(if (searchState) R.drawable.ic_back else R.drawable.ic_logo)
+            if (!searchState) {
+                it.mainSearchEdit.clearFocus()
+            }
+        }
+    }
+
+    private fun search() { //검색
+        stockViewModel.getSearchList(binding.mainSearchEdit.text.toString())
+        Log.d("Search","!")
+        changeStateSearch(false) //검색하면 검색 중 종료
     }
 }
