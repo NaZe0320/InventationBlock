@@ -5,14 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.RecyclerView
 import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.datasource.model.data.Stock
 import com.oneandonly.inventationblock.datasource.model.data.StockModel
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
-import com.oneandonly.inventationblock.ui.adapter.StockAdapter
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.util.Calendar
 
 class StockViewModel(private val repo: StockRepository) : ViewModel() {
 
@@ -26,10 +25,10 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
         _stockList.value = stockItems
     }
 
-    fun getList() {
+    fun getList(orderBy: Int) {
         try {
             viewModelScope.launch {
-                val response = repo.getList(tokens,"list", 0)
+                val response = repo.getList(tokens,"list", orderBy)
 
                 Log.d("Response Test", "${response.body()?.response?.get(0)}")
                 postToStock(response)
@@ -43,16 +42,20 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
     private fun postToStock(response: Response<StockModel>) {
         val stockListItem: ArrayList<Stock> = ArrayList()
 
+        val today = Calendar.getInstance()
+        Log.d("Stock_Adapter","오늘 날짜 ${today.time}")
+
         for (i in 0 until response.body()?.response?.size!!) {
             response.body()?.response?.get(i).let {
+                it!!
                 stockListItem.add(
                     Stock(
-                        it?.name ?: "0",
-                        it?.amount ?: 0,
-                        it?.safeStandard ?: 0,
-                        (it?.pinned ?: 0) != 0,
-                        it?.unit ?: "",
-                        0
+                        it.name ?: "0",
+                        it.amount ?: 0,
+                        it.safeStandard ?: 0,
+                        (it.pinned ?: 0) != 0,
+                        it.unit ?: "",
+                        (today.time.time - (it.addDate?.time ?:today.time.time))/(24 * 60 * 60 * 1000)+2
                     )
                 )
             }

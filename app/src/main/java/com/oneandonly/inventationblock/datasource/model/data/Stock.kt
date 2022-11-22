@@ -6,5 +6,5 @@ data class Stock(
     var stockSafe: Int,
     var fixed: Boolean,
     var unit: String,
-    var expired: Int
+    var expired: Long
 )

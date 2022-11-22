@@ -29,7 +29,7 @@ data class StockModel(
 data class StockResponses(
     var name: String?,
     var amount: Int?,
-    var addDate: Any?,
+    var addDate: Date?,
     var unit: String?,
     var safeStandard: Int?,
     var pinned: Int?

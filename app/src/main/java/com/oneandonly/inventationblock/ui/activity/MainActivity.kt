@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.view.GravityCompat
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
 import androidx.lifecycle.MutableLiveData
@@ -157,15 +158,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun stockListSetting(stockViewModel: StockViewModel) {
         binding.stockList.layoutManager = LinearLayoutManager(this)
-        Log.d("Main_Activity","1")
         stockAdapter = StockAdapter(stockViewModel.stockList)
-        Log.d("Main_Activity","2")
         binding.stockList.adapter = stockAdapter
-        Log.d("Main_Activity","3")
         CoroutineScope(Dispatchers.Main).launch {
-            stockViewModel.getList()
-        }
 
+            stockViewModel.getList(0) //TODO(정렬 기능 설정 안됨, 스피너 쪽에서 조정이 필요함함)
+        }
     }
 
     private fun stockListObserver() {
@@ -175,7 +173,6 @@ class MainActivity : AppCompatActivity() {
                 binding.stockList.adapter = adapter
                 Log.d("Main_Activity","4")
         }
-
         stockViewModel.stockList.observe(this,stockObserver)
     }
 }
