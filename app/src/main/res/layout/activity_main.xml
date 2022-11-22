@@ -29,6 +29,16 @@
                 android:id="@+id/main_tool_bar"
                 layout="@layout/item_main_tool_bar"/>
 
+            <TextView
+                android:id="@+id/update_time"
+                style="@style/UpdateTimeText"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/layout_margin"
+                android:layout_marginTop="@dimen/layout_margin"
+                android:layout_marginEnd="@dimen/layout_margin"
+                android:layout_marginBottom="@dimen/layout_margin"/>
+
             <RelativeLayout
                 android:id="@+id/main_search_layout"
                 android:layout_width="match_parent"
@@ -122,25 +132,127 @@
                 tools:listitem="@layout/item_stock">
 
             </androidx.recyclerview.widget.RecyclerView>
-            
+
+            <LinearLayout
+                android:id="@+id/sticker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E3424242"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+            </LinearLayout>
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                style="@style/FabStyle"
                 android:id="@+id/main_fab"
                 android:layout_width="@dimen/fab_size"
                 android:layout_height="@dimen/fab_size"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
+                android:src="@drawable/ic_fab_btn"
                 android:layout_marginEnd="@dimen/layout_margin"
                 android:layout_marginBottom="@dimen/layout_margin"/>
 
-            <TextView
-                android:id="@+id/update_time"
-                style="@style/UpdateTimeText"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="@dimen/layout_margin"
-                android:layout_marginTop="@dimen/layout_margin"
-                android:layout_marginEnd="@dimen/layout_margin"
-                android:layout_marginBottom="@dimen/layout_margin"/>
+            <RelativeLayout
+                android:id="@+id/fab_layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/main_fab"
+                android:layout_alignEnd="@+id/main_fab"
+                android:layout_marginBottom="@dimen/fab_between_margin"
+                android:visibility="invisible">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_1"
+                    android:layout_width="@dimen/fab_size"
+                    android:layout_height="@dimen/fab_size"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="@color/primary_color"
+                    android:src="@drawable/img_fab1"
+                    style="@style/FabStyle"
+                    app:maxImageSize="30dp">
+
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/fab_1"
+                    android:layout_marginEnd="@dimen/fab_text_margin"
+                    android:text="직접 입력"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_text_size" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fab_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/fab_layout1"
+                android:layout_alignEnd="@+id/main_fab"
+                android:layout_marginBottom="@dimen/fab_between_margin"
+                android:visibility="invisible">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_2"
+                    android:layout_width="@dimen/fab_size"
+                    android:layout_height="@dimen/fab_size"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="@color/primary_color"
+                    android:src="@drawable/img_fab2"
+                    style="@style/FabStyle"
+                    app:maxImageSize="30dp">
+
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/fab_2"
+                    android:text="영수증/명세표"
+                    android:layout_marginEnd="@dimen/fab_text_margin"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_text_size" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fab_layout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/fab_layout2"
+                android:layout_alignEnd="@+id/main_fab"
+                android:layout_marginBottom="@dimen/fab_between_margin"
+                android:visibility="invisible">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_3"
+                    android:layout_width="@dimen/fab_size"
+                    android:layout_height="@dimen/fab_size"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="@color/primary_color"
+                    android:src="@drawable/img_fab3"
+                    style="@style/FabStyle"
+                    app:maxImageSize="30dp">
+
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/fab_3"
+                    android:text="바코드 인식"
+                    android:layout_marginEnd="@dimen/fab_text_margin"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_text_size" />
+
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <com.google.android.material.navigation.NavigationView

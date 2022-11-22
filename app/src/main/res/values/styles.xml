@@ -41,8 +41,12 @@
         <item name="android:width">@dimen/fab_size</item>
         <item name="android:height">@dimen/fab_size</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:layout_margin">@dimen/layout_between_margin</item>
         <item name="android:scaleType">centerInside</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="borderWidth">0dp</item>
+        <item name="fabCustomSize">48dp</item>
+        <item name="maxImageSize">48dp</item>
+
     </style>
 
 </resources>

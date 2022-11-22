@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.GravityCompat
@@ -122,6 +123,7 @@ class MainActivity : AppCompatActivity() {
         toolBarSetting()
         stockListSetting(stockViewModel)
         searchEditSetting()
+        fabSetting()
     }
 
     private fun drawerSetting() {
@@ -212,6 +214,53 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun fabSetting() {
+        var clickedFab = false
+
+        val rotateOpen = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_open_anim)
+        val rotateClose = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_close_anim)
+        val toBottom = AnimationUtils.loadAnimation(applicationContext,R.anim.to_bottom_anim)
+        val fromBottom = AnimationUtils.loadAnimation(applicationContext,R.anim.from_bottom_anim)
+
+        binding.mainFab.setOnClickListener {
+            clickedFab = !clickedFab
+            binding.let {
+                it.fabLayout1.isVisible = clickedFab
+                it.fabLayout2.isVisible = clickedFab
+                it.fabLayout3.isVisible = clickedFab
+
+                if(clickedFab) {
+                    it.mainFab.startAnimation(rotateOpen)
+                    it.fabLayout1.startAnimation(fromBottom)
+                    it.fabLayout2.startAnimation(fromBottom)
+                    it.fabLayout3.startAnimation(fromBottom)
+                } else {
+                    it.mainFab.startAnimation(rotateClose)
+                    it.fabLayout1.startAnimation(toBottom)
+                    it.fabLayout2.startAnimation(toBottom)
+                    it.fabLayout3.startAnimation(toBottom)
+                }
+
+                it.fab1.isClickable = clickedFab
+                it.fab2.isClickable = clickedFab
+                it.fab3.isClickable = clickedFab
+
+                it.sticker.visibility = if(clickedFab) View.VISIBLE else View.GONE
+            }
+        }
+
+        binding.fab1.setOnClickListener {
+            afterUpdate()
+        }
+
+        binding.fab2.setOnClickListener {
+            afterUpdate()
+        }
+
+        binding.fab3.setOnClickListener {
+            afterUpdate()
+        }
+    }
 
     private fun stockListObserver() {
         val stockObserver: Observer<ArrayList<Stock>> = Observer {
