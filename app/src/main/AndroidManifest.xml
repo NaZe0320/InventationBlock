@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InventationBlock"
         android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="stateAlwaysHidden"
         tools:targetApi="31">
         <activity
             android:name=".ui.activity.MainFragmentActivity"

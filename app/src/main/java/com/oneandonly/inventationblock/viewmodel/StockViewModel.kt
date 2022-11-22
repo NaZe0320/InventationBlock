@@ -20,6 +20,9 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
     private val _stockList = MutableLiveData<ArrayList<Stock>>()
     val stockList: LiveData<ArrayList<Stock>> get() = _stockList
 
+    private val _error = MutableLiveData<String>()
+    val errorList: LiveData<String> get() = _error
+
 
     private fun setStockList(stockItems: ArrayList<Stock>) {
         _stockList.value = stockItems
@@ -42,8 +45,14 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
         try {
             viewModelScope.launch {
                 val response = repo.getSearchList(tokens, search)
-                Log.d("Search_Test","$search")
-                Log.d("Search_Test","${response.body()?.response}")
+
+                when (response.code()) {
+                    200 -> postToStock(response)
+                    400 -> {
+                        _error.value = response.message()
+                    }
+                }
+                Log.d("Search_Test","${response.body()}")
                 postToStock(response)
             }
         } catch (e: Exception) {

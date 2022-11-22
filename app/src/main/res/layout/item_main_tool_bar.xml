@@ -26,11 +26,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:text="@{user.businessName}"
             android:textColor="@color/primary_color"
             android:textSize="@dimen/text_size_tool_bar_title"
             android:textStyle="bold"
-            android:text="@{user.businessName}"
-            tools:text="가게명"/>
+            tools:text="가게명" />
 
         <ImageButton
             android:id="@+id/tool_bar_my_page_btn"

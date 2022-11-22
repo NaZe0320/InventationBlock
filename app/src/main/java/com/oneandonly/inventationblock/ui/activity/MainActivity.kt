@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.GravityCompat
 import androidx.core.view.get
 import androidx.core.view.isInvisible
@@ -25,6 +26,7 @@ import com.oneandonly.inventationblock.databinding.NavHeaderMainBinding
 import com.oneandonly.inventationblock.datasource.model.data.Stock
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
+import com.oneandonly.inventationblock.makeToast
 import com.oneandonly.inventationblock.ui.adapter.StockAdapter
 import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
 import com.oneandonly.inventationblock.viewmodel.StockViewModel
@@ -69,6 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         //Observer
         stockListObserver()
+        errorObserver()
 
     }
 
@@ -196,6 +199,17 @@ class MainActivity : AppCompatActivity() {
         binding.mainSearchBtn.setOnClickListener {
             search()
         }
+
+        binding.mainToolBar.toolBarTitle.setOnClickListener {
+            if (searchState) {
+                changeStateSearch(false)
+                stockViewModel.getList(0) //TODO
+                searchState = false
+            } else {
+                changeStateSearch(false)
+            }
+
+        }
     }
 
 
@@ -209,25 +223,42 @@ class MainActivity : AppCompatActivity() {
         stockViewModel.stockList.observe(this,stockObserver)
     }
 
+    private fun errorObserver() {
+        val errorObserver: Observer<String> = Observer {
+            makeToast(stockViewModel.errorList.value.toString())
+        }
+        stockViewModel.errorList.observe(this,errorObserver)
+    }
+
     private fun changeStateSearch(state: Boolean) { //검색 모드 변경 시 체크
-        searchState = state //모드 변경
-        Log.d("State_Change","변경 $searchState")
+        Log.d("State_Change","변경 $state")
 
         binding.let {
-            it.mainListAlign.visibility = if (searchState) View.GONE else View.VISIBLE
-            it.mainFab.isInvisible = searchState
-            it.stockList.isInvisible = searchState
-            it.mainIcon.isClickable = searchState
-            it.mainIcon.setImageResource(if (searchState) R.drawable.ic_back else R.drawable.ic_logo)
-            if (!searchState) {
+            it.mainListAlign.visibility = if (state) View.GONE else View.VISIBLE
+            it.mainFab.isInvisible = state
+            it.stockList.isInvisible = state
+            it.mainIcon.isClickable = state
+            it.mainIcon.setImageResource(if (state) R.drawable.ic_back else R.drawable.ic_logo)
+            if (!state) {
                 it.mainSearchEdit.clearFocus()
             }
         }
     }
 
     private fun search() { //검색
+        searchState = true
         stockViewModel.getSearchList(binding.mainSearchEdit.text.toString())
         Log.d("Search","!")
         changeStateSearch(false) //검색하면 검색 중 종료
+        hideKeyBoard()
     }
+
+    private fun hideKeyBoard() {
+        try {
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(binding.mainSearchEdit.windowToken, 0)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    } //키보드 숨기기
 }
