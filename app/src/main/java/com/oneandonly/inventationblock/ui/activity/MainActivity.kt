@@ -189,7 +189,6 @@ class MainActivity : AppCompatActivity() {
         stockAdapter = StockAdapter(stockViewModel.stockList)
         binding.stockList.adapter = stockAdapter
         CoroutineScope(Dispatchers.Main).launch {
-
             stockViewModel.getList(0) //TODO(정렬 기능 설정 안됨, 스피너 쪽에서 조정이 필요함함)
         }
     }

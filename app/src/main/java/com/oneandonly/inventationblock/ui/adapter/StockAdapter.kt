@@ -38,6 +38,15 @@ class StockAdapter(private val items: LiveData<ArrayList<Stock>>):RecyclerView.A
     override fun getItemCount(): Int {
         return items.value?.size?:0
     }
+/*
+    fun setData(newStockItems: ArrayList<Stock>) {
+        val diffCallback = DiffCallback(stockItems, newStockItems)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        stockItems.clear()
+        stockItems.addAll(newStockItems)
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     inner class DiffCallback(
         private var oldList: ArrayList<Stock>,
@@ -54,6 +63,6 @@ class StockAdapter(private val items: LiveData<ArrayList<Stock>>):RecyclerView.A
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldList[oldItemPosition].name == newList[newItemPosition].name
         }
-
     }
+ */
 }
