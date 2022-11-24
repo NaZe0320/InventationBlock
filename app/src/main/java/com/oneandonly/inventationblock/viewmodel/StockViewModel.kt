@@ -28,7 +28,7 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
         _stockList.value = stockItems
     }
 
-    fun getList(orderBy: Int) {
+    fun getStockList(orderBy: Int) {
         try {
             viewModelScope.launch {
                 val response = repo.getList(tokens, orderBy)

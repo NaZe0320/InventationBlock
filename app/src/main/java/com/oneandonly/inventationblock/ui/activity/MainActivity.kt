@@ -13,7 +13,6 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,7 +43,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userViewModel: UserViewModel
     private lateinit var stockViewModel: StockViewModel
 
-    private val stockList = MutableLiveData<ArrayList<Stock>>()
     private lateinit var stockAdapter: StockAdapter
 
     private var searchState = false
@@ -189,7 +187,7 @@ class MainActivity : AppCompatActivity() {
         stockAdapter = StockAdapter(stockViewModel.stockList)
         binding.stockList.adapter = stockAdapter
         CoroutineScope(Dispatchers.Main).launch {
-            stockViewModel.getList(0) //TODO(정렬 기능 설정 안됨, 스피너 쪽에서 조정이 필요함함)
+            stockViewModel.getStockList(0) //TODO(정렬 기능 설정 안됨, 스피너 쪽에서 조정이 필요함함)
         }
     }
 
@@ -220,7 +218,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainToolBar.toolBarTitle.setOnClickListener {
             if (searchState) {
                 changeStateSearch(false)
-                stockViewModel.getList(0) //TODO
+                stockViewModel.getStockList(0) //TODO
                 searchState = false
             } else {
                 changeStateSearch(false)
@@ -279,8 +277,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun stockListObserver() {
         val stockObserver: Observer<ArrayList<Stock>> = Observer {
-                stockList.value = it
-                val adapter = StockAdapter(stockList)
+                val adapter = StockAdapter(stockViewModel.stockList)
                 binding.stockList.adapter = adapter
                 Log.d("Main_Activity","4")
         }

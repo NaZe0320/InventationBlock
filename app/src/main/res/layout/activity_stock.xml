@@ -34,6 +34,7 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/update_time"
             android:layout_below="@+id/stock_tool_bar"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical"
             android:weightSum="28">
 
