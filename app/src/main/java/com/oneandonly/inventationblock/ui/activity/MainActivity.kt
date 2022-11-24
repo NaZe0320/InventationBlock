@@ -1,7 +1,6 @@
 package com.oneandonly.inventationblock.ui.activity
 
 import android.content.Intent
-import android.net.wifi.WifiManager.LocalOnlyHotspotCallback
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,9 +8,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.core.view.GravityCompat
-import androidx.core.view.get
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil

@@ -39,15 +39,6 @@ class StockAdapter(private val items: LiveData<ArrayList<Stock>>):RecyclerView.A
         return items.value?.size?:0
     }
 
-    fun setData(newStockItems: ArrayList<Stock>) {
-        val diffCallback = DiffCallback(stockItems, newStockItems)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-
-        stockItems.clear()
-        stockItems.addAll(newStockItems)
-        diffResult.dispatchUpdatesTo(this)
-    }
-
     inner class DiffCallback(
         private var oldList: ArrayList<Stock>,
         private var newList: ArrayList<Stock>
