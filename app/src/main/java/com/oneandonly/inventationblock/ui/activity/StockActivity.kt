@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.oneandonly.inventationblock.R
 
-class MainFragmentActivity : AppCompatActivity() {
+class StockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_fragment)
+        setContentView(R.layout.activity_stock)
     }
 }

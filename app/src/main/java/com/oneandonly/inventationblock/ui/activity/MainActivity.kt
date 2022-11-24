@@ -9,6 +9,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.core.view.get
 import androidx.core.view.isInvisible
@@ -52,6 +53,8 @@ class MainActivity : AppCompatActivity() {
     private var searchState = false
     // true: 검색 중/ false: 검색 중 아닐 때
 
+    private var clickTime: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -79,6 +82,22 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         userViewModel.getInformation()
+    }
+
+    override fun onBackPressed() {
+
+        if (binding.mainSearchEdit.hasFocus()) {
+            binding.mainSearchEdit.clearFocus()
+        } else {
+            //두번 클릭 종료
+            val current = System.currentTimeMillis()
+            if (current - clickTime >= 2500) {
+                clickTime = current
+                makeToast("한번 더 클릭 시 종료됩니다.")
+            } else {
+                super.onBackPressed()
+            }
+        }
     }
 
     private fun observeViewModel() {
@@ -290,6 +309,7 @@ class MainActivity : AppCompatActivity() {
             it.mainIcon.setImageResource(if (state) R.drawable.ic_back else R.drawable.ic_logo)
             if (!state) {
                 it.mainSearchEdit.clearFocus()
+                hideKeyBoard()
             }
         }
     }
@@ -299,7 +319,6 @@ class MainActivity : AppCompatActivity() {
         stockViewModel.getSearchList(binding.mainSearchEdit.text.toString())
         Log.d("Search","!")
         changeStateSearch(false) //검색하면 검색 중 종료
-        hideKeyBoard()
     }
 
     private fun hideKeyBoard() {

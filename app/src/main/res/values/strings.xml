@@ -5,4 +5,5 @@
     <string name="register_text">아래의 순서에 따라\n회원가입을 진행해주세요.</string>
     <string name="unit_format">재고 %s 단위</string>
     <string name="expired_format">구입한지 %d 일째</string>
+    <string name="history_amount_format">%d</string>
 </resources>
