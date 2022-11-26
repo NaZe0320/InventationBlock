@@ -76,6 +76,7 @@
                 android:progress="@{stock.stockCurrent}"
                 android:progressDrawable="@drawable/custom_progressbar"
                 android:splitTrack="false"
+                android:clickable="false"
                 android:thumb="@drawable/custom_seek_thumb"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -18,12 +18,14 @@ data class Stock(
     var stockSafe: Int,
     var fixed: Boolean,
     var unit: String,
-    var expired: Long
+    var expired: Long,
+    var sid: Int
 )
 
 data class History(
     var date: String,
     var content: String,
-    var amount: String
+    var amount: String,
+    var pm: Boolean = true
 )
 

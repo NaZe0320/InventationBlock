@@ -6,13 +6,18 @@ import retrofit2.Response
 
 class StockRepository {
 
-    suspend fun getList(token: String?, orderBy: Int) : Response<StockModel> {
+    suspend fun getList(token: String?, orderBy: Int?) : Response<StockModel> {
         return RetrofitBuilder.stockAPI.getList(token,orderBy)
     }
 
-    suspend fun getSearchList(token: String?,search: String) : Response<StockModel> {
+    suspend fun getSearchList(token: String?,search: String?) : Response<StockModel> {
         return RetrofitBuilder.stockAPI.getSearchList(token, search)
     }
+
+    suspend fun getHistoryList(token: String?, sid: Int?): Response<StockModel> {
+        return RetrofitBuilder.stockAPI.getHistoryList(token,sid)
+    }
+
 
     //TODO(수정 필요)
 }

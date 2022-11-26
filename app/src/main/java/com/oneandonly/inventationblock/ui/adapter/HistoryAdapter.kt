@@ -1,5 +1,6 @@
 package com.oneandonly.inventationblock.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
@@ -13,6 +14,9 @@ class HistoryAdapter(private val items: LiveData<ArrayList<History>>): RecyclerV
 
         fun bind(history: History) {
             binding.history = history
+            binding.historyAmount.isSelected = history.pm
+            binding.historyContent.isSelected = history.pm
+            Log.d("History","${history.pm}")
         }
     }
 

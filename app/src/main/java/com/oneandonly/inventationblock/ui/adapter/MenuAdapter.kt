@@ -4,9 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.oneandonly.inventationblock.databinding.ItemHistoryBinding
 import com.oneandonly.inventationblock.databinding.ItemMenuBinding
-import com.oneandonly.inventationblock.datasource.model.data.History
 
 class MenuAdapter(private val items: LiveData<ArrayList<String>>):RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 

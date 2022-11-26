@@ -5,6 +5,7 @@ import retrofit2.Response
 import retrofit2.http.FieldMap
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.PATCH
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -19,4 +20,14 @@ interface StockAPI {
     suspend fun getSearchList(
         @Header("Token-key") token:String?,
         @Query("search") search: String?): Response<StockModel>
+
+    @GET("/stock/history/{sid}")
+    suspend fun getHistoryList(
+        @Header("Token-key") token: String?,
+        @Path("sid") sid: Int?): Response<StockModel>
+
+    @PATCH("/stock/togglePin")
+    suspend fun setTogglePin(
+
+    )
 }
