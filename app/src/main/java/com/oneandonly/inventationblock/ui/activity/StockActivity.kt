@@ -67,14 +67,23 @@ class StockActivity : AppCompatActivity() {
     }
 
     private fun uiSetting() {
+        toolbarSetting()
         textSetting()
         btnSetting()
         historyListSetting(stockViewModel)
     }
 
-    private fun textSetting() {
+    private fun toolbarSetting() {
         binding.stockToolBar.toolBarTitle.text = name
         binding.stockToolBar.toolBarStockPin.isSelected = fixed
+        binding.stockToolBar.toolBarStockPin.setOnClickListener {
+            binding.stockToolBar.toolBarStockPin.isSelected = !binding.stockToolBar.toolBarStockPin.isSelected
+            CoroutineScope(Dispatchers.Main).launch {
+                stockViewModel.setToggle(sid?:0)
+            }
+        }
+    }
+    private fun textSetting() {
         binding.stockAmount.text = "${df.format(stockCurrent)} $unit"
         binding.stockSafeAmount.text = "${df.format(stockSafe)} $unit"
     }

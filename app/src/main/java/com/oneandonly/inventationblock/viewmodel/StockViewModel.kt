@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.datasource.model.data.History
+import com.oneandonly.inventationblock.datasource.model.data.State
 import com.oneandonly.inventationblock.datasource.model.data.Stock
 import com.oneandonly.inventationblock.datasource.model.data.StockModel
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
@@ -30,6 +31,8 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
 
     private val _error = MutableLiveData<String>()
     val errorList: LiveData<String> get() = _error
+
+    val ing : MutableLiveData<State> = MutableLiveData()
 
 
     private fun setStockList(stockItems: ArrayList<Stock>) {
@@ -89,6 +92,58 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
                     }
                     else -> {
                         Log.d("History","4 ${response.errorBody()?.string()}")
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun setToggle(sid: Int) {
+        Log.d("setToggle","실행 $sid")
+        try {
+            viewModelScope.launch {
+                val response = repo.setTogglePin(tokens,sid)
+                when (response.code()) {
+                    200 -> {
+                        ing.value = State.Success
+                        Log.d("setToggle","200 ${response.message()}")
+                    }
+                    400 -> {
+                        ing.value = State.Fail
+                        Log.d("setToggle","400 ${response.errorBody()?.string()}")
+                    }
+                    401 -> {
+                        ing.value = State.Fail
+                        Log.d("setToggle","401 ${response.message()}")
+                    }
+                    else -> {
+                        Log.d("setToggle","error")
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun setSafeAmount(sid: Int, amount: Int) {
+        try {
+            viewModelScope.launch {
+                val response = repo.setSafeAmount(tokens,sid,amount)
+                when (response.code()) {
+                    200 -> {
+                        Log.d("setSafeAmount","200 ${response.body()?.message}")
+                    }
+                    400 -> {
+                        Log.d("setSafeAmount","400 ${response.body()?.message}")
+                    }
+                    401 -> {
+                        Log.d("setSafeAmount","400 ${response.body()?.message}")
+                    }
+                    else -> {
+                        Log.d("setSafeAmount","error")
                     }
                 }
             }

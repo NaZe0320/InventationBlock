@@ -74,9 +74,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/text_view_gray"
-                        android:padding="12dp"
+                        android:padding="8dp"
                         android:text="3,000 g"
-                        android:textSize="18sp"
+                        android:textSize="24sp"
                         android:textStyle="bold">
 
                     </TextView>
@@ -131,10 +131,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"
-                        android:padding="12dp"
+                        android:padding="8dp"
                         android:text="1,200 g"
                         android:textColor="#FFAB4A4A"
-                        android:textSize="18sp"
+                        android:textSize="24sp"
                         android:textStyle="bold">
 
                     </TextView>

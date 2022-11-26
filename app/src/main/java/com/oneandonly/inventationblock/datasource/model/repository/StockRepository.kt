@@ -1,5 +1,6 @@
 package com.oneandonly.inventationblock.datasource.model.repository
 
+import android.util.Log
 import com.oneandonly.inventationblock.datasource.model.data.StockModel
 import com.oneandonly.inventationblock.datasource.model.retrofit.RetrofitBuilder
 import retrofit2.Response
@@ -16,6 +17,19 @@ class StockRepository {
 
     suspend fun getHistoryList(token: String?, sid: Int?): Response<StockModel> {
         return RetrofitBuilder.stockAPI.getHistoryList(token,sid)
+    }
+
+    suspend fun setTogglePin(token: String?,sid: Int?): Response<StockModel> {
+        val params = HashMap<String, Int>()
+        params["sid"] = sid?:0
+        return RetrofitBuilder.stockAPI.setTogglePin(token,params)
+    }
+
+    suspend fun setSafeAmount(token: String?, sid: Int?, amount: Int?) : Response<StockModel> {
+        val params = HashMap<String, Int>()
+        params["sid"] = sid?:0
+        params["amount"] = amount?:0
+        return RetrofitBuilder.stockAPI.setSafeAmount(token,params)
     }
 
 

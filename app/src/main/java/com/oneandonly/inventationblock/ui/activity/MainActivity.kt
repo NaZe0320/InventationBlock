@@ -21,10 +21,12 @@ import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.afterUpdate
 import com.oneandonly.inventationblock.databinding.ActivityMainBinding
 import com.oneandonly.inventationblock.databinding.NavHeaderMainBinding
+import com.oneandonly.inventationblock.datasource.model.data.State
 import com.oneandonly.inventationblock.datasource.model.data.Stock
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
 import com.oneandonly.inventationblock.makeToast
+import com.oneandonly.inventationblock.ui.adapter.OnClick
 import com.oneandonly.inventationblock.ui.adapter.StockAdapter
 import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
 import com.oneandonly.inventationblock.viewmodel.StockViewModel
@@ -36,7 +38,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnClick {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -77,6 +79,11 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         userViewModel.getInformation()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        resetList()
     }
 
     override fun onBackPressed() {
@@ -184,8 +191,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun stockListSetting(stockViewModel: StockViewModel) {
         binding.stockList.layoutManager = LinearLayoutManager(this)
-        stockAdapter = StockAdapter(stockViewModel.stockList)
+        stockAdapter = StockAdapter(stockViewModel.stockList, stockViewModel, this)
         binding.stockList.adapter = stockAdapter
+
         CoroutineScope(Dispatchers.Main).launch {
             stockViewModel.getStockList(0) //TODO(정렬 기능 설정 안됨, 스피너 쪽에서 조정이 필요함함)
         }
@@ -220,6 +228,7 @@ class MainActivity : AppCompatActivity() {
                 changeStateSearch(false)
                 stockViewModel.getStockList(0) //TODO
                 searchState = false
+                binding.mainSearchEdit.text.clear()
             } else {
                 changeStateSearch(false)
             }
@@ -277,8 +286,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun stockListObserver() {
         val stockObserver: Observer<ArrayList<Stock>> = Observer {
-                val adapter = StockAdapter(stockViewModel.stockList)
-                binding.stockList.adapter = adapter
+                stockAdapter = StockAdapter(stockViewModel.stockList, stockViewModel, this)
+                binding.stockList.adapter = stockAdapter
                 Log.d("Main_Activity","4")
         }
         stockViewModel.stockList.observe(this,stockObserver)
@@ -322,4 +331,31 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     } //키보드 숨기기
+
+    override fun onClick() {
+        stockViewModel.ing.value = State.Loading
+        stockViewModel.ing.observe(this) {
+            when (it) {
+                State.Success -> {
+                    resetList()
+                    Log.d("ToggleClick","Sucess")
+                }
+                State.Fail -> {
+                    Log.d("ToggleClick",".Fail")
+                }
+                State.Loading -> {
+                    Log.d("ToggleClick","Loading")
+                }
+            }
+        }
+    }
+
+    private fun resetList() {
+        if (searchState) {
+            stockViewModel.getSearchList(binding.mainSearchEdit.text.toString())
+        } else {
+            stockViewModel.getStockList(0) //TODO(현재 스피너 값 가져오기)
+        }
+    }
+
 }

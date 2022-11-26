@@ -4,15 +4,17 @@ import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.oneandonly.inventationblock.databinding.ItemStockBinding
 import com.oneandonly.inventationblock.datasource.model.data.Stock
+import com.oneandonly.inventationblock.ui.activity.MainActivity
 import com.oneandonly.inventationblock.ui.activity.StockActivity
+import com.oneandonly.inventationblock.viewmodel.StockViewModel
 
-class StockAdapter(private val items: LiveData<ArrayList<Stock>>):RecyclerView.Adapter<StockAdapter.StockViewHolder>() {
-
+class StockAdapter(private val items: LiveData<ArrayList<Stock>>, private val stockViewModel: StockViewModel,private val onClick: OnClick):RecyclerView.Adapter<StockAdapter.StockViewHolder>() {
 
     inner class StockViewHolder(val binding: ItemStockBinding):RecyclerView.ViewHolder(binding.root) {
         val context = binding.root.context!!
@@ -35,6 +37,9 @@ class StockAdapter(private val items: LiveData<ArrayList<Stock>>):RecyclerView.A
         }
         holder.btnPin.setOnClickListener {
             holder.btnPin.isSelected = !holder.btnPin.isSelected
+            Log.d("onClick","${holder.btnPin.isSelected}")
+            stockViewModel.setToggle(items.value?.get(position)?.sid?:0)
+            onClick.onClick()
             //TODO(보류 - 변경 하면 서버에 요청보내고 리스트 초기화 시켜야 함)
         }
         holder.itemView.setOnClickListener {
