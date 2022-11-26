@@ -94,7 +94,7 @@ class StockActivity : AppCompatActivity() {
 
         binding.historyList.adapter = historyAdapter
         CoroutineScope(Dispatchers.Main).launch {
-            sid?.let { stockViewModel.getHistoryList(it) }
+            stockViewModel.getHistoryList(sid?:0,unit?:"g")
             Log.d("History","sid $sid")
         }
     }

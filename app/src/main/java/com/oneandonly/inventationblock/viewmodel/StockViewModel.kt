@@ -72,13 +72,13 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
         }
     }
 
-    fun getHistoryList(sid: Int) {
+    fun getHistoryList(sid: Int, unit: String) {
         try {
             viewModelScope.launch {
                 val response = repo.getHistoryList(tokens,sid)
                 when (response.code()) {
                     200 -> {
-                        responseToHistory(response)
+                        responseToHistory(response, unit)
                         Log.d("History","200 ${response.body()?.message}")
                     }
                     400 -> {
@@ -115,7 +115,7 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
                             (it.pinned ?: 0) != 0,
                             it.unit ?: "",
                             (today.time.time - (it.addDate?.time ?:today.time.time))/(24 * 60 * 60 * 1000)+2,
-                            it.sid ?: 111
+                            it.sid ?: 0
                         )
                     )
                 }
@@ -126,7 +126,7 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
         setStockList(stockListItem)
     }
 
-    private fun responseToHistory(response: Response<StockModel>) {
+    private fun responseToHistory(response: Response<StockModel>, unit: String) {
         val historyListItem: ArrayList<History> = ArrayList()
 
         if (response.body()?.response?.size != null) {
@@ -136,7 +136,7 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
                         History(
                             date = dateToString(it.date?:Calendar.getInstance().time),
                             content = it.reason ?: "",
-                            amount = (DecimalFormat("+#,###;-#,###").format(it.amount?:0).toString() +" g"),
+                            amount = (DecimalFormat("+#,###;-#,###").format(it.amount?:0).toString() + unit),
                             pm = (it.amount ?: 0) >= 0
                         )
                     )

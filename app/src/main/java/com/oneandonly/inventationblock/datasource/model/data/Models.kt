@@ -26,6 +26,6 @@ data class History(
     var date: String,
     var content: String,
     var amount: String,
-    var pm: Boolean = true
+    var pm: Boolean = true,
 )
 
