@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="210dp"
+        android:layout_height="210dp"
+        android:background="@android:color/transparent">
+
+        <RelativeLayout
+            android:id="@+id/dialog_setting_layout"
+            android:layout_width="210dp"
+            android:layout_height="140dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/bg_tv">
+
+            <RelativeLayout
+                android:id="@+id/dialog_pm_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dialog_text">
+
+                <EditText
+                    android:id="@+id/dialog_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:text="1,200 g"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold">
+
+                </EditText>
+
+                <ImageButton
+                    android:id="@+id/dialog_minus_btn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_toStartOf="@+id/dialog_amount"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_minus_btn">
+
+                </ImageButton>
+
+                <ImageButton
+                    android:id="@+id/dialog_plus_btn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_toEndOf="@+id/dialog_amount"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_plus_btn">
+
+                </ImageButton>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/dialog_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="안전재고 기준량을\n다시 설정합니다"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp">
+
+            </TextView>
+
+
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/dialog_check_btn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/dialog_setting_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_check_btn">
+
+        </ImageButton>
+
+
+    </RelativeLayout>
+</layout>

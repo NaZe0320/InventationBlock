@@ -34,6 +34,7 @@ data class StockResponses(
     var pinned: Int?,
     var date: Date?,
     var reason: String?
+
 )
 
 enum class LoginState {

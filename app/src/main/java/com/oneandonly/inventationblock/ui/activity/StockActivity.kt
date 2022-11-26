@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ActivityStockBinding
 import com.oneandonly.inventationblock.datasource.model.data.History
+import com.oneandonly.inventationblock.datasource.model.data.Menu
 import com.oneandonly.inventationblock.datasource.model.data.Stock
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.ui.adapter.HistoryAdapter
 import com.oneandonly.inventationblock.ui.adapter.MenuAdapter
+import com.oneandonly.inventationblock.ui.dialog.SafeAmountDialog
 import com.oneandonly.inventationblock.viewmodel.StockViewModel
 import com.oneandonly.inventationblock.viewmodel.factory.StockFactory
 import kotlinx.coroutines.CoroutineScope
@@ -71,6 +73,7 @@ class StockActivity : AppCompatActivity() {
         textSetting()
         btnSetting()
         historyListSetting(stockViewModel)
+
     }
 
     private fun toolbarSetting() {
@@ -93,8 +96,24 @@ class StockActivity : AppCompatActivity() {
             onBackPressed()
         }
         binding.stockChangeBtn.setOnClickListener {
-            //TODO(Dialog)
+            dialogSetting()
         }
+    }
+
+    private fun dialogSetting() {
+        val dialog = SafeAmountDialog(this@StockActivity)
+        dialog.show(stockSafe?:0,unit?:"")
+        dialog.onClickCheckBtn(object : SafeAmountDialog.CheckBtnClickListener {
+
+            override fun onClick(amount: Int) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    stockViewModel.setSafeAmount(sid?:0,amount)
+                    stockSafe = amount
+                    Log.d("SafeAmountDialog","$amount")
+                    binding.stockSafeAmount.text = "${df.format(stockSafe)} $unit"
+                }
+            }
+        })
     }
 
     private fun historyListSetting(stockViewModel: StockViewModel) {
@@ -107,6 +126,9 @@ class StockActivity : AppCompatActivity() {
             Log.d("History","sid $sid")
         }
     }
+
+
+
 
     private fun historyListObserver() {
         val observer: Observer<ArrayList<History>> = Observer {
