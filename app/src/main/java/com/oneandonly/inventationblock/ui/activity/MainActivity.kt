@@ -139,6 +139,13 @@ class MainActivity : AppCompatActivity(), OnClick {
         finish()
     }
 
+    private fun moveToMenu() {
+        Log.d("Main_Activity","moveToMenu")
+        val intent = Intent(this, MenuActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     private fun uiSetting() {
         drawerSetting()
         toolBarSetting()
@@ -158,7 +165,7 @@ class MainActivity : AppCompatActivity(), OnClick {
                     onClickLogout()
                 }
                 R.id.menu_stockSetting -> {
-                    afterUpdate()
+                    moveToMenu()
                 }
                 R.id.menu_stockReport -> {
                     afterUpdate()

@@ -6,4 +6,13 @@
         <item>구입 오래된순</item>
 
     </string-array>
+
+    <string-array name="unit_list">
+        <item>g</item>
+        <item>kg</item>
+        <item>팩</item>
+        <item>개</item>
+        <item>L</item>
+
+    </string-array>
 </resources>
