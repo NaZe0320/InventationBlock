@@ -61,7 +61,7 @@
                         android:layout_height="@dimen/edittext_height"
                         android:layout_alignParentEnd="true"
                         android:background="@drawable/bg_edit_search"
-                        android:hint="식자재 이름을 입력하세요"
+                        android:hint="이름 검색을 통해 선택하세요."
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLines="1"
@@ -84,14 +84,14 @@
 
                 </RelativeLayout>
 
-
             </RelativeLayout>
 
             <RelativeLayout
-            android:id="@+id/layout_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_1">
+                android:id="@+id/layout_2"
+                android:layout_width="match_parent"
+                android:layout_marginTop="12dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_1">
 
                 <TextView
                     android:id="@+id/amount_tv"
@@ -151,6 +151,7 @@
                 android:id="@+id/layout_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:layout_below="@id/layout_2">
 
                 <TextView

@@ -143,7 +143,12 @@ class MainActivity : AppCompatActivity(), OnClick {
         Log.d("Main_Activity","moveToMenu")
         val intent = Intent(this, MenuActivity::class.java)
         startActivity(intent)
-        finish()
+    }
+
+    private fun moveToMenuAdd() {
+        Log.d("Main_Activity","moveToMenuAdd")
+        val intent = Intent(this, MenuAddActivity::class.java)
+        startActivity(intent)
     }
 
     private fun uiSetting() {
@@ -279,7 +284,7 @@ class MainActivity : AppCompatActivity(), OnClick {
         }
 
         binding.fab1.setOnClickListener {
-            afterUpdate()
+            moveToMenuAdd()
         }
 
         binding.fab2.setOnClickListener {

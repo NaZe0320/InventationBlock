@@ -22,14 +22,21 @@ class StockRepository {
     suspend fun setTogglePin(token: String?,sid: Int?): Response<StockModel> {
         val params = HashMap<String, Int>()
         params["sid"] = sid?:0
-        return RetrofitBuilder.stockAPI.setTogglePin(token,params)
+        return RetrofitBuilder.stockAPI.setStock(token,"togglePin",params)
     }
 
     suspend fun setSafeAmount(token: String?, sid: Int?, amount: Int?) : Response<StockModel> {
         val params = HashMap<String, Int>()
         params["sid"] = sid?:0
         params["amount"] = amount?:0
-        return RetrofitBuilder.stockAPI.setSafeAmount(token,params)
+        return RetrofitBuilder.stockAPI.setStock(token,"setSafeStandard",params)
+    }
+
+    suspend fun addAmount(token: String?, sid: Int?, amount: Int?) : Response<StockModel> {
+        val params = HashMap<String, Int>()
+        params["sid"] = sid?:0
+        params["amount"] = amount?:0
+        return RetrofitBuilder.stockAPI.setStock(token,"setSafeStandard",params)
     }
 
 

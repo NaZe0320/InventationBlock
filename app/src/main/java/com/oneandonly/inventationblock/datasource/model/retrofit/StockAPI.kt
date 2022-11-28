@@ -25,16 +25,11 @@ interface StockAPI {
     ): Response<StockModel>
 
     @FormUrlEncoded
-    @PATCH("/stock/togglePin")
-    suspend fun setTogglePin(
+    @PATCH("/stock/{path}")
+    suspend fun setStock(
         @Header("Token-key") token: String?,
+        @Path("path") path: String?,
         @FieldMap param: HashMap<String, Int>
     ): Response<StockModel>
 
-    @FormUrlEncoded
-    @PATCH("/stock/setSafeStandard")
-    suspend fun setSafeAmount(
-        @Header("Token-key") token: String?,
-        @FieldMap param: HashMap<String, Int>
-    ): Response<StockModel>
 }
