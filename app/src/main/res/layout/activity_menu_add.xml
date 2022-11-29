@@ -125,7 +125,7 @@
                         android:background="@drawable/bg_edit_search"
                         android:hint="입력하세요"
                         android:imeOptions="actionNext"
-                        android:inputType="text"
+                        android:inputType="numberDecimal"
                         android:maxLines="1"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
@@ -207,17 +207,18 @@
         </RelativeLayout>
 
         <Button
+            android:id="@+id/add_stock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/layout_margin"
             android:layout_marginEnd="@dimen/layout_margin"
             android:layout_marginBottom="30dp"
             android:text="등록하기"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/update_time"

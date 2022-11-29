@@ -1,9 +1,9 @@
 package com.oneandonly.inventationblock.datasource.model.repository
 
-import android.util.Log
 import com.oneandonly.inventationblock.datasource.model.data.StockModel
 import com.oneandonly.inventationblock.datasource.model.retrofit.RetrofitBuilder
 import retrofit2.Response
+import java.util.Date
 
 class StockRepository {
 
@@ -20,23 +20,25 @@ class StockRepository {
     }
 
     suspend fun setTogglePin(token: String?,sid: Int?): Response<StockModel> {
-        val params = HashMap<String, Int>()
+        val params = HashMap<String, Any>()
         params["sid"] = sid?:0
         return RetrofitBuilder.stockAPI.setStock(token,"togglePin",params)
     }
 
-    suspend fun setSafeAmount(token: String?, sid: Int?, amount: Int?) : Response<StockModel> {
-        val params = HashMap<String, Int>()
-        params["sid"] = sid?:0
-        params["amount"] = amount?:0
+    suspend fun setSafeAmount(token: String?, sid: Int, amount: Int) : Response<StockModel> {
+        val params = HashMap<String, Any>()
+        params["sid"] = sid
+        params["amount"] = amount
         return RetrofitBuilder.stockAPI.setStock(token,"setSafeStandard",params)
     }
 
-    suspend fun addAmount(token: String?, sid: Int?, amount: Int?) : Response<StockModel> {
-        val params = HashMap<String, Int>()
-        params["sid"] = sid?:0
-        params["amount"] = amount?:0
-        return RetrofitBuilder.stockAPI.setStock(token,"setSafeStandard",params)
+    suspend fun addAmount(token: String?, sid: Int, amount: Int, buyDate: String, reason: String) : Response<StockModel> {
+        val params = HashMap<String, Any>()
+        params["sid"] = sid
+        params["amount"] = amount
+        params["buyDate"] = buyDate
+        params["reason"] = reason
+        return RetrofitBuilder.stockAPI.setStock(token,"add",params)
     }
 
 

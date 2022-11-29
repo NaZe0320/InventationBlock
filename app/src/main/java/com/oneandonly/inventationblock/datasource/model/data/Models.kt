@@ -29,3 +29,9 @@ data class History(
     var pm: Boolean = true,
 )
 
+data class Search(
+    var name: String,
+    var type: String,
+    var unit: String? = ""
+)
+

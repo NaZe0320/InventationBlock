@@ -6,18 +6,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oneandonly.inventationblock.Constants.tokens
-import com.oneandonly.inventationblock.datasource.model.data.History
-import com.oneandonly.inventationblock.datasource.model.data.State
-import com.oneandonly.inventationblock.datasource.model.data.Stock
-import com.oneandonly.inventationblock.datasource.model.data.StockModel
+import com.oneandonly.inventationblock.datasource.model.data.*
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.dateToString
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.text.DecimalFormat
-import java.util.Calendar
+import java.util.*
+import kotlin.collections.ArrayList
 
 class StockViewModel(private val repo: StockRepository) : ViewModel() {
+
+    companion object {
+        val searchStockList: MutableLiveData<ArrayList<Search>> = MutableLiveData<kotlin.collections.ArrayList<Search>>()
+    }
 
     private val TAG = "Stock_ViewModel"
 
@@ -34,6 +36,28 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
 
     val ing : MutableLiveData<State> = MutableLiveData()
 
+    private fun setSearchList(response: Response<StockModel>) {
+        val searchListItem: ArrayList<Search> = ArrayList()
+
+        if (response.body()?.response?.size != null) {
+            for (i in 0 until response.body()?.response?.size!!) {
+                response.body()?.response?.get(i).let {
+                    it!!
+                    searchListItem.add(
+                        Search(
+                            it.name ?: "0",
+                            "stock",
+                            it.unit
+                        )
+                    )
+                }
+            }
+        } else {
+            Log.d("Response Test","Search List Error")
+        }
+
+        searchStockList.value = searchListItem
+    }
 
     private fun setStockList(stockItems: ArrayList<Stock>) {
         _stockList.value = stockItems
@@ -50,6 +74,7 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
 
                 Log.d("Response Test", "${response.body()?.response?.get(0)}")
                 responseToStock(response) //데이터 변환
+                setSearchList(response) // 검색 리스트 생성
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -148,6 +173,27 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
                 }
             }
         } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun addAmount(sid: Int, amount: Int, buyDate: String, reason: String) {
+        try {
+            viewModelScope.launch {
+                val response = repo.addAmount(tokens,sid,amount,buyDate,reason)
+                when (response.code()) {
+                    200 -> {
+                        Log.d("addAmount","200 ${response.body()?.message}")
+                    }
+                    400 -> {
+                        Log.d("addAmount","400 ${response.errorBody()?.string()}")
+                    }
+                    401 -> {
+                        Log.d("addAmount","400 ${response.body()?.message}")
+                    }
+                }
+            }
+        } catch (e :Exception) {
             e.printStackTrace()
         }
     }

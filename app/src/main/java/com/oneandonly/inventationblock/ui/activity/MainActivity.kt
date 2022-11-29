@@ -21,15 +21,16 @@ import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.afterUpdate
 import com.oneandonly.inventationblock.databinding.ActivityMainBinding
 import com.oneandonly.inventationblock.databinding.NavHeaderMainBinding
+import com.oneandonly.inventationblock.datasource.model.data.Search
 import com.oneandonly.inventationblock.datasource.model.data.State
 import com.oneandonly.inventationblock.datasource.model.data.Stock
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
 import com.oneandonly.inventationblock.makeToast
-import com.oneandonly.inventationblock.ui.adapter.OnClick
 import com.oneandonly.inventationblock.ui.adapter.StockAdapter
 import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
 import com.oneandonly.inventationblock.viewmodel.StockViewModel
+import com.oneandonly.inventationblock.viewmodel.StockViewModel.Companion.searchStockList
 import com.oneandonly.inventationblock.viewmodel.TokenViewModel
 import com.oneandonly.inventationblock.viewmodel.UserViewModel
 import com.oneandonly.inventationblock.viewmodel.factory.StockFactory
@@ -38,7 +39,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity(), OnClick {
+class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -51,6 +52,10 @@ class MainActivity : AppCompatActivity(), OnClick {
     // true: 검색 중/ false: 검색 중 아닐 때
 
     private var clickTime: Long = 0
+
+    companion object {
+        val searchList: ArrayList<Search> = ArrayList()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +78,7 @@ class MainActivity : AppCompatActivity(), OnClick {
         //Observer
         stockListObserver()
         errorObserver()
+        observeSearchList()
 
     }
 
@@ -107,6 +113,15 @@ class MainActivity : AppCompatActivity(), OnClick {
             user?.let {
 
             }
+        })
+    }
+
+    private fun observeSearchList() {
+        searchStockList.observe(this@MainActivity, Observer {
+            for ( i in it) {
+                searchList.add(i)
+            }
+            Log.d("SearchList","SearchList 생성 $searchList")
         })
     }
 

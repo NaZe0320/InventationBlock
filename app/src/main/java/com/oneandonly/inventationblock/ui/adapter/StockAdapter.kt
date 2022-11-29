@@ -60,7 +60,6 @@ class StockAdapter(private val items: LiveData<ArrayList<Stock>>, private val st
         return items.value?.size?:0
     }
 /*
-
     var stockItems = ArrayList<Stock>()
 
     fun setData(newStockItems: ArrayList<Stock>) {
@@ -89,4 +88,8 @@ class StockAdapter(private val items: LiveData<ArrayList<Stock>>, private val st
         }
     }
  */
+
+    interface OnClick {
+        fun onClick()
+    }
 }

@@ -29,7 +29,7 @@ interface StockAPI {
     suspend fun setStock(
         @Header("Token-key") token: String?,
         @Path("path") path: String?,
-        @FieldMap param: HashMap<String, Int>
+        @FieldMap param: HashMap<String, Any>
     ): Response<StockModel>
 
 }
