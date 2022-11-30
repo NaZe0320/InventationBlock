@@ -30,6 +30,7 @@ data class History(
 )
 
 data class Search(
+    var sid: Int,
     var name: String,
     var type: String,
     var unit: String? = ""

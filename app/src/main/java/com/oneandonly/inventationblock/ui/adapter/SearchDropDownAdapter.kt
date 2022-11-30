@@ -1,33 +1,48 @@
 package com.oneandonly.inventationblock.ui.adapter
 
+import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.LayoutRes
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.datasource.model.data.Search
+import java.util.*
 
-class SearchDropDownAdapter(context: Context, private val dropList: List<Search>):
-    ArrayAdapter<Search>(context,0, dropList), Filterable {
-
-    private var list: List<Search> = dropList
+class SearchDropDownAdapter(
+    context: Context,
+    @LayoutRes private val layoutResourceId: Int,
+    private val dropList: List<Search>):
+    ArrayAdapter<Search>(context,layoutResourceId, dropList), Filterable {
+        private var list: List<Search> = dropList
 
     override fun getCount(): Int {
         return list.size
     }
 
+    override fun getItem(position: Int): Search {
+        return list[position]
+    }
+
+    override fun getItemId(position: Int): Long {
+        return list[position].sid.toLong()
+    }
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView?: LayoutInflater.from(context).inflate(R.layout.item_dropdown,parent, false)
+        val view = convertView?: LayoutInflater.from(context).inflate(R.layout.item_dropdown,parent,false)
+//        val name: TextView = convertView as TextView? ?: LayoutInflater.from(context).inflate(layoutResourceId, parent, false) as TextView
+//        val type: ImageView = convertView as ImageView? ?: LayoutInflater.from(context).inflate(layoutResourceId, parent, false) as ImageView
 
         val name: TextView = view.findViewById(R.id.dropdown_name)
         val type: ImageView = view.findViewById(R.id.dropdown_type)
 
-        val ddList : Search = getItem(position)
 
+        val ddList: Search = getItem(position)
         name.text = ddList.name
-
-        if(ddList.type == "stock") {
+        if (ddList.type == "stock") {
             type.setImageResource(R.drawable.ic_stock_drop_down)
         } else {
             type.setImageResource(R.drawable.ic_main_menu_drop_down)
@@ -36,27 +51,24 @@ class SearchDropDownAdapter(context: Context, private val dropList: List<Search>
         return view
     }
 
-    override fun getItem(position: Int): Search{
-        return list[position]
-    }
-
     override fun getFilter(): Filter {
-        return object: Filter() {
-            override fun performFiltering(cs: CharSequence?): FilterResults {
-                val queryString = cs.toString()
+        return object : Filter() {
+            override fun performFiltering(charSequence: CharSequence?): FilterResults {
+                val queryString = charSequence?.toString()?.lowercase(Locale.ROOT)
 
-                val filterResult = FilterResults()
-                filterResult.values = if (queryString == null || queryString.isEmpty())
-                    list
-                else
-                    list.filter {
-                        it.name.contains(queryString)
-                    }
-                return filterResult
+                val filterResults = Filter.FilterResults()
+
+                filterResults.values = if (queryString==null || queryString.isEmpty())
+                    dropList
+                    else
+                        dropList.filter {
+                            it.name.contains(queryString) || it.type.contains(queryString)
+                        }
+                return filterResults
             }
 
-            override fun publishResults(cs: CharSequence?, filterResults: FilterResults?) {
-                list = filterResults?.values as List<Search>
+            override fun publishResults(charSequence: CharSequence?,filterResults: FilterResults) {
+                list = filterResults.values as List<Search>
                 notifyDataSetChanged()
             }
 

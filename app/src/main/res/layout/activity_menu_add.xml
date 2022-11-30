@@ -217,6 +217,7 @@
             android:layout_marginEnd="@dimen/layout_margin"
             android:layout_marginBottom="30dp"
             android:text="등록하기"
+            android:enabled="false"
             android:textSize="16sp"
             android:textStyle="bold" />
 

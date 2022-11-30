@@ -45,6 +45,7 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
                     it!!
                     searchListItem.add(
                         Search(
+                            it.sid?:0,
                             it.name ?: "0",
                             "stock",
                             it.unit
@@ -250,6 +251,4 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
         }
 
     }
-
-
 }

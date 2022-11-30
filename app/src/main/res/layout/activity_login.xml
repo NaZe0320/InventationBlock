@@ -97,6 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="로그인"
+                    android:backgroundTint="@color/login_button_background_color"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 

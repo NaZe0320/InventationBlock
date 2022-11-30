@@ -72,7 +72,7 @@
                     <AutoCompleteTextView
                         android:id="@+id/main_search_edit"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/edittext_height"
+                        android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/main_icon"
                         android:background="@drawable/bg_edit_search"

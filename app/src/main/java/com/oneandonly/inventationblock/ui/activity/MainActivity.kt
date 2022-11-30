@@ -27,6 +27,7 @@ import com.oneandonly.inventationblock.datasource.model.data.Stock
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
 import com.oneandonly.inventationblock.makeToast
+import com.oneandonly.inventationblock.ui.adapter.SearchDropDownAdapter
 import com.oneandonly.inventationblock.ui.adapter.StockAdapter
 import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
 import com.oneandonly.inventationblock.viewmodel.StockViewModel
@@ -118,11 +119,16 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
     private fun observeSearchList() {
         searchStockList.observe(this@MainActivity, Observer {
+            searchList.clear()
             for ( i in it) {
                 searchList.add(i)
             }
-            Log.d("SearchList","SearchList 생성 $searchList")
+            if (searchList.isNotEmpty()) {
+                dropdownSetting()
+                Log.d("SearchList","SearchList 생성 $searchList")
+            }
         })
+
     }
 
     private fun setViewModel() {
@@ -134,7 +140,6 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
         val stockViewModelFactory = StockFactory(stockRepo)
         stockViewModel = ViewModelProvider(this@MainActivity,stockViewModelFactory)[StockViewModel::class.java]
-
     }
 
     private fun onClickLogout() {
@@ -265,37 +270,9 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
     private fun fabSetting() {
         var clickedFab = false
-
-        val rotateOpen = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_open_anim)
-        val rotateClose = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_close_anim)
-        val toBottom = AnimationUtils.loadAnimation(applicationContext,R.anim.to_bottom_anim)
-        val fromBottom = AnimationUtils.loadAnimation(applicationContext,R.anim.from_bottom_anim)
-
         binding.mainFab.setOnClickListener {
             clickedFab = !clickedFab
-            binding.let {
-                it.fabLayout1.isVisible = clickedFab
-                it.fabLayout2.isVisible = clickedFab
-                it.fabLayout3.isVisible = clickedFab
-
-                if(clickedFab) {
-                    it.mainFab.startAnimation(rotateOpen)
-                    it.fabLayout1.startAnimation(fromBottom)
-                    it.fabLayout2.startAnimation(fromBottom)
-                    it.fabLayout3.startAnimation(fromBottom)
-                } else {
-                    it.mainFab.startAnimation(rotateClose)
-                    it.fabLayout1.startAnimation(toBottom)
-                    it.fabLayout2.startAnimation(toBottom)
-                    it.fabLayout3.startAnimation(toBottom)
-                }
-
-                it.fab1.isClickable = clickedFab
-                it.fab2.isClickable = clickedFab
-                it.fab3.isClickable = clickedFab
-
-                it.sticker.visibility = if(clickedFab) View.VISIBLE else View.GONE
-            }
+            clickFab(clickedFab)
         }
 
         binding.fab1.setOnClickListener {
@@ -308,6 +285,55 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
         binding.fab3.setOnClickListener {
             afterUpdate()
+        }
+
+        binding.sticker.setOnClickListener {
+            clickedFab = !clickedFab
+            clickFab(clickedFab)
+        }
+    }
+
+    private fun clickFab(clickedFab: Boolean) {
+        val rotateOpen = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_open_anim)
+        val rotateClose = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_close_anim)
+        val toBottom = AnimationUtils.loadAnimation(applicationContext,R.anim.to_bottom_anim)
+        val fromBottom = AnimationUtils.loadAnimation(applicationContext,R.anim.from_bottom_anim)
+
+        binding.let {
+            it.fabLayout1.isVisible = clickedFab
+            it.fabLayout2.isVisible = clickedFab
+            it.fabLayout3.isVisible = clickedFab
+
+            if(clickedFab) {
+                it.mainFab.startAnimation(rotateOpen)
+                it.fabLayout1.startAnimation(fromBottom)
+                it.fabLayout2.startAnimation(fromBottom)
+                it.fabLayout3.startAnimation(fromBottom)
+            } else {
+                it.mainFab.startAnimation(rotateClose)
+                it.fabLayout1.startAnimation(toBottom)
+                it.fabLayout2.startAnimation(toBottom)
+                it.fabLayout3.startAnimation(toBottom)
+            }
+
+            it.fab1.isClickable = clickedFab
+            it.fab2.isClickable = clickedFab
+            it.fab3.isClickable = clickedFab
+
+            it.sticker.visibility = if(clickedFab) View.VISIBLE else View.GONE
+        } //T
+    }
+
+    private fun dropdownSetting() {//TOTOTO
+        val adapter = SearchDropDownAdapter(this,R.layout.item_dropdown, searchList)
+
+        binding.mainSearchEdit.setAdapter(adapter)
+        binding.mainSearchEdit.threshold = 1
+
+        binding.mainSearchEdit.setOnItemClickListener { adapterView, view, i, l ->
+            val selected = adapterView.adapter.getItem(i) as Search
+            binding.mainSearchEdit.setText(selected.name)
+            search()
         }
     }
 
