@@ -324,7 +324,7 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
         } //T
     }
 
-    private fun dropdownSetting() {//TOTOTO
+    private fun dropdownSetting() {
         val adapter = SearchDropDownAdapter(this,R.layout.item_dropdown, searchList)
 
         binding.mainSearchEdit.setAdapter(adapter)

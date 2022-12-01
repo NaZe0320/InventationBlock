@@ -32,23 +32,54 @@ class SearchDropDownAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView?: LayoutInflater.from(context).inflate(R.layout.item_dropdown,parent,false)
+
+        when (layoutResourceId) {
+            R.layout.item_dropdown -> {
+                val view = convertView?: LayoutInflater.from(context).inflate(R.layout.item_dropdown,parent,false)
 //        val name: TextView = convertView as TextView? ?: LayoutInflater.from(context).inflate(layoutResourceId, parent, false) as TextView
 //        val type: ImageView = convertView as ImageView? ?: LayoutInflater.from(context).inflate(layoutResourceId, parent, false) as ImageView
 
-        val name: TextView = view.findViewById(R.id.dropdown_name)
-        val type: ImageView = view.findViewById(R.id.dropdown_type)
+                val name: TextView = view.findViewById(R.id.dropdown_name)
+                val type: ImageView = view.findViewById(R.id.dropdown_type)
 
+                val ddList: Search = getItem(position)
+                name.text = ddList.name
+                if (ddList.type == "stock") {
+                    type.setImageResource(R.drawable.ic_stock_drop_down)
+                } else {
+                    type.setImageResource(R.drawable.ic_main_menu_drop_down)
+                }
 
-        val ddList: Search = getItem(position)
-        name.text = ddList.name
-        if (ddList.type == "stock") {
-            type.setImageResource(R.drawable.ic_stock_drop_down)
-        } else {
-            type.setImageResource(R.drawable.ic_main_menu_drop_down)
+                return view
+            }
+            R.layout.item_dropdown2 -> {
+                val view = convertView?: LayoutInflater.from(context).inflate(R.layout.item_dropdown2,parent,false)
+
+                val name: TextView = view.findViewById(R.id.dropdown_name)
+
+                val ddList: Search = getItem(position)
+                name.text = ddList.name
+
+                return view
+            }
+            else -> {
+                val view = convertView?: LayoutInflater.from(context).inflate(R.layout.item_dropdown,parent,false)
+//        val name: TextView = convertView as TextView? ?: LayoutInflater.from(context).inflate(layoutResourceId, parent, false) as TextView
+//        val type: ImageView = convertView as ImageView? ?: LayoutInflater.from(context).inflate(layoutResourceId, parent, false) as ImageView
+
+                val name: TextView = view.findViewById(R.id.dropdown_name)
+                val type: ImageView = view.findViewById(R.id.dropdown_type)
+
+                val ddList: Search = getItem(position)
+                name.text = ddList.name
+                if (ddList.type == "stock") {
+                    type.setImageResource(R.drawable.ic_stock_drop_down)
+                } else {
+                    type.setImageResource(R.drawable.ic_main_menu_drop_down)
+                }
+                return view
+            }
         }
-
-        return view
     }
 
     override fun getFilter(): Filter {
@@ -66,7 +97,6 @@ class SearchDropDownAdapter(
                         }
                 return filterResults
             }
-
             override fun publishResults(charSequence: CharSequence?,filterResults: FilterResults) {
                 list = filterResults.values as List<Search>
                 notifyDataSetChanged()

@@ -249,6 +249,5 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
         } else {
             Log.d("Response Test","Error")
         }
-
     }
 }
