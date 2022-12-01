@@ -19,6 +19,7 @@
         <item name="buttonStyle">@style/DefaultButtonStyle</item>
         <item name="checkboxStyle">@style/CheckButtonStyle</item>
         <item name="imageButtonStyle">@style/ImageButtonStyle</item>
+
     </style>
 
     <style name="CalendarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
