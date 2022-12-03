@@ -18,6 +18,7 @@
             layout="@layout/item_tool_bar"/>
 
         <RelativeLayout
+            android:id="@+id/table"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/menu_tool_bar"
@@ -54,7 +55,7 @@
             android:id="@+id/fl_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/menu_tool_bar"
+            android:layout_below="@+id/table"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
