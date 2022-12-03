@@ -2,6 +2,7 @@ package com.oneandonly.inventationblock.datasource.model.data
 
 
 data class Menu(
+    var sid: Int,
     var name: String,
     var count: Int,
     var recipe: List<Recipe>?

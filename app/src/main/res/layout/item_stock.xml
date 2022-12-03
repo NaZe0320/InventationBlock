@@ -54,7 +54,7 @@
                 android:id="@+id/stock_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/unit_format(stock.unit)}"
+                android:text="@{@string/unit_format(stock.stockCurrent,stock.unit)}"
                 android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/sub_text_size"
                 app:layout_constraintBottom_toTopOf="@+id/stock_bar"
