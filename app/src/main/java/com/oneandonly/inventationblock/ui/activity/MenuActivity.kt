@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.fragment.app.commitNow
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ActivityMenuBinding
 import com.oneandonly.inventationblock.ui.fragment.MenuAddFragment
@@ -28,6 +29,18 @@ class MenuActivity : AppCompatActivity() {
                 add(R.id.fl_menu, MenuAddFragment(), "Menu")
                 add(R.id.fl_menu, MenuAddFragment(), "Drink")
                 addToBackStack(null)
+
+                val menuFragment = fragmentManager.findFragmentByTag("Menu")
+                val bundle = Bundle()
+
+                bundle.putString("test","menu")
+                menuFragment?.arguments = bundle
+                Log.d("Fragment Test","Menu ${fragmentManager.fragments}")
+                if (menuFragment != null) {
+                    replace(R.id.fl_menu, menuFragment)
+                } else {
+                    add(R.id.fl_menu, MenuAddFragment(), "Menu")
+                }
             }
         }
 
@@ -42,33 +55,36 @@ class MenuActivity : AppCompatActivity() {
     private fun uiSetting() {
         toolbarSetting()
         fragmentSetting()
-
     }
 
     private fun fragmentSetting() {
         binding.menuBtn.setOnClickListener {
             val menuFragment = fragmentManager.findFragmentByTag("Menu")
             fragmentManager.commit {
-                var bundle = Bundle()
+                val bundle = Bundle()
 
-                bundle.putInt("test",1)
+                bundle.putString("test","menu")
                 menuFragment?.arguments = bundle
                 Log.d("Fragment Test","Menu ${fragmentManager.fragments}")
                 if (menuFragment != null) {
                     replace(R.id.fl_menu, menuFragment)
+                } else {
+                    add(R.id.fl_menu, MenuAddFragment(), "Menu")
                 }
             }
         }
         binding.drinkBtn.setOnClickListener {
             val drinkFragment = fragmentManager.findFragmentByTag("Drink")
             fragmentManager.commit {
-                var bundle = Bundle()
+                val bundle = Bundle()
 
-                bundle.putInt("test",2)
+                bundle.putString("test","drink")
                 drinkFragment?.arguments = bundle
                 Log.d("Fragment Test","drink ${fragmentManager.fragments}")
                 if (drinkFragment != null) {
                     replace(R.id.fl_menu, drinkFragment)
+                } else {
+                    add(R.id.fl_menu, MenuAddFragment(), "Drink")
                 }
             }
         }
