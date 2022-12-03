@@ -3,7 +3,6 @@ package com.oneandonly.inventationblock.ui.activity
 import android.R.style.*
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -121,10 +120,10 @@ class MenuAddActivity : AppCompatActivity() {
 
     private fun setDatePicker() {
 
-        val mcurrentTime = Calendar.getInstance()
-        val year = mcurrentTime.get(Calendar.YEAR)
-        val month = mcurrentTime.get(Calendar.MONTH)
-        val day = mcurrentTime.get(Calendar.DAY_OF_MONTH)
+        val mCurrentTime = Calendar.getInstance()
+        val year = mCurrentTime.get(Calendar.YEAR)
+        val month = mCurrentTime.get(Calendar.MONTH)
+        val day = mCurrentTime.get(Calendar.DAY_OF_MONTH)
 
         val datePicker = DatePickerDialog(this, R.style.DatePickerStyle, object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {

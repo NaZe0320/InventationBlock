@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="menu"
+            type="com.oneandonly.inventationblock.datasource.model.data.Menu" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="2dp"
+        android:background="@color/white"
+        android:elevation="2dp">
+
+        <TextView
+            android:id="@+id/list_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{menu.name}"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            tools:text="메뉴명">
+
+        </TextView>
+
+        <ImageButton
+            android:id="@+id/list_menu_click"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_press"
+            android:background="@android:color/transparent">
+
+        </ImageButton>
+
+
+    </RelativeLayout>
+</layout>
