@@ -25,21 +25,20 @@ class MenuActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             fragmentManager.commit {
-                setReorderingAllowed(true)
-                add(R.id.fl_menu, MenuAddFragment(), "Menu")
-                add(R.id.fl_menu, MenuAddFragment(), "Drink")
-                addToBackStack(null)
+                Log.d("Fragment Test","Menu start ${fragmentManager.fragments}")
+                if (fragmentManager.findFragmentByTag("Menu") != null) {
+                    val menuFragment = fragmentManager.findFragmentByTag("Menu")
+                    val bundle = Bundle()
+                    Log.d("Fragment Test","Menu not null")
 
-                val menuFragment = fragmentManager.findFragmentByTag("Menu")
-                val bundle = Bundle()
+                    bundle.putString("test","menu")
+                    menuFragment?.arguments = bundle
 
-                bundle.putString("test","menu")
-                menuFragment?.arguments = bundle
-                Log.d("Fragment Test","Menu ${fragmentManager.fragments}")
-                if (menuFragment != null) {
-                    replace(R.id.fl_menu, menuFragment)
+                    replace(R.id.fl_menu, menuFragment!!)
                 } else {
+                    Log.d("Fragment Test","Menu null")
                     add(R.id.fl_menu, MenuAddFragment(), "Menu")
+                    addToBackStack(null)
                 }
             }
         }
@@ -59,32 +58,38 @@ class MenuActivity : AppCompatActivity() {
 
     private fun fragmentSetting() {
         binding.menuBtn.setOnClickListener {
-            val menuFragment = fragmentManager.findFragmentByTag("Menu")
             fragmentManager.commit {
-                val bundle = Bundle()
+                Log.d("Fragment Test","Menu click ${fragmentManager.fragments}")
+                if (fragmentManager.findFragmentByTag("Menu") != null) {
+                    val menuFragment = fragmentManager.findFragmentByTag("Menu")
+                    val bundle = Bundle()
+                    Log.d("Fragment Test","Menu not null")
+                    bundle.putString("test","menu")
+                    menuFragment?.arguments = bundle
 
-                bundle.putString("test","menu")
-                menuFragment?.arguments = bundle
-                Log.d("Fragment Test","Menu ${fragmentManager.fragments}")
-                if (menuFragment != null) {
-                    replace(R.id.fl_menu, menuFragment)
+                    replace(R.id.fl_menu, menuFragment!!)
                 } else {
+                    Log.d("Fragment Test","Menu null")
                     add(R.id.fl_menu, MenuAddFragment(), "Menu")
+                    addToBackStack(null)
                 }
             }
         }
         binding.drinkBtn.setOnClickListener {
-            val drinkFragment = fragmentManager.findFragmentByTag("Drink")
             fragmentManager.commit {
-                val bundle = Bundle()
+                Log.d("Fragment Test","Drink Click ${fragmentManager.fragments}")
+                if (fragmentManager.findFragmentByTag("Drink") != null) {
+                    val menuFragment = fragmentManager.findFragmentByTag("Drink")
+                    val bundle = Bundle()
+                    Log.d("Fragment Test","Drink not null")
+                    bundle.putString("test","drink")
+                    menuFragment?.arguments = bundle
 
-                bundle.putString("test","drink")
-                drinkFragment?.arguments = bundle
-                Log.d("Fragment Test","drink ${fragmentManager.fragments}")
-                if (drinkFragment != null) {
-                    replace(R.id.fl_menu, drinkFragment)
+                    replace(R.id.fl_menu, menuFragment!!)
                 } else {
+                    Log.d("Fragment Test","drink null")
                     add(R.id.fl_menu, MenuAddFragment(), "Drink")
+                    addToBackStack(null)
                 }
             }
         }

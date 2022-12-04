@@ -32,7 +32,7 @@ class MenuAddFragment:ContainerFragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu, container, false)
         val view = binding.root
-        Log.d("Fragment Test","onCreateView")
+        //Log.d("Fragment Test","onCreateView")
         setRecyclerView()
 
         return view
@@ -40,7 +40,7 @@ class MenuAddFragment:ContainerFragment() {
 
     override fun onResume() {
         test = arguments?.getString("test").toString()
-        Log.d("Fragment Test", "Resume $test")
+        //Log.d("Fragment Test", "Resume $test")
         binding.test.text = test
         super.onResume()
     }
@@ -70,6 +70,7 @@ class MenuAddFragment:ContainerFragment() {
                 menuList.add(Menu(3,"환타",3,null))
             }
         }
+        //Log.d("Fragment Test","List : ${list.value}")
         list.value = menuList
     }
 
