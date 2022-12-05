@@ -24,6 +24,8 @@ class MenuActivity : AppCompatActivity() {
         binding.lifecycleOwner = this@MenuActivity
 
         changeFragment(MenuAddFragment(),"Menu")
+        binding.menuBtn.isSelected = true
+        binding.drinkBtn.isSelected = false
 
         setViewModel()
         uiSetting()
@@ -60,8 +62,11 @@ class MenuActivity : AppCompatActivity() {
                 if (fragment.isVisible && fragment.tag != "Menu") {
                     changeFragment(MenuAddFragment(),"Menu")
                     Log.d("Fragment Test","Menu Open")
+                    binding.menuBtn.isSelected = true
+                    binding.drinkBtn.isSelected = false
                 }
             }
+
         }
         binding.drinkBtn.setOnClickListener {
             /*fragmentManager.commit {
@@ -84,8 +89,11 @@ class MenuActivity : AppCompatActivity() {
                 if (fragment.isVisible && fragment.tag != "Drink") {
                     changeFragment(MenuAddFragment(),"Drink")
                     Log.d("Fragment Test","Drink Open")
+                    binding.menuBtn.isSelected = false
+                    binding.drinkBtn.isSelected = true
                 }
             }
+
         }
     }
 

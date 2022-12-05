@@ -29,18 +29,20 @@
             <TextView
                 android:id="@+id/menu_btn"
                 style="@style/MenuTextStyle"
-                android:backgroundTint="@color/primary_color"
+                android:backgroundTint="@color/button_background_color"
                 android:layout_alignParentStart="true"
                 android:text="주메뉴"
+                android:textColor="@color/text_selected"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/drink_btn"
                 style="@style/MenuTextStyle"
-                android:backgroundTint="@color/primary_color"
+                android:backgroundTint="@color/button_background_color"
                 android:layout_toEndOf="@id/menu_btn"
                 android:layout_marginStart="@dimen/layout_between_margin"
                 android:text="음료"
+                android:textColor="@color/text_selected"
                 android:textStyle="bold"/>
 
             <TextView
