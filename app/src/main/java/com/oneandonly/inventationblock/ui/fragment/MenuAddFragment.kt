@@ -23,7 +23,7 @@ class MenuAddFragment:ContainerFragment() {
 
     private lateinit var menuAdapter: MenuAddAdapter
 
-    private var test: String = ""
+    private var test: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,20 +33,27 @@ class MenuAddFragment:ContainerFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu, container, false)
         val view = binding.root
         //Log.d("Fragment Test","onCreateView")
-        setRecyclerView()
 
+        setRecyclerView()
         return view
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            test = it.getString("type")
+            setList()
+        }
+
+    }
+
     override fun onResume() {
-        test = arguments?.getString("test").toString()
         //Log.d("Fragment Test", "Resume $test")
-        binding.test.text = test
         super.onResume()
     }
 
     private fun setRecyclerView() {
-        setList() //TEST 코드
         menuAdapter = MenuAddAdapter(list)
 
         binding.menuList.layoutManager = LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL, false)
@@ -54,8 +61,9 @@ class MenuAddFragment:ContainerFragment() {
     }
 
     private fun setList() {
+        Log.d("Fragment Test","setList $test")
         when (test) {
-            "menu" -> {
+            "Menu" -> {
                 menuList.clear()
                 menuList.add(Menu(1,"돼지고기 김치찌개",1,null))
                 menuList.add(Menu(2,"돼지고기 김치찌",1,null))
@@ -63,15 +71,21 @@ class MenuAddFragment:ContainerFragment() {
                 menuList.add(Menu(4,"돼지고기 김",1,null))
                 menuList.add(Menu(5,"돼지고기 ",1,null))
             }
-            "drink" -> {
+            "Drink" -> {
                 menuList.clear()
                 menuList.add(Menu(1,"콜라",1,null))
                 menuList.add(Menu(2,"사이다",2,null))
                 menuList.add(Menu(3,"환타",3,null))
             }
         }
-        //Log.d("Fragment Test","List : ${list.value}")
+
         list.value = menuList
+        Log.d("Fragment Test","List : ${list.value}")
+    }
+
+    override fun onDetach() {
+        Log.d("Fragment Test","Detach $test")
+        super.onDetach()
     }
 
 }

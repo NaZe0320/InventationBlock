@@ -23,25 +23,7 @@ class MenuActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this@MenuActivity, R.layout.activity_menu)
         binding.lifecycleOwner = this@MenuActivity
 
-        if (savedInstanceState == null) {
-            fragmentManager.commit {
-                Log.d("Fragment Test","Menu start ${fragmentManager.fragments}")
-                if (fragmentManager.findFragmentByTag("Menu") != null) {
-                    val menuFragment = fragmentManager.findFragmentByTag("Menu")
-                    val bundle = Bundle()
-                    Log.d("Fragment Test","Menu not null")
-
-                    bundle.putString("test","menu")
-                    menuFragment?.arguments = bundle
-
-                    replace(R.id.fl_menu, menuFragment!!)
-                } else {
-                    Log.d("Fragment Test","Menu null")
-                    add(R.id.fl_menu, MenuAddFragment(), "Menu")
-                    addToBackStack(null)
-                }
-            }
-        }
+        changeFragment(MenuAddFragment(),"Menu")
 
         setViewModel()
         uiSetting()
@@ -58,7 +40,7 @@ class MenuActivity : AppCompatActivity() {
 
     private fun fragmentSetting() {
         binding.menuBtn.setOnClickListener {
-            fragmentManager.commit {
+            /*fragmentManager.commit {
                 Log.d("Fragment Test","Menu click ${fragmentManager.fragments}")
                 if (fragmentManager.findFragmentByTag("Menu") != null) {
                     val menuFragment = fragmentManager.findFragmentByTag("Menu")
@@ -73,10 +55,16 @@ class MenuActivity : AppCompatActivity() {
                     add(R.id.fl_menu, MenuAddFragment(), "Menu")
                     addToBackStack(null)
                 }
+            }*/
+            for (fragment: Fragment in supportFragmentManager.fragments) {
+                if (fragment.isVisible && fragment.tag != "Menu") {
+                    changeFragment(MenuAddFragment(),"Menu")
+                    Log.d("Fragment Test","Menu Open")
+                }
             }
         }
         binding.drinkBtn.setOnClickListener {
-            fragmentManager.commit {
+            /*fragmentManager.commit {
                 Log.d("Fragment Test","Drink Click ${fragmentManager.fragments}")
                 if (fragmentManager.findFragmentByTag("Drink") != null) {
                     val menuFragment = fragmentManager.findFragmentByTag("Drink")
@@ -90,6 +78,12 @@ class MenuActivity : AppCompatActivity() {
                     Log.d("Fragment Test","drink null")
                     add(R.id.fl_menu, MenuAddFragment(), "Drink")
                     addToBackStack(null)
+                }
+            }*/
+            for (fragment: Fragment in supportFragmentManager.fragments) {
+                if (fragment.isVisible && fragment.tag != "Drink") {
+                    changeFragment(MenuAddFragment(),"Drink")
+                    Log.d("Fragment Test","Drink Open")
                 }
             }
         }
@@ -108,6 +102,12 @@ class MenuActivity : AppCompatActivity() {
     }
 
     private fun changeFragment(fragment: Fragment, tag: String) {
+        val bundle = Bundle()
+        bundle.putString("type",tag)
+        fragment.arguments = bundle
 
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fl_menu, fragment, tag)
+        transaction.commit()
     }
 }
