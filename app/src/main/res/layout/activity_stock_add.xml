@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".ui.activity.MenuAddActivity">
+        tools:context=".ui.activity.StockAddActivity">
 
         <include
             android:id="@+id/menu_tool_bar"

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Adapter
 import android.widget.AdapterView
 import androidx.core.view.GravityCompat
 import androidx.core.view.isInvisible
@@ -169,7 +168,7 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
     private fun moveToMenuAdd() {
         Log.d("Main_Activity","moveToMenuAdd")
-        val intent = Intent(this, MenuAddActivity::class.java)
+        val intent = Intent(this, StockAddActivity::class.java)
         startActivity(intent)
     }
 

@@ -11,7 +11,7 @@ import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.oneandonly.inventationblock.R
-import com.oneandonly.inventationblock.databinding.ActivityMenuAddBinding
+import com.oneandonly.inventationblock.databinding.ActivityStockAddBinding
 import com.oneandonly.inventationblock.datasource.model.data.Search
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.dateToString
@@ -22,9 +22,9 @@ import com.oneandonly.inventationblock.viewmodel.factory.StockFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MenuAddActivity : AppCompatActivity() {
+class StockAddActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMenuAddBinding
+    private lateinit var binding: ActivityStockAddBinding
 
     private lateinit var stockViewModel: StockViewModel
 
@@ -35,7 +35,7 @@ class MenuAddActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_menu_add)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_stock_add)
 
         val date = dateToString(mCurrentTime.time)
 
@@ -47,7 +47,7 @@ class MenuAddActivity : AppCompatActivity() {
         val stockRepo = StockRepository()
 
         val stockViewModelFactory = StockFactory(stockRepo)
-        stockViewModel = ViewModelProvider(this@MenuAddActivity, stockViewModelFactory)[StockViewModel::class.java]
+        stockViewModel = ViewModelProvider(this@StockAddActivity, stockViewModelFactory)[StockViewModel::class.java]
     }
 
     private fun uiSetting(date: String) {
@@ -84,7 +84,7 @@ class MenuAddActivity : AppCompatActivity() {
             .setMessage("등록이 완료되었습니다")
             .setPositiveButton("홈으로 이동하기") { p0, p1 ->
                 Log.d("dialog", "positive $p0 $p1")
-                val intent = Intent(this@MenuAddActivity, MainActivity::class.java)
+                val intent = Intent(this@StockAddActivity, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }

@@ -20,7 +20,7 @@
         android:windowSoftInputMode="stateAlwaysHidden"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activity.MenuAddActivity"
+            android:name=".ui.activity.StockAddActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
