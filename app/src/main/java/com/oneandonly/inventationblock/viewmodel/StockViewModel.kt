@@ -73,7 +73,7 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
             viewModelScope.launch {
                 val response = repo.getList(tokens, orderBy)
 
-                Log.d("Response Test", "${response.body()?.response?.get(0)}")
+                Log.d("Response Test", "${response.body()?.response}")
                 responseToStock(response) //데이터 변환
                 setSearchList(response) // 검색 리스트 생성
             }

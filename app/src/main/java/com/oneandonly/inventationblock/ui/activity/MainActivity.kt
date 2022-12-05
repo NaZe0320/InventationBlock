@@ -8,6 +8,8 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Adapter
+import android.widget.AdapterView
 import androidx.core.view.GravityCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -177,6 +179,7 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
         stockListSetting(stockViewModel)
         searchEditSetting()
         fabSetting()
+        spinnerSetting()
     }
 
     private fun drawerSetting() {
@@ -198,6 +201,21 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
             }
             binding.mainDrawer.closeDrawers()
             return@setNavigationItemSelectedListener false
+        }
+    }
+
+    private fun spinnerSetting() {
+        binding.mainListAlign.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    stockViewModel.getStockList(position)
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                //TODO("Not yet implemented")
+            }
+
         }
     }
 
@@ -264,7 +282,6 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
             } else {
                 changeStateSearch(false)
             }
-
         }
     }
 

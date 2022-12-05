@@ -1,5 +1,6 @@
 package com.oneandonly.inventationblock.datasource.model.repository
 
+import android.util.Log
 import com.oneandonly.inventationblock.datasource.model.data.StockModel
 import com.oneandonly.inventationblock.datasource.model.retrofit.RetrofitBuilder
 import retrofit2.Response
@@ -8,6 +9,7 @@ import java.util.Date
 class StockRepository {
 
     suspend fun getList(token: String?, orderBy: Int?) : Response<StockModel> {
+        Log.d("Response Test","$orderBy")
         return RetrofitBuilder.stockAPI.getList(token,orderBy)
     }
 
