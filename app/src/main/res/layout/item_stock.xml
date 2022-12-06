@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:background="@color/white"
+        android:background="@color/item_select_background_color"
         android:elevation="2dp"
         android:layout_margin="4dp">
 

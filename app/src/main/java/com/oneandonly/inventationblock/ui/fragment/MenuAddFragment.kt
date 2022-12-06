@@ -20,6 +20,6 @@ class MenuAddFragment: ContainerFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu_add, container, false)
         val view = binding.root
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return view
     }
 }
