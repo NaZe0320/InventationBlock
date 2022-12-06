@@ -6,7 +6,7 @@
     <data>
         <variable
             name="date"
-            type="com.oneandonly.inventationblock.ui.fragment.MenuAddFragment" />
+            type="com.oneandonly.inventationblock.ui.fragment.MenuListFragment" />
     </data>
 
     <RelativeLayout

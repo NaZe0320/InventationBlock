@@ -17,54 +17,14 @@
             android:id="@+id/menu_tool_bar"
             layout="@layout/item_tool_bar"/>
 
-        <RelativeLayout
-            android:id="@+id/table"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/menu_tool_bar"
-            android:layout_marginTop="@dimen/layout_margin"
-            android:layout_marginStart="@dimen/layout_margin"
-            android:layout_marginEnd="@dimen/layout_margin">
-
-            <TextView
-                android:id="@+id/menu_btn"
-                style="@style/MenuTextStyle"
-                android:backgroundTint="@color/button_background_color"
-                android:layout_alignParentStart="true"
-                android:text="주메뉴"
-                android:textColor="@color/text_selected"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/drink_btn"
-                style="@style/MenuTextStyle"
-                android:backgroundTint="@color/button_background_color"
-                android:layout_toEndOf="@id/menu_btn"
-                android:layout_marginStart="@dimen/layout_between_margin"
-                android:text="음료"
-                android:textColor="@color/text_selected"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/menu_add_btn"
-                style="@style/RedButtonStyle"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="@dimen/layout_between_margin"
-                android:text="메뉴 직접 추가하기"/>
-        </RelativeLayout>
-
         <FrameLayout
             android:id="@+id/fl_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/table"
+            android:layout_below="@+id/menu_tool_bar"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/layout_margin"
-            android:layout_marginTop="@dimen/layout_margin"
-            android:layout_marginEnd="@dimen/layout_margin"
-            android:layout_marginBottom="@dimen/layout_margin" />
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
 </layout>
