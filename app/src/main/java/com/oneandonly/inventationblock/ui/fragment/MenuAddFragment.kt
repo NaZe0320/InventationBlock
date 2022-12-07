@@ -22,6 +22,18 @@ class MenuAddFragment: ContainerFragment(){
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu_add, container, false)
         val view = binding.root
 
+        arguments?.let {
+            Log.d("MenuAddFragment", "1 ${it.getString("name")}")
+            binding.editMenuName.setText(it.getString("name").toString())
+        }
+
         return view
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            Log.d("MenuAddFragment", "2 ${it.getString("name")}")
+        }
     }
 }

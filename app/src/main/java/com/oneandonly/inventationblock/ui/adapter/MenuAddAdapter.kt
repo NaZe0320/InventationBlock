@@ -1,6 +1,7 @@
 package com.oneandonly.inventationblock.ui.adapter
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,10 @@ class MenuAddAdapter(private val items: LiveData<ArrayList<Menu>>, private val f
         holder.itemView.setOnClickListener {
             val fragment: Fragment = MenuAddFragment()
             val bundle = Bundle()
+
+            bundle.putString("name",items.value?.get(position)?.name)
+            Log.d("MenuAddFragment","${items.value?.get(position)?.name}")
+            fragment.arguments = bundle
 
             activity = fragment_s.activity as MenuActivity?
             activity?.changeFragment(fragment,"MenuAdd")
