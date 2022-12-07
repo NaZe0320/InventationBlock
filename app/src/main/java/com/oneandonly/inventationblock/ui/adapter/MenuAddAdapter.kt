@@ -1,15 +1,22 @@
 package com.oneandonly.inventationblock.ui.adapter
 
-import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.oneandonly.inventationblock.databinding.ItemMenuAddBinding
 import com.oneandonly.inventationblock.databinding.ItemMenuBinding
 import com.oneandonly.inventationblock.datasource.model.data.Menu
+import com.oneandonly.inventationblock.ui.activity.MenuActivity
+import com.oneandonly.inventationblock.ui.fragment.MenuAddFragment
+import com.oneandonly.inventationblock.ui.fragment.MenuListFragment
 
-class MenuAddAdapter(private val items: LiveData<ArrayList<Menu>>):RecyclerView.Adapter<MenuAddAdapter.MenuViewHolder>() {
+class MenuAddAdapter(private val items: LiveData<ArrayList<Menu>>, private val fragment_s: Fragment):RecyclerView.Adapter<MenuAddAdapter.MenuViewHolder>() {
+
+    private var activity: MenuActivity?= null
 
     inner class MenuViewHolder(private val binding: ItemMenuAddBinding): RecyclerView.ViewHolder(binding.root) {
         val context = binding.root.context!!
@@ -28,7 +35,11 @@ class MenuAddAdapter(private val items: LiveData<ArrayList<Menu>>):RecyclerView.
             holder.bind(it)
         }
         holder.itemView.setOnClickListener {
-            //val itemIntent = Intent(holder.context, ) //TODO(메뉴 레시피 화면 이동)
+            val fragment: Fragment = MenuAddFragment()
+            val bundle = Bundle()
+
+            activity = fragment_s.activity as MenuActivity?
+            activity?.changeFragment(fragment,"MenuAdd")
         }
     }
 

@@ -127,9 +127,6 @@ class StockActivity : AppCompatActivity() {
         }
     }
 
-
-
-
     private fun historyListObserver() {
         val observer: Observer<ArrayList<History>> = Observer {
             val adapter = HistoryAdapter(stockViewModel.historyList)
@@ -137,6 +134,7 @@ class StockActivity : AppCompatActivity() {
         }
         stockViewModel.historyList.observe(this,observer)
     }
+
     private fun menuListSetting() {
 
     }

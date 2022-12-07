@@ -407,7 +407,7 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
             when (it) {
                 State.Success -> {
                     resetList()
-                    Log.d("ToggleClick","Sucess")
+                    Log.d("ToggleClick","Success")
                 }
                 State.Fail -> {
                     Log.d("ToggleClick",".Fail")

@@ -39,7 +39,7 @@ class MenuFragment: ContainerFragment() {
     private fun menuAddSetting() {
         binding.menuAddBtn.setOnClickListener {
             Log.d("Fragment Test","menuAdd")
-            parentFragmentManager.beginTransaction().replace(R.id.fl_menu, MenuAddFragment(),"MenuAdd").commit()
+            parentFragmentManager.beginTransaction().replace(R.id.fl_menu_menu, MenuAddFragment(),"MenuAdd").commit()
         }
     }
 

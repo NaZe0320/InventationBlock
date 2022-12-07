@@ -55,9 +55,9 @@ class MenuActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeFragment(fragment: Fragment, tag: String) {
+    fun changeFragment(fragment: Fragment, tag: String) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fl_menu, fragment, tag)
+        transaction.replace(R.id.fl_menu_menu, fragment, tag)
         transaction.commit()
     }
 }

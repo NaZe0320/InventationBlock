@@ -1,14 +1,16 @@
 package com.oneandonly.inventationblock.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.FragmentMenuAddBinding
+import com.oneandonly.inventationblock.ui.adapter.MenuAddAdapter
 
-class MenuAddFragment: ContainerFragment() {
+class MenuAddFragment: ContainerFragment(){
 
     private lateinit var binding: FragmentMenuAddBinding
 

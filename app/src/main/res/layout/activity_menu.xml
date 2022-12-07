@@ -18,7 +18,7 @@
             layout="@layout/item_tool_bar"/>
 
         <FrameLayout
-            android:id="@+id/fl_menu"
+            android:id="@+id/fl_menu_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/menu_tool_bar"

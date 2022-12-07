@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.FragmentMenuListBinding
 import com.oneandonly.inventationblock.datasource.model.data.Menu
+import com.oneandonly.inventationblock.ui.activity.MenuActivity
 import com.oneandonly.inventationblock.ui.adapter.MenuAddAdapter
 
 class MenuListFragment:ContainerFragment() {
@@ -54,7 +56,7 @@ class MenuListFragment:ContainerFragment() {
     }
 
     private fun setRecyclerView() {
-        menuAdapter = MenuAddAdapter(list)
+        menuAdapter = MenuAddAdapter(list, this)
 
         binding.menuList.layoutManager = LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL, false)
         binding.menuList.adapter = menuAdapter
@@ -87,5 +89,4 @@ class MenuListFragment:ContainerFragment() {
         Log.d("Fragment Test","Detach $test")
         super.onDetach()
     }
-
 }
