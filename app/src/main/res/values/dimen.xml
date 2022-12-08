@@ -32,4 +32,6 @@
     <dimen name="fab_between_margin">16dp</dimen>
     <dimen name="fab_text_margin">8dp</dimen>
 
+    <dimen name="menu_add_height">40dp</dimen>
+
 </resources>

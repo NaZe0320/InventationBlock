@@ -9,11 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.oneandonly.inventationblock.databinding.ItemMenuAddBinding
-import com.oneandonly.inventationblock.databinding.ItemMenuBinding
 import com.oneandonly.inventationblock.datasource.model.data.Menu
 import com.oneandonly.inventationblock.ui.activity.MenuActivity
-import com.oneandonly.inventationblock.ui.fragment.MenuAddFragment
-import com.oneandonly.inventationblock.ui.fragment.MenuListFragment
+import com.oneandonly.inventationblock.ui.fragment.MenuModifyFragment
 
 class MenuAddAdapter(private val items: LiveData<ArrayList<Menu>>, private val fragment_s: Fragment):RecyclerView.Adapter<MenuAddAdapter.MenuViewHolder>() {
 
@@ -36,15 +34,17 @@ class MenuAddAdapter(private val items: LiveData<ArrayList<Menu>>, private val f
             holder.bind(it)
         }
         holder.itemView.setOnClickListener {
-            val fragment: Fragment = MenuAddFragment()
+            val fragment: Fragment = MenuModifyFragment()
             val bundle = Bundle()
 
             bundle.putString("name",items.value?.get(position)?.name)
-            Log.d("MenuAddFragment","${items.value?.get(position)?.name}")
+            Log.d("MenuModifyFragment","${items.value?.get(position)?.name}")
             fragment.arguments = bundle
 
             activity = fragment_s.activity as MenuActivity?
-            activity?.changeFragment(fragment,"MenuAdd")
+            activity?.changeFragment(fragment,"MenuModify")
+            activity?.changeToolBar(items.value?.get(position)?.name?:"메뉴 별 재고 설정")
+
         }
     }
 

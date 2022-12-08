@@ -48,8 +48,9 @@ class MenuActivity : AppCompatActivity() {
                 "Menu" -> {
                     finish()
                 }
-                "MenuAdd" -> {
+                "MenuAdd", "MenuModify" -> {
                     changeFragment(MenuFragment(),"Menu")
+                    changeToolBar("메뉴 별 재고 설정")
                 }
             }
         }
@@ -59,5 +60,9 @@ class MenuActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fl_menu_menu, fragment, tag)
         transaction.commit()
+    }
+
+    fun changeToolBar(name: String) {
+        binding.menuToolBar.toolBarTitle.text = name
     }
 }

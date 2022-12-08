@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:text="* 메뉴를 직접 추가하는 페이지입니다."/>
+            android:text="* 메뉴별 레시피를 입력/확인하는 화면입니다."/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,26 +26,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_menu_name"
-                style="@style/MenuTextStyle"
-                android:backgroundTint="@color/primary_color"
-                android:text="메뉴 이름 입력"
-                android:layout_marginTop="20dp"/>
-
-            <EditText
-                android:id="@+id/edit_menu_name"
-                android:background="@drawable/bg_edit"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/menu_add_height"
-                android:layout_below="@id/text_menu_name"
-                android:layout_marginTop="@dimen/layout_between_margin"/>
-
-            <TextView
                 android:id="@+id/text_minimum"
                 style="@style/MenuTextStyle"
                 android:backgroundTint="@color/primary_color"
                 android:text="최소 판매 희망 건수"
-                android:layout_below="@id/edit_menu_name"
                 android:layout_marginTop="20dp"/>
 
             <EditText
