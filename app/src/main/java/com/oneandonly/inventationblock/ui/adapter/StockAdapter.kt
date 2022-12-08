@@ -40,7 +40,6 @@ class StockAdapter(private val items: LiveData<ArrayList<Stock>>, private val st
             Log.d("onClick","${holder.btnPin.isSelected}")
             stockViewModel.setToggle(items.value?.get(position)?.sid?:0)
             onClick.onClick()
-            //TODO(보류 - 변경 하면 서버에 요청보내고 리스트 초기화 시켜야 함)
         }
         holder.itemView.setOnClickListener {
             val itemIntent = Intent(holder.context, StockActivity::class.java)
@@ -53,6 +52,8 @@ class StockAdapter(private val items: LiveData<ArrayList<Stock>>, private val st
             itemIntent.run { holder.context.startActivity(this)}
             Log.d("Stock_Adapter","화면 이동 ${items.value?.get(position)?.name}")
         }
+        holder.binding.stockBar.isClickable = false
+        holder.binding.stockBar.isEnabled = false
 
     }
 
