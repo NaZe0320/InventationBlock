@@ -24,7 +24,7 @@
             android:paddingEnd="8dp"
             android:weightSum="22">
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -32,7 +32,9 @@
                 android:text="@={recipe.stockName}"
                 android:hint="식자재명"
                 android:inputType="text"
-                android:background="@android:color/transparent" />
+                android:textSize="@dimen/edittext_text_size"
+                android:background="@android:color/transparent"
+                android:nextFocusForward="@id/amount"/>
 
             <View
                 android:layout_width="0.7dp"
@@ -49,7 +51,8 @@
                 android:text="@={recipe.stockAmount}"
                 android:hint="식자재량"
                 android:inputType="number"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:nextFocusDown="@id/unit"/>
 
             <View
                 android:layout_width="0.7dp"
@@ -66,7 +69,8 @@
                 android:text="@={recipe.stockUnit}"
                 android:hint="단위"
                 android:inputType="text"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                />
 
         </LinearLayout>
 

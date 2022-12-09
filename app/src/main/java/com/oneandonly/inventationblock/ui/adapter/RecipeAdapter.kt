@@ -1,6 +1,11 @@
 package com.oneandonly.inventationblock.ui.adapter
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.util.Log
+import android.view.KeyEvent
+import android.view.KeyEvent.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
@@ -13,8 +18,11 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ItemRecipeBinding
 import com.oneandonly.inventationblock.datasource.model.data.Recipe
+import com.oneandonly.inventationblock.datasource.model.data.Search
+import com.oneandonly.inventationblock.makeToast
+import com.oneandonly.inventationblock.ui.activity.MainActivity.Companion.searchList
 
-class RecipeAdapter(private val recipeList: ArrayList<Recipe>): RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+class RecipeAdapter(private val recipeList: ArrayList<Recipe>, private val context: Context): RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     class RecipeViewHolder(val binding: ItemRecipeBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(recipe: Recipe) {
@@ -63,9 +71,62 @@ class RecipeAdapter(private val recipeList: ArrayList<Recipe>): RecyclerView.Ada
         }
 
         holder.itemView.setOnClickListener { setSelection(position) }
+        holder.binding.sticker.setOnLongClickListener {
+            val builder = AlertDialog.Builder(context, R.style.AlertDialogStyle)
+            builder.setTitle("삭제하시겠습니까?")
+                .setMessage("삭제하려면 확인을 눌러주세요")
+                .setPositiveButton("확인",
+                DialogInterface.OnClickListener { _, i ->
+                    Log.d("Recipe Test", "position $position")
+                    recipeList.removeAt(position)
+                    notifyDataSetChanged()
+                })
+                .setNegativeButton("취소", null)
 
-        holder.binding.sticker.setOnClickListener { setSelection(position) }
-        Log.d("Selection Test","${holder.binding.name.onFocusChangeListener}")
+            builder.show()
+            return@setOnLongClickListener(true)
+        }
+
+        holder.binding.sticker.setOnClickListener {
+            setSelection(position)
+        }
+
+/*        holder.binding.name.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                if (holder.binding.name.text != null && holder.binding.amount.text != null && holder.binding.unit.text != null)
+                    setSelection(-1)
+
+            }
+        }
+
+        holder.binding.amount.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                if (holder.binding.name.text != null && holder.binding.amount.text != null && holder.binding.unit.text != null)
+                    setSelection(-1)
+            }
+        }*/
+
+        holder.binding.unit.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                if (holder.binding.name.text != null && holder.binding.amount.text != null && holder.binding.unit.text != null)
+                    setSelection(-1)
+            }
+        }
+
+        val adapter = SearchDropDownAdapter(context, R.layout.item_dropdown2, searchList)
+        holder.binding.run {
+            name.setAdapter(adapter)
+            name.threshold = 1
+            name.setOnItemClickListener { adapterView, view, i, l ->
+                val selected = adapterView.adapter.getItem(i) as Search
+                name.setText(selected.name)
+                unit.setText(selected.unit)
+                unit.isFocusable = false
+                amount.requestFocus()
+            }
+        }
+
+
     }
 
     private fun setSelection(position: Int) {

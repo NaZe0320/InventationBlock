@@ -19,7 +19,6 @@ class MenuAddFragment: ContainerFragment(){
     private lateinit var recipeAdapter: RecipeAdapter
     private val recipeList: ArrayList<Recipe> = ArrayList()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,15 +45,8 @@ class MenuAddFragment: ContainerFragment(){
         return view
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            Log.d("MenuAddFragment", "2 ${it.getString("name")}")
-        }
-    }
-
     private fun setAdapter() {
-        recipeAdapter = RecipeAdapter(recipeList)
+        recipeAdapter = RecipeAdapter(recipeList, requireContext())
         binding.recipeList.apply {
             layoutManager = LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL, false)
             adapter = recipeAdapter
