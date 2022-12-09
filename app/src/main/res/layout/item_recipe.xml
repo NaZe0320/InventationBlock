@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="recipe"
+            type="com.oneandonly.inventationblock.datasource.model.data.Recipe" />
+    </data>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp">
+
+        <LinearLayout
+            android:id="@+id/item_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_primary_stroke_tv"
+            android:orientation="horizontal"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:weightSum="22">
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:text="@={recipe.stockName}"
+                android:hint="식자재명"
+                android:inputType="text"
+                android:background="@android:color/transparent" />
+
+            <View
+                android:layout_width="0.7dp"
+                android:layout_height="match_parent"
+                android:background="#D9D9D9"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/amount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:text="@={recipe.stockAmount}"
+                android:hint="식자재량"
+                android:inputType="number"
+                android:background="@android:color/transparent" />
+
+            <View
+                android:layout_width="0.7dp"
+                android:layout_height="match_parent"
+                android:background="#D9D9D9"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/unit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:text="@={recipe.stockUnit}"
+                android:hint="단위"
+                android:inputType="text"
+                android:background="@android:color/transparent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sticker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:backgroundTint="@android:color/transparent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+    </LinearLayout>
+    </RelativeLayout>
+
+
+</layout>
