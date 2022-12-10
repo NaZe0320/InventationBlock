@@ -60,7 +60,6 @@ class MenuAddFragment: ContainerFragment(){
 
 
     private fun setRecipe() {
-        Log.d("<RESULT>", "?")
         val element: ArrayList<RecipeElement> = ArrayList()
         recipeList.forEachIndexed { index, recipe ->
             val stockAmount: Int = if (recipe.stockAmount.isEmpty()) {

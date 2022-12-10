@@ -67,11 +67,6 @@ class MenuListFragment:ContainerFragment() {
         when (test) {
             "Menu" -> {
                 menuList.clear()
-                menuList.add(Menu(1,"돼지고기 김치찌개",1,null))
-                menuList.add(Menu(2,"돼지고기 김치찌",1,null))
-                menuList.add(Menu(3,"돼지고기 김치",1,null))
-                menuList.add(Menu(4,"돼지고기 김",1,null))
-                menuList.add(Menu(5,"돼지고기 ",1,null))
             }
             "Drink" -> {
                 menuList.clear()
