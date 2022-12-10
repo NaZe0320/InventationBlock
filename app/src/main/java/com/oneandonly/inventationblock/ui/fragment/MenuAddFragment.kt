@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.FragmentMenuAddBinding
 import com.oneandonly.inventationblock.datasource.model.data.Recipe
-import com.oneandonly.inventationblock.ui.adapter.MenuAddAdapter
 import com.oneandonly.inventationblock.ui.adapter.RecipeAdapter
 
 class MenuAddFragment: ContainerFragment(){

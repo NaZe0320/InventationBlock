@@ -5,13 +5,20 @@ import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ActivityMenuBinding
+import com.oneandonly.inventationblock.datasource.model.repository.RecipeRepository
+import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.ui.fragment.MenuFragment
+import com.oneandonly.inventationblock.viewmodel.RecipeViewModel
+import com.oneandonly.inventationblock.viewmodel.factory.RecipeFactory
 
 class MenuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMenuBinding
+
+    private lateinit var recipeViewModel: RecipeViewModel
 
     private val fragmentManager = supportFragmentManager
 
@@ -26,7 +33,10 @@ class MenuActivity : AppCompatActivity() {
     }
 
     private fun setViewModel() {
+        val recipeRepo = RecipeRepository()
 
+        val recipeViewModelFactory = RecipeFactory(recipeRepo)
+        recipeViewModel = ViewModelProvider(this@MenuActivity, recipeViewModelFactory)[RecipeViewModel::class.java]
     }
 
     private fun uiSetting() {

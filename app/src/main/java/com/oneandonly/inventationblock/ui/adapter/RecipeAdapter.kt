@@ -1,22 +1,14 @@
 package com.oneandonly.inventationblock.ui.adapter
 
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ItemRecipeBinding
 import com.oneandonly.inventationblock.datasource.model.data.Recipe
-import com.oneandonly.inventationblock.datasource.model.data.Search
-import com.oneandonly.inventationblock.ui.activity.MainActivity.Companion.searchList
 import com.oneandonly.inventationblock.viewmodel.StockViewModel.Companion.searchStock
-import com.oneandonly.inventationblock.viewmodel.StockViewModel.Companion.searchStockList
 
 class RecipeAdapter(private val recipeList: ArrayList<Recipe>, private val context: Context): RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 

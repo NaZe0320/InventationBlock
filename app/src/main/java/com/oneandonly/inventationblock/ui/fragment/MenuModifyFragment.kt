@@ -6,19 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oneandonly.inventationblock.R
-import com.oneandonly.inventationblock.databinding.FragmentMenuAddBinding
 import com.oneandonly.inventationblock.databinding.FragmentMenuModifyBinding
 import com.oneandonly.inventationblock.datasource.model.data.Recipe
-import com.oneandonly.inventationblock.ui.adapter.MenuAddAdapter
 import com.oneandonly.inventationblock.ui.adapter.RecipeAdapter
+import com.oneandonly.inventationblock.viewmodel.RecipeViewModel
 
 class MenuModifyFragment: ContainerFragment(){
 
     private lateinit var binding: FragmentMenuModifyBinding
     private lateinit var recipeAdapter: RecipeAdapter
-    private val recipeList: ArrayList<Recipe> = ArrayList()
+    private var recipeList: ArrayList<Recipe> = ArrayList()
+
+    private lateinit var recipeViewModel: RecipeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,16 +32,22 @@ class MenuModifyFragment: ContainerFragment(){
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu_modify, container, false)
         val view = binding.root
 
+        setViewModel()
+
+        getList()
+        setObserver()
+
         arguments?.let {
             Log.d("MenuAddFragment", "1 ${it.getString("name")}")
         }
-        setAdapter()
+
 
         binding.enrollBtn.setOnClickListener {
 
         }
 
         binding.listAddBtn.setOnClickListener {
+
             recipeList.add(Recipe())
             recipeAdapter.notifyItemInserted(recipeList.size - 1)
         }
@@ -45,12 +55,37 @@ class MenuModifyFragment: ContainerFragment(){
         return view
     }
 
-    private fun setAdapter() {
-        recipeAdapter = RecipeAdapter(recipeList, requireContext())
-        binding.recipeList.apply {
-            layoutManager = LinearLayoutManager(requireActivity(),
-                LinearLayoutManager.VERTICAL, false)
-            adapter = recipeAdapter
+    private fun setViewModel() {
+        recipeViewModel = ViewModelProvider(requireActivity())[RecipeViewModel::class.java]
+    }
+
+    private fun getList() {
+        recipeViewModel.getRecipeList()
+    }
+
+    private fun setObserver() {
+        observeRecipeList()
+    }
+
+    private fun observeRecipeList() {
+        val recipeObserver: Observer<ArrayList<Recipe>> = Observer {
+
+            liveDataToList(recipeViewModel.recipeList)
+
+            recipeAdapter = RecipeAdapter(recipeList, requireContext())
+
+            binding.recipeList.apply {
+                layoutManager = LinearLayoutManager(requireActivity(),
+                    LinearLayoutManager.VERTICAL, false)
+                adapter = recipeAdapter
+            }
+        }
+        recipeViewModel.recipeList.observe(requireActivity(), recipeObserver)
+    }
+
+    private fun liveDataToList(list: LiveData<ArrayList<Recipe>>) {
+        for ( i in list.value!!) {
+            recipeList.add(Recipe(i.stockName,i.stockAmount,i.stockUnit))
         }
     }
 }

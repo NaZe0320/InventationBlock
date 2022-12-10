@@ -42,6 +42,12 @@ data class RecipeModel(
     var response: List<RecipeResponse?>
 )
 
+data class RecipeElement(
+    var name: String?,
+    var amount: Int?,
+    var unit: String?
+)
+
 data class RecipeResponse(
     var sid: Int?
 )

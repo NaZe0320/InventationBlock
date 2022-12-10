@@ -7,12 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.FragmentMenuBinding
+import com.oneandonly.inventationblock.viewmodel.RecipeViewModel
 
 class MenuFragment: ContainerFragment() {
 
     private lateinit var binding: FragmentMenuBinding
+
+    private lateinit var recipeViewModel: RecipeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,12 +33,18 @@ class MenuFragment: ContainerFragment() {
         binding.drinkBtn.isSelected = false
         fragmentSetting()
         menuAddSetting()
+        setViewModel()
         return view
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
+    private fun setViewModel() {
+        recipeViewModel = ViewModelProvider(requireActivity())[RecipeViewModel::class.java]
+    }
+
 
     private fun menuAddSetting() {
         binding.menuAddBtn.setOnClickListener {
@@ -62,6 +72,7 @@ class MenuFragment: ContainerFragment() {
                     addToBackStack(null)
                 }
             }*/
+
             for (fragment: Fragment in childFragmentManager.fragments) {
                 if (fragment.isVisible && fragment.tag != "Menu") {
                     changeFragment(MenuListFragment(),"Menu")
