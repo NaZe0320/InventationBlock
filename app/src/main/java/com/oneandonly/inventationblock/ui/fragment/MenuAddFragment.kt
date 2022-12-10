@@ -63,12 +63,15 @@ class MenuAddFragment: ContainerFragment(){
         Log.d("<RESULT>", "?")
         val element: ArrayList<RecipeElement> = ArrayList()
         recipeList.forEachIndexed { index, recipe ->
-            element.add(RecipeElement(recipe.stockName, recipe.stockAmount, recipe.stockUnit))
+            val stockAmount: Int = if (recipe.stockAmount.isEmpty()) {
+                0
+            } else {
+                recipe.stockAmount.toInt()
+            }
+            element.add(RecipeElement(recipe.stockName, stockAmount, recipe.stockUnit))
             Log.d("<RESULT>","$element")
         }
-
-
-        //recipeViewModel.setRecipeList(binding.editMenuName.text.toString(), binding.editMinimum.text.toString(), element )
+        recipeViewModel.setRecipeList(binding.editMenuName.text.toString(), binding.editMinimum.text.toString().toInt(), element )
     }
 
 

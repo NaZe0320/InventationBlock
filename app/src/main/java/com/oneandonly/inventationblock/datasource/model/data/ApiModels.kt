@@ -44,7 +44,7 @@ data class RecipeModel(
 
 data class RecipeElement(
     var name: String = "",
-    var amount: String ="",
+    var amount:Int =0,
     var unit: String =""
 )
 

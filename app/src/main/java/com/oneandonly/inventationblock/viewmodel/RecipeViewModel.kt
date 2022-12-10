@@ -42,10 +42,10 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
         }*/
     }
 
-    fun setRecipeList(name: String, leastSell: String?, element: ArrayList<RecipeElement> ) {
+    fun setRecipeList(name: String, leastSell: Int, element: ArrayList<RecipeElement> ) {
         try {
             viewModelScope.launch {
-                val response = repo.setRecipeList(tokens, name, leastSell.toString(), element)
+                val response = repo.setRecipeList(name, leastSell, element)
                 when (response.code()) {
                     200 -> {
                         Log.d("setRecipe","400 ${response.message()}")
