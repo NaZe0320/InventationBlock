@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ActivityMenuBinding
+import com.oneandonly.inventationblock.datasource.model.data.State
 import com.oneandonly.inventationblock.datasource.model.repository.RecipeRepository
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.ui.fragment.MenuFragment
+import com.oneandonly.inventationblock.ui.fragment.MenuListFragment
 import com.oneandonly.inventationblock.viewmodel.RecipeViewModel
 import com.oneandonly.inventationblock.viewmodel.factory.RecipeFactory
 
@@ -42,7 +44,6 @@ class MenuActivity : AppCompatActivity() {
     private fun uiSetting() {
         toolbarSetting()
     }
-
 
 
     private fun toolbarSetting() {

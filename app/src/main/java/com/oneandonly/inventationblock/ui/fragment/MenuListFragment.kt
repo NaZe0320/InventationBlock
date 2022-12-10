@@ -67,6 +67,7 @@ class MenuListFragment:ContainerFragment() {
         when (test) {
             "Menu" -> {
                 menuList.clear()
+
             }
             "Drink" -> {
                 menuList.clear()
