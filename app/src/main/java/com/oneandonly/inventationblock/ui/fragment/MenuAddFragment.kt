@@ -59,7 +59,6 @@ class MenuAddFragment: ContainerFragment(){
                         Log.d("Recipe Enroll",".Fail")
                         requireActivity().makeToast("등록에 실패했습니다")
                         binding.enrollBtn.isEnabled = true
-
                     }
                     State.Loading -> {
                         Log.d("Recipe Enroll","Loading")

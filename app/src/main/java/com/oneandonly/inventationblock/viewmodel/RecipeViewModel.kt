@@ -6,10 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oneandonly.inventationblock.Constants.tokens
-import com.oneandonly.inventationblock.datasource.model.data.Recipe
-import com.oneandonly.inventationblock.datasource.model.data.RecipeElement
-import com.oneandonly.inventationblock.datasource.model.data.Search
-import com.oneandonly.inventationblock.datasource.model.data.State
+import com.oneandonly.inventationblock.datasource.model.data.*
 import com.oneandonly.inventationblock.datasource.model.repository.RecipeRepository
 import kotlinx.coroutines.launch
 
@@ -18,8 +15,8 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
     private val _recipeList = MutableLiveData<ArrayList<RecipeElement>>()
     val recipeList: LiveData<ArrayList<RecipeElement>> get() = _recipeList
 
-    private val _menuList = MutableLiveData<ArrayList<String>>()
-    val menuList: LiveData<ArrayList<String>> get() = _menuList
+    private val _menuList = MutableLiveData<ArrayList<Menu>>()
+    val menuList: LiveData<ArrayList<Menu>> get() = _menuList
 
     val ing : MutableLiveData<State> = MutableLiveData()
 
@@ -27,7 +24,7 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
         try {
             viewModelScope.launch {
                 val response = repo.getRecipeList()
-                val menuItem: ArrayList<String> = ArrayList()
+                val menuItem: ArrayList<Menu> = ArrayList()
 
                 when (response.code()) {
                     200 -> {
@@ -36,9 +33,8 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
                             for (i in 0 until response.body()?.response?.size!!) {
                                 response.body()?.response?.get(i).let {
                                     it!!
-                                    menuItem.add(it.name.toString())
+                                    menuItem.add(Menu(it.rid?:0,it.name.toString(),null,null))
                                 }
-
                             }
                         } else {
                             Log.d("getRecipe","${response.errorBody()}")

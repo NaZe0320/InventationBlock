@@ -79,10 +79,10 @@ class MenuListFragment(val type: String):ContainerFragment() {
         when (type) {
             "Menu" -> {
                 recipeViewModel.getRecipeList()
-                val menuObserver: Observer<ArrayList<String>> = Observer {
+                val menuObserver: Observer<ArrayList<Menu>> = Observer {
                     menuList.clear()
                     recipeViewModel.menuList.value?.forEachIndexed { index, s ->
-                        menuList.add(Menu(s,null,null))
+                        menuList.add(Menu(s.rid,s.name,s.count,s.recipe))
                     }
                     list.value = menuList
                     setRecyclerView()
@@ -91,9 +91,9 @@ class MenuListFragment(val type: String):ContainerFragment() {
             }
             "Drink" -> {
                 menuList.clear()
-                menuList.add(Menu("콜라",null,null))
-                menuList.add(Menu("사이다",null,null))
-                menuList.add(Menu("환타",null,null))
+                menuList.add(Menu(0,"콜라",null,null))
+                menuList.add(Menu(0,"사이다",null,null))
+                menuList.add(Menu(0,"환타",null,null))
                 list.value = menuList
                 setRecyclerView()
             }

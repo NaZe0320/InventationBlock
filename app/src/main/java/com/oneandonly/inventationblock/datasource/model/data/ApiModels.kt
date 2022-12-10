@@ -49,9 +49,10 @@ data class RecipeElement(
 )
 
 data class RecipeResponse(
+    var rid: Int?,
     var name: String?,
     var leastSell: String?,
-    var element: RecipeElement?
+    var element: List<RecipeElement>?
 )
 
 enum class LoginState {
