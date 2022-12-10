@@ -28,7 +28,7 @@ class MenuFragment: ContainerFragment() {
 
         Log.d("Fragment Test","?")
 
-        changeFragment(MenuListFragment(),"Menu")
+        changeFragment(MenuListFragment("Menu"),"Menu")
         binding.menuBtn.isSelected = true
         binding.drinkBtn.isSelected = false
         fragmentSetting()
@@ -75,7 +75,7 @@ class MenuFragment: ContainerFragment() {
 
             for (fragment: Fragment in childFragmentManager.fragments) {
                 if (fragment.isVisible && fragment.tag != "Menu") {
-                    changeFragment(MenuListFragment(),"Menu")
+                    changeFragment(MenuListFragment("Menu"),"Menu")
                     Log.d("Fragment Test","Menu Open")
                     binding.menuBtn.isSelected = true
                     binding.drinkBtn.isSelected = false
@@ -87,7 +87,7 @@ class MenuFragment: ContainerFragment() {
             Log.d("Fragment Test","Drink Click")
             for (fragment: Fragment in childFragmentManager.fragments) {
                 if (fragment.isVisible && fragment.tag != "Drink") {
-                    changeFragment(MenuListFragment(),"Drink")
+                    changeFragment(MenuListFragment("Drink"),"Drink")
                     Log.d("Fragment Test","Drink Open")
                     binding.menuBtn.isSelected = false
                     binding.drinkBtn.isSelected = true

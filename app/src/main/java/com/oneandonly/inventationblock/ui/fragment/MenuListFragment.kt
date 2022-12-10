@@ -8,14 +8,19 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.FragmentMenuListBinding
 import com.oneandonly.inventationblock.datasource.model.data.Menu
 import com.oneandonly.inventationblock.ui.activity.MenuActivity
 import com.oneandonly.inventationblock.ui.adapter.MenuAddAdapter
+import com.oneandonly.inventationblock.viewmodel.RecipeViewModel
+import kotlinx.coroutines.*
+import java.util.SimpleTimeZone
 
-class MenuListFragment:ContainerFragment() {
+class MenuListFragment(val type: String):ContainerFragment() {
 
     private lateinit var binding: FragmentMenuListBinding
 
@@ -24,6 +29,8 @@ class MenuListFragment:ContainerFragment() {
     private var drinkList: ArrayList<Menu> = ArrayList()
 
     private lateinit var menuAdapter: MenuAddAdapter
+
+    private lateinit var recipeViewModel: RecipeViewModel
 
     private var test: String? = null
 
@@ -35,19 +42,24 @@ class MenuListFragment:ContainerFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu_list, container, false)
         val view = binding.root
         //Log.d("Fragment Test","onCreateView")
+        setList()
 
-        setRecyclerView()
         return view
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arguments?.let {
             test = it.getString("type")
-            setList()
         }
 
+        setViewModel()
+
+
+
+    }
+    private fun setViewModel() {
+        recipeViewModel = ViewModelProvider(requireActivity())[RecipeViewModel::class.java]
     }
 
     override fun onResume() {
@@ -63,22 +75,31 @@ class MenuListFragment:ContainerFragment() {
     }
 
     private fun setList() {
-        Log.d("Fragment Test","setList $test")
-        when (test) {
+        Log.d("Fragment Test","setList $type")
+        when (type) {
             "Menu" -> {
-                menuList.clear()
-
+                recipeViewModel.getRecipeList()
+                val menuObserver: Observer<ArrayList<String>> = Observer {
+                    menuList.clear()
+                    recipeViewModel.menuList.value?.forEachIndexed { index, s ->
+                        menuList.add(Menu(s,null,null))
+                    }
+                    list.value = menuList
+                    setRecyclerView()
+                }
+                recipeViewModel.menuList.observe(requireActivity(),menuObserver)
             }
             "Drink" -> {
                 menuList.clear()
-                menuList.add(Menu(1,"콜라",1,null))
-                menuList.add(Menu(2,"사이다",2,null))
-                menuList.add(Menu(3,"환타",3,null))
+                menuList.add(Menu("콜라",null,null))
+                menuList.add(Menu("사이다",null,null))
+                menuList.add(Menu("환타",null,null))
+                list.value = menuList
+                setRecyclerView()
             }
         }
-
-        list.value = menuList
         Log.d("Fragment Test","List : ${list.value}")
+
     }
 
     override fun onDetach() {

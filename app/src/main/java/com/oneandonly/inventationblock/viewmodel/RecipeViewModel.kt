@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.datasource.model.data.Recipe
 import com.oneandonly.inventationblock.datasource.model.data.RecipeElement
+import com.oneandonly.inventationblock.datasource.model.data.Search
 import com.oneandonly.inventationblock.datasource.model.data.State
 import com.oneandonly.inventationblock.datasource.model.repository.RecipeRepository
 import kotlinx.coroutines.launch
@@ -26,9 +27,23 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
         try {
             viewModelScope.launch {
                 val response = repo.getRecipeList()
+                val menuItem: ArrayList<String> = ArrayList()
+
                 when (response.code()) {
                     200 -> {
-                        Log.d("getRecipe","${response.code()} / ${response.message()} / ${response.body()?.message}")
+                        Log.d("getRecipe","${response.code()} / ${response.message()} / ${response.body()?.response}")
+                        if (response.body()?.response?.size != null) {
+                            for (i in 0 until response.body()?.response?.size!!) {
+                                response.body()?.response?.get(i).let {
+                                    it!!
+                                    menuItem.add(it.name.toString())
+                                }
+
+                            }
+                        } else {
+                            Log.d("getRecipe","${response.errorBody()}")
+                        }
+                        _menuList.value = menuItem
                     }
                     400 -> {
                         Log.d("getRecipe","${response.code()} / ${response.message()} / ${response.body()?.message}")
