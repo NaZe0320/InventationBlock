@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +32,7 @@ class MenuModifyFragment: ContainerFragment(){
         val view = binding.root
 
         setViewModel()
-
+        setAdapter()//임시
         getList()
         setObserver()
 
@@ -47,7 +46,6 @@ class MenuModifyFragment: ContainerFragment(){
         }
 
         binding.listAddBtn.setOnClickListener {
-
             recipeList.add(Recipe())
             recipeAdapter.notifyItemInserted(recipeList.size - 1)
         }
@@ -64,16 +62,23 @@ class MenuModifyFragment: ContainerFragment(){
     }
 
     private fun setObserver() {
-        observeRecipeList()
+    //    observeRecipeList()
     }
 
-    private fun observeRecipeList() {
+    private fun setAdapter() {
+        recipeViewModel.getRecipeList()
+
+        recipeAdapter = RecipeAdapter(recipeList, requireContext())
+        binding.recipeList.apply {
+            layoutManager = LinearLayoutManager(requireActivity(),
+                LinearLayoutManager.VERTICAL, false)
+            adapter = recipeAdapter
+        }
+    }
+
+/*    private fun observeRecipeList() {
         val recipeObserver: Observer<ArrayList<Recipe>> = Observer {
-
-            liveDataToList(recipeViewModel.recipeList)
-
-            recipeAdapter = RecipeAdapter(recipeList, requireContext())
-
+            recipeAdapter = RecipeAdapter(recipeViewModel.recipeList, requireContext())
             binding.recipeList.apply {
                 layoutManager = LinearLayoutManager(requireActivity(),
                     LinearLayoutManager.VERTICAL, false)
@@ -81,11 +86,5 @@ class MenuModifyFragment: ContainerFragment(){
             }
         }
         recipeViewModel.recipeList.observe(requireActivity(), recipeObserver)
-    }
-
-    private fun liveDataToList(list: LiveData<ArrayList<Recipe>>) {
-        for ( i in list.value!!) {
-            recipeList.add(Recipe(i.stockName,i.stockAmount,i.stockUnit))
-        }
-    }
+    }*/
 }

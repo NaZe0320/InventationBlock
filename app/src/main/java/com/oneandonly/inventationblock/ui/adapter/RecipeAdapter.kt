@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.ItemRecipeBinding
 import com.oneandonly.inventationblock.datasource.model.data.Recipe
+import com.oneandonly.inventationblock.datasource.model.data.Search
 import com.oneandonly.inventationblock.viewmodel.StockViewModel.Companion.searchStock
 
 class RecipeAdapter(private val recipeList: ArrayList<Recipe>, private val context: Context): RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
@@ -91,12 +92,27 @@ class RecipeAdapter(private val recipeList: ArrayList<Recipe>, private val conte
         }
 
         holder.binding.run {
-
+            name.setOnFocusChangeListener { view, hasFocus ->
+                if (!hasFocus) {
+                    for (i in searchStock) {
+                        if (name.text.toString() == i.name) {
+                            unit.setText(i.unit)
+                            unit.isFocusable = false
+                        }
+                    }
+                }
+            }
         }
 
         val adapter = SearchDropDownAdapter(context, R.layout.item_dropdown2, searchStock)
         holder.binding.run {
             name.setAdapter(adapter)
+            name.setOnItemClickListener { adapterView, view, i, l ->
+                val selected = adapterView.adapter.getItem(i) as Search
+                name.setText(selected.name)
+                name.clearFocus()
+                amount.requestFocus()
+            }
             name.threshold = 1
             name.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_NEXT) {

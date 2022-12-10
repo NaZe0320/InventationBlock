@@ -51,6 +51,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/menu_add_height"
                         android:layout_below="@id/text_menu_name"
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
                         android:layout_marginTop="@dimen/layout_between_margin"/>
 
                     <TextView
@@ -67,6 +69,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/menu_add_height"
                         android:layout_below="@id/text_minimum"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
                         android:layout_marginTop="@dimen/layout_between_margin"/>
 
                     <TextView

@@ -43,13 +43,15 @@ data class RecipeModel(
 )
 
 data class RecipeElement(
-    var name: String?,
-    var amount: Int?,
-    var unit: String?
+    var name: String = "",
+    var amount: String ="",
+    var unit: String =""
 )
 
 data class RecipeResponse(
-    var sid: Int?
+    var name: String?,
+    var leastSell: String?,
+    var element: RecipeElement?
 )
 
 enum class LoginState {

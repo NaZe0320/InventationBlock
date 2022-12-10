@@ -8,7 +8,7 @@ import retrofit2.Response
 
 class RecipeRepository {
 
-    suspend fun setRecipeList(token: String?, name: String, leastSell: String, elements: RecipeElement ): Response<RecipeModel> {
+    suspend fun setRecipeList(token: String?, name: String, leastSell: String, elements: ArrayList<RecipeElement>): Response<RecipeModel> {
         val params = HashMap<String, Any>()
         params["name"] = name
         params["leastSell"] = leastSell
