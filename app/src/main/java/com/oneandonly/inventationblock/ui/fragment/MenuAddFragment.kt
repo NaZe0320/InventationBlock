@@ -20,7 +20,7 @@ class MenuAddFragment: ContainerFragment(){
 
     private lateinit var binding: FragmentMenuAddBinding
     private lateinit var recipeAdapter: RecipeAdapter
-    private val recipeList: ArrayList<Recipe> = ArrayList()
+    private var recipeList: ArrayList<Recipe> = ArrayList()
 
     private lateinit var recipeViewModel: RecipeViewModel
 
@@ -63,9 +63,7 @@ class MenuAddFragment: ContainerFragment(){
         Log.d("<RESULT>", "?")
         val element: ArrayList<RecipeElement> = ArrayList()
         recipeList.forEachIndexed { index, recipe ->
-
             element.add(RecipeElement(recipe.stockName, recipe.stockAmount, recipe.stockUnit))
-
             Log.d("<RESULT>","$element")
         }
 
@@ -77,7 +75,7 @@ class MenuAddFragment: ContainerFragment(){
 
 
     private fun setAdapter() {
-        recipeAdapter = RecipeAdapter(recipeList, requireContext())
+        recipeAdapter = RecipeAdapter(recipeList = recipeList, context = requireContext())
         binding.recipeList.apply {
             layoutManager = LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL, false)
             adapter = recipeAdapter

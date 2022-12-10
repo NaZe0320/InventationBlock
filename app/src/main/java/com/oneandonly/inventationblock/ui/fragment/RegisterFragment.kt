@@ -111,7 +111,7 @@ class RegisterFragment: ContainerFragment() {
 
     private fun setupRegisterRecyclerView(){
         setRegisterList()
-        registerAdapter = RegisterAdapter(registerList)
+        registerAdapter = RegisterAdapter(registerList = registerList)
 
         binding.rvRegister.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false )
         binding.rvRegister.adapter = registerAdapter

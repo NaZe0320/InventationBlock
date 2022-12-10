@@ -34,7 +34,6 @@ class RecipeAdapter(private val recipeList: ArrayList<Recipe>, private val conte
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         return RecipeViewHolder(ItemRecipeBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-
     }
 
     override fun getItemCount(): Int {
@@ -124,6 +123,8 @@ class RecipeAdapter(private val recipeList: ArrayList<Recipe>, private val conte
                 }
             }
         }
+
+        holder.bind(recipeList[position])
     }
 
     interface OnClick {
