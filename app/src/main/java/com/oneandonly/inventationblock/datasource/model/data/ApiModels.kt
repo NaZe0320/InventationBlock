@@ -34,7 +34,16 @@ data class StockResponses(
     var pinned: Int?,
     var date: Date?,
     var reason: String?
+)
 
+data class RecipeModel(
+    var result: String?,
+    var message: String?,
+    var response: List<RecipeResponse?>
+)
+
+data class RecipeResponse(
+    var sid: Int?
 )
 
 enum class LoginState {

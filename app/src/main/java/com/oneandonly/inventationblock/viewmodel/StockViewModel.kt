@@ -19,6 +19,7 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
 
     companion object {
         val searchStockList: MutableLiveData<ArrayList<Search>> = MutableLiveData<kotlin.collections.ArrayList<Search>>()
+        var searchStock: kotlin.collections.ArrayList<Search> = ArrayList()
     }
 
     private val TAG = "Stock_ViewModel"
@@ -58,6 +59,7 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
         }
 
         searchStockList.value = searchListItem
+        searchStock = searchListItem
     }
 
     private fun setStockList(stockItems: ArrayList<Stock>) {

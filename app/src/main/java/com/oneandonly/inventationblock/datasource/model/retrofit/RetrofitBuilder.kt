@@ -3,6 +3,7 @@ package com.oneandonly.inventationblock.datasource.model.retrofit
 import com.oneandonly.inventationblock.Constants.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 object RetrofitBuilder {
 
@@ -19,5 +20,9 @@ object RetrofitBuilder {
 
     val stockAPI: StockAPI by lazy {
         retrofit.create(StockAPI::class.java)
+    }
+
+    val recipeAPI: RecipeAPI by lazy {
+        retrofit.create(RecipeAPI::class.java)
     }
 }

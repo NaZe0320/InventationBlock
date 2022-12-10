@@ -34,7 +34,7 @@
                 android:inputType="text"
                 android:textSize="@dimen/edittext_text_size"
                 android:background="@android:color/transparent"
-                android:nextFocusForward="@id/amount"/>
+                />
 
             <View
                 android:layout_width="0.7dp"
@@ -69,22 +69,12 @@
                 android:text="@={recipe.stockUnit}"
                 android:hint="단위"
                 android:inputType="text"
+                android:imeOptions="actionDone"
                 android:background="@android:color/transparent"
                 />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/sticker"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:backgroundTint="@android:color/transparent"
-            android:orientation="horizontal"
-            android:visibility="visible">
-
-    </LinearLayout>
     </RelativeLayout>
 
 
