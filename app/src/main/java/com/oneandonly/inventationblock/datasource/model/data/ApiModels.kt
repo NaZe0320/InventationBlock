@@ -47,8 +47,22 @@ data class RecipeResponse(
     var rid: Int?,
     var name: String?,
     var leastSell: String?,
-    var element: List<RecipeElement>?
+    var elements: List<RecipeElement>?
 )
+
+data class RecipeModel2(
+    var result: Int?,
+    var message: String?,
+    var response: RecipeResponse2?
+)
+
+data class RecipeResponse2(
+    var rid: Int?,
+    var name: String?,
+    var leastSell: String?,
+    var elements: List<RecipeElement>?
+)
+
 
 data class RecipeElement(
     var sid: Int?,

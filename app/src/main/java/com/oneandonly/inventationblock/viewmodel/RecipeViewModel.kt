@@ -76,7 +76,7 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
                 when (response.code()) {
                     200 -> {
                         ing.value = State.Success
-                        Log.d("setRecipeInfo","${response.code()} ${response.message()} ${response.body()?.message}")
+                        Log.d("setRecipeInfo","${response.code()} ${response.message()}")
                         val recipeInfo : ArrayList<Menu> = ArrayList()
                         Log.d("setRecipeInfo", "${response.body()}")
                     }

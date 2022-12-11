@@ -2,6 +2,7 @@ package com.oneandonly.inventationblock.datasource.model.retrofit
 
 import com.google.gson.JsonArray
 import com.oneandonly.inventationblock.datasource.model.data.RecipeModel
+import com.oneandonly.inventationblock.datasource.model.data.RecipeModel2
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -27,7 +28,7 @@ interface RecipeAPI {
     suspend fun getRecipeInformation(
         @Header("Token-key") token: String?,
         @Path("rid") rid: Int?
-    ): Response<RecipeModel>
+    ): Response<RecipeModel2>
 
 
 }

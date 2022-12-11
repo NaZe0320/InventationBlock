@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken
 import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.datasource.model.data.RecipeElement
 import com.oneandonly.inventationblock.datasource.model.data.RecipeModel
+import com.oneandonly.inventationblock.datasource.model.data.RecipeModel2
 import com.oneandonly.inventationblock.datasource.model.retrofit.RetrofitBuilder
 import org.json.JSONException
 import retrofit2.Response
@@ -35,7 +36,7 @@ class RecipeRepository {
         return RetrofitBuilder.recipeAPI.getRecipe(tokens, "list")
     }
 
-    suspend fun getRecipeInformation(rid : Int): Response<RecipeModel> {
+    suspend fun getRecipeInformation(rid : Int): Response<RecipeModel2> {
         return RetrofitBuilder.recipeAPI.getRecipeInformation(tokens,rid)
     }
 }
