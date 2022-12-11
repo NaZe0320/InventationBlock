@@ -21,4 +21,13 @@ interface RecipeAPI {
         @Header("Token-key") token: String?,
         @Path("path") path: String?
     ): Response<RecipeModel>
+
+
+    @GET("/recipe/information/{rid}")
+    suspend fun getRecipeInformation(
+        @Header("Token-key") token: String?,
+        @Path("rid") rid: Int?
+    ): Response<RecipeModel>
+
+
 }

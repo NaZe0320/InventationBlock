@@ -44,6 +44,10 @@ class MenuListFragment(val type: String):ContainerFragment() {
         //Log.d("Fragment Test","onCreateView")
         setList()
 
+
+        binding.menuList.layoutManager = LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL, false)
+
+
         return view
     }
 
@@ -69,8 +73,6 @@ class MenuListFragment(val type: String):ContainerFragment() {
 
     private fun setRecyclerView() {
         menuAdapter = MenuAddAdapter(list, this)
-
-        binding.menuList.layoutManager = LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL, false)
         binding.menuList.adapter = menuAdapter
     }
 

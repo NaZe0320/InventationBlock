@@ -78,8 +78,6 @@ class MenuAddFragment: ContainerFragment(){
         recipeViewModel = ViewModelProvider(requireActivity())[RecipeViewModel::class.java]
     }
 
-
-
     private fun setRecipe() {
         val element: ArrayList<RecipeElement> = ArrayList()
         recipeList.forEachIndexed { index, recipe ->
@@ -89,7 +87,7 @@ class MenuAddFragment: ContainerFragment(){
                 } else {
                     recipe.stockAmount.toInt()
                 }
-                element.add(RecipeElement(recipe.stockName, stockAmount, recipe.stockUnit))
+                element.add(RecipeElement(null, recipe.stockName, stockAmount, recipe.stockUnit))
             }
             Log.d("<RESULT>","$element")
             //TODO(빈칸이 있으면 아예 처리를 안함)

@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.datasource.model.data.*
 import com.oneandonly.inventationblock.datasource.model.repository.RecipeRepository
 import kotlinx.coroutines.launch
@@ -68,6 +67,29 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    fun getRecipeInfo(rid: Int) {
+        try {
+            viewModelScope.launch {
+                val response = repo.getRecipeInformation(26)
+                when (response.code()) {
+                    200 -> {
+                        ing.value = State.Success
+                        Log.d("setRecipeInfo","${response.code()} ${response.message()} ${response.body()?.message}")
+                        val recipeInfo : ArrayList<Menu> = ArrayList()
+                        Log.d("setRecipeInfo", "${response.body()}")
+                    }
+                    400 -> {
+                        ing.value = State.Fail
+                        Log.d("setRecipeInformation","${response.code()} ${response.message()} ${response.body()?.message}")
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
 }

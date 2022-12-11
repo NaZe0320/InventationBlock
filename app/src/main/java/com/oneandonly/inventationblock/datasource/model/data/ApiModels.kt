@@ -1,5 +1,6 @@
 package com.oneandonly.inventationblock.datasource.model.data
 
+import com.google.gson.annotations.SerializedName
 import java.util.Date
 
 data class USER(
@@ -37,15 +38,9 @@ data class StockResponses(
 )
 
 data class RecipeModel(
-    var result: String?,
+    var result: Int?,
     var message: String?,
-    var response: List<RecipeResponse?>
-)
-
-data class RecipeElement(
-    var name: String = "",
-    var amount:Int =0,
-    var unit: String =""
+    var response: List<RecipeResponse?>?
 )
 
 data class RecipeResponse(
@@ -53,6 +48,13 @@ data class RecipeResponse(
     var name: String?,
     var leastSell: String?,
     var element: List<RecipeElement>?
+)
+
+data class RecipeElement(
+    var sid: Int?,
+    var name: String ?= "",
+    var amount:Int ?= 0,
+    var unit: String ?=""
 )
 
 enum class LoginState {

@@ -34,4 +34,8 @@ class RecipeRepository {
     suspend fun getRecipeList(): Response<RecipeModel> {
         return RetrofitBuilder.recipeAPI.getRecipe(tokens, "list")
     }
+
+    suspend fun getRecipeInformation(rid : Int): Response<RecipeModel> {
+        return RetrofitBuilder.recipeAPI.getRecipeInformation(tokens,rid)
+    }
 }
