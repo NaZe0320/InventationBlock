@@ -17,7 +17,8 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
     private val _menuList = MutableLiveData<ArrayList<Menu>>()
     val menuList: LiveData<ArrayList<Menu>> get() = _menuList
 
-    val ing : MutableLiveData<State> = MutableLiveData()
+    val loading : MutableLiveData<State> = MutableLiveData()
+    val enroll : MutableLiveData<State> = MutableLiveData()
 
     fun getRecipeList() {
         try {
@@ -32,7 +33,7 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
                             for (i in 0 until response.body()?.response?.size!!) {
                                 response.body()?.response?.get(i).let {
                                     it!!
-                                    menuItem.add(Menu(it.rid?:0,it.name.toString(),null,null))
+                                    menuItem.add(Menu(it.rid?:0,it.name.toString(),it.leastSell,it.elements))
                                 }
                             }
                         } else {
@@ -56,11 +57,12 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
                 val response = repo.setRecipeList(name, leastSell, element)
                 when (response.code()) {
                     200 -> {
-                        ing.value = State.Success
-                        Log.d("setRecipe","${response.code()} ${response.message()} ${response.body()?.message}")                    }
+                        enroll.value = State.Success
+                        Log.d("Recipe Enroll","${response.code()} ${response.message()} ${response.body()?.message}")
+                    }
                     400 -> {
-                        ing.value = State.Fail
-                        Log.d("setRecipe","${response.code()} ${response.errorBody()?.string()}")
+                        enroll.value = State.Fail
+                        Log.d("Recipe Enroll","${response.code()} ${response.errorBody()?.string()}")
                     }
                 }
             }
@@ -72,17 +74,25 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
     fun getRecipeInfo(rid: Int) {
         try {
             viewModelScope.launch {
-                val response = repo.getRecipeInformation(26)
+                val response = repo.getRecipeInformation(rid)
                 when (response.code()) {
                     200 -> {
-                        ing.value = State.Success
+                        loading.value = State.Success
                         Log.d("setRecipeInfo","${response.code()} ${response.message()}")
-                        val recipeInfo : ArrayList<Menu> = ArrayList()
-                        Log.d("setRecipeInfo", "${response.body()}")
+                        val recipeInfo : ArrayList<RecipeElement> = ArrayList()
+                        response.body()?.response?.elements?.let {
+                            for (i in it.indices) {
+                                recipeInfo.add(it[i])
+                            }
+                        }
+                        Log.d("setRecipeInfo","$recipeInfo")
+                        _recipeList.value = recipeInfo
+                        loading.value = State.Null
                     }
                     400 -> {
-                        ing.value = State.Fail
+                        loading.value = State.Fail
                         Log.d("setRecipeInformation","${response.code()} ${response.message()} ${response.body()?.message}")
+                        loading.value = State.Null
                     }
                 }
             }

@@ -1,13 +1,14 @@
 package com.oneandonly.inventationblock.ui.fragment
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.forEachIndexed
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oneandonly.inventationblock.R
@@ -15,10 +16,11 @@ import com.oneandonly.inventationblock.databinding.FragmentMenuAddBinding
 import com.oneandonly.inventationblock.datasource.model.data.Recipe
 import com.oneandonly.inventationblock.datasource.model.data.RecipeElement
 import com.oneandonly.inventationblock.datasource.model.data.State
+import com.oneandonly.inventationblock.datasource.model.repository.RecipeRepository
 import com.oneandonly.inventationblock.makeToast
-import com.oneandonly.inventationblock.ui.activity.MenuActivity
 import com.oneandonly.inventationblock.ui.adapter.RecipeAdapter
 import com.oneandonly.inventationblock.viewmodel.RecipeViewModel
+import com.oneandonly.inventationblock.viewmodel.factory.RecipeFactory
 
 class MenuAddFragment: ContainerFragment(){
 
@@ -27,6 +29,7 @@ class MenuAddFragment: ContainerFragment(){
     private var recipeList: ArrayList<Recipe> = ArrayList()
 
     private lateinit var recipeViewModel: RecipeViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,24 +49,33 @@ class MenuAddFragment: ContainerFragment(){
 
         binding.enrollBtn.setOnClickListener {
             setRecipe()
-            recipeViewModel.ing.value = State.Loading
+            recipeViewModel.enroll.value = State.Loading
             binding.enrollBtn.isEnabled = false
-            recipeViewModel.ing.observe(requireActivity()) {
+            recipeViewModel.enroll.observe(requireActivity()) {
                 when (it) {
                     State.Success -> {
                         Log.d("Recipe Enroll","Success")
-                        requireActivity().makeToast("${binding.editMenuName.text}등록에 성공했습니다")
-                        parentFragmentManager.beginTransaction().replace(R.id.fl_menu_menu,MenuFragment(),"Menu").commit()
+                        activity?.makeToast("${binding.editMenuName.text.toString()} 등록에 성공했습니다")
+                        if (activity != null) {
+                            parentFragmentManager.beginTransaction().replace(R.id.fl_menu_menu,MenuFragment(),"Menu").commit()
+                        }
+                        recipeViewModel.enroll.value = State.Null
                     }
                     State.Fail -> {
                         Log.d("Recipe Enroll",".Fail")
-                        requireActivity().makeToast("등록에 실패했습니다")
+                        activity?.makeToast("등록에 실패했습니다")
                         binding.enrollBtn.isEnabled = true
+
+                        recipeViewModel.enroll.value = State.Null
                     }
                     State.Loading -> {
-                        Log.d("Recipe Enroll","Loading")
+                        Log.d("Recipe Enroll","loading")
+                    }
+                    State.Null -> {
+
                     }
                 }
+                State.Null
             }
         }
 
@@ -74,8 +86,16 @@ class MenuAddFragment: ContainerFragment(){
         return view
     }
 
+    override fun onAttach(context: Context) {
+
+        super.onAttach(context)
+    }
+
     private fun setViewModel() {
-        recipeViewModel = ViewModelProvider(requireActivity())[RecipeViewModel::class.java]
+        val recipeRepo = RecipeRepository()
+
+        val recipeViewModelFactory = RecipeFactory(recipeRepo)
+        recipeViewModel = ViewModelProvider(this@MenuAddFragment, recipeViewModelFactory)[RecipeViewModel::class.java]
     }
 
     private fun setRecipe() {

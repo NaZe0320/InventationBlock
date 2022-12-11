@@ -70,7 +70,7 @@ class RegisterActivity : AppCompatActivity() {
                 State.Loading -> {
                     binding.btnRegister.isEnabled = false
                 }
-                null -> {
+                State.Null -> {
 
                 }
             }

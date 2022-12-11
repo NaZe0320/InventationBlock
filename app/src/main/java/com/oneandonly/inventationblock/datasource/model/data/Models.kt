@@ -5,7 +5,7 @@ data class Menu(
     var rid: Int,
     var name: String,
     var count: Int?,
-    var recipe: List<Recipe>?
+    var recipe: List<RecipeElement>?
 )
 
 data class Recipe(

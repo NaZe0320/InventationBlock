@@ -46,7 +46,7 @@ data class RecipeModel(
 data class RecipeResponse(
     var rid: Int?,
     var name: String?,
-    var leastSell: String?,
+    var leastSell: Int?,
     var elements: List<RecipeElement>?
 )
 
@@ -59,7 +59,7 @@ data class RecipeModel2(
 data class RecipeResponse2(
     var rid: Int?,
     var name: String?,
-    var leastSell: String?,
+    var leastSell: Int?,
     var elements: List<RecipeElement>?
 )
 
@@ -81,5 +81,6 @@ enum class LoginState {
 enum class State {
     Loading(),
     Success(),
-    Fail()
+    Fail(),
+    Null()
 }

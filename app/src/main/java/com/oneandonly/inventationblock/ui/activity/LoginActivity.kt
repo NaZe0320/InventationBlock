@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.loginResult.observe(this) {
             when (it) {
                 LoginState.Loading -> {
-                    Log.d("LoginCheck","Loading")
+                    Log.d("LoginCheck","loading")
 
                     showLoading()
                 }
@@ -100,7 +100,7 @@ class LoginActivity : AppCompatActivity() {
             isEnabled = false
         }
 
-        Log.d("Loading","로딩창 보여주기")
+        Log.d("loading","로딩창 보여주기")
     }
 
     private fun stopLoading() {
@@ -108,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.apply {
             isEnabled = true
         }
-        Log.d("Loading","로딩창 닫기")
+        Log.d("loading","로딩창 닫기")
     }
 
     private fun moveToMain() {

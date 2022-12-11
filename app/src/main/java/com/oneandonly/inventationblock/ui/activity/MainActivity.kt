@@ -413,7 +413,10 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
                     Log.d("ToggleClick",".Fail")
                 }
                 State.Loading -> {
-                    Log.d("ToggleClick","Loading")
+                    Log.d("ToggleClick","loading")
+                }
+                State.Null -> {
+
                 }
             }
         }
