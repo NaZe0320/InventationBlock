@@ -92,7 +92,9 @@ class MenuAddFragment: ContainerFragment(){
             Log.d("<RESULT>","$element")
             //TODO(빈칸이 있으면 아예 처리를 안함)
         }
-        recipeViewModel.setRecipeList(binding.editMenuName.text.toString(), binding.editMinimum.text.toString().toInt(), element )
+
+        val min = if (binding.editMinimum.text.isEmpty()) 0 else binding.editMinimum.text.toString().toInt()
+        recipeViewModel.setRecipeList(binding.editMenuName.text.toString(),min, element )
     }
 
 
