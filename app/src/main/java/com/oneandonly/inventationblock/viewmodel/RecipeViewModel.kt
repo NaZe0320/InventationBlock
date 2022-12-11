@@ -17,6 +17,9 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
     private val _menuList = MutableLiveData<ArrayList<Menu>>()
     val menuList: LiveData<ArrayList<Menu>> get() = _menuList
 
+    private val _menu = MutableLiveData<Menu>()
+    val menu: LiveData<Menu> get() = _menu
+
     val loading : MutableLiveData<State> = MutableLiveData()
     val enroll : MutableLiveData<State> = MutableLiveData()
 
@@ -77,7 +80,6 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
                 val response = repo.getRecipeInformation(rid)
                 when (response.code()) {
                     200 -> {
-                        loading.value = State.Success
                         Log.d("setRecipeInfo","${response.code()} ${response.message()}")
                         val recipeInfo : ArrayList<RecipeElement> = ArrayList()
                         response.body()?.response?.elements?.let {
@@ -87,6 +89,14 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
                         }
                         Log.d("setRecipeInfo","$recipeInfo")
                         _recipeList.value = recipeInfo
+
+
+                        _menu.value = Menu(response.body()?.response?.rid?:0,
+                                        response.body()?.response?.name?:"",
+                                            response.body()?.response?.leastSell,
+                                    null)
+
+                        loading.value = State.Success
                         loading.value = State.Null
                     }
                     400 -> {

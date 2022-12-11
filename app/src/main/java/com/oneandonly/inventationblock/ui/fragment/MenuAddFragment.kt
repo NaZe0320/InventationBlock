@@ -83,6 +83,18 @@ class MenuAddFragment: ContainerFragment(){
             recipeList.add(Recipe())
             recipeAdapter.notifyItemInserted(recipeList.size - 1)
         }
+
+        binding.editMinimum.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                if (binding.editMinimum.text.toString() == "0") {
+                    binding.editMinimum.setText("")
+                }
+            } else {
+                if (binding.editMinimum.text.isEmpty()) {
+                    binding.editMinimum.setText("0")
+                }
+            }
+        }
         return view
     }
 

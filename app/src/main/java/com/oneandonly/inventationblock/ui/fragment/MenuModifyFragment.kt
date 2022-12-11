@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.FragmentMenuModifyBinding
+import com.oneandonly.inventationblock.datasource.model.data.Menu
 import com.oneandonly.inventationblock.datasource.model.data.Recipe
 import com.oneandonly.inventationblock.datasource.model.data.RecipeElement
 import com.oneandonly.inventationblock.datasource.model.data.State
@@ -45,7 +47,8 @@ class MenuModifyFragment: ContainerFragment(){
         arguments?.let {
             rid = it.getInt("rid")
             name = it.getString("name").toString()
-            Log.d("MenuAddFragment", "${it.getInt("rid")} / ${it.getString("name")}")
+            uiSetting()
+            Log.d("MenuAddFragment", "${it.getInt("rid")} /${it.getInt("count")}/ ${it.getString("name")}")
         }
 
         recipeViewModel.getRecipeInfo(rid)
@@ -83,7 +86,43 @@ class MenuModifyFragment: ContainerFragment(){
             recipeAdapter.notifyItemInserted(recipeList.size - 1)
         }
 
+        binding.editMinimum.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                if (binding.editMinimum.text.toString() == "0") {
+                    binding.editMinimum.setText("")
+                }
+            } else {
+                if (binding.editMinimum.text.isEmpty()) {
+                    binding.editMinimum.setText("0")
+                }
+            }
+        }
+
         return view
+    }
+
+    private fun uiSetting() {
+        observer()
+    }
+
+    private fun observer() {
+        val recipeObserver: Observer<ArrayList<RecipeElement>> = Observer {
+            recipeList.clear()
+            recipeViewModel.recipeList.value?.forEachIndexed { index, recipe ->
+                recipeList.add(Recipe(recipe.name.toString(),recipe.amount.toString(),recipe.unit.toString(),recipe.sid))
+            }
+            Log.d("Recipe","Recipe Observer $recipeList")
+            recipeAdapter = RecipeAdapter(recipeList, requireContext())
+            binding.recipeList.adapter = recipeAdapter
+        }
+
+        recipeViewModel.recipeList.observe(requireActivity(), recipeObserver)
+
+        val menuObserver: Observer<Menu> = Observer {
+            binding.editMinimum.setText("${recipeViewModel.menu.value?.count}")
+            Log.d("Menu","${recipeViewModel.menu.value?.count}")
+        }
+        recipeViewModel.menu.observe(requireActivity(), menuObserver)
     }
 
     private fun setViewModel() {

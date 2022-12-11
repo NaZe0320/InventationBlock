@@ -39,6 +39,7 @@ class MenuAddAdapter(private val items: LiveData<ArrayList<Menu>>, private val f
 
             bundle.putInt("rid",items.value?.get(position)?.rid?:26)
             bundle.putString("name",items.value?.get(position)?.name)
+            bundle.putInt("count",items.value?.get(position)?.count?:0)
             Log.d("MenuModifyFragment","${items.value?.get(position)?.name}")
             fragment.arguments = bundle
 
