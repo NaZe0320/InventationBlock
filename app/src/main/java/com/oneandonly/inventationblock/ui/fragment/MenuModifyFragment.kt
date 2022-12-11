@@ -107,13 +107,13 @@ class MenuModifyFragment: ContainerFragment(){
     private fun setRecipe() {
         val element: ArrayList<RecipeElement> = ArrayList()
         recipeList.forEachIndexed { index, recipe ->
-            if (!(recipe.stockAmount.isEmpty() && recipe.stockName.isEmpty() && recipe.stockUnit.isEmpty())) {
-                val stockAmount: Int = if (recipe.stockAmount.isEmpty()) {
+            if (!(recipe.amount.isEmpty() && recipe.name.isEmpty() && recipe.unit.isEmpty())) {
+                val stockAmount: Int = if (recipe.amount.isEmpty()) {
                     0
                 } else {
-                    recipe.stockAmount.toInt()
+                    recipe.amount.toInt()
                 }
-                element.add(RecipeElement(null,recipe.stockName, stockAmount, recipe.stockUnit))
+                element.add(RecipeElement(null,recipe.name, stockAmount, recipe.unit))
             }
             Log.d("<RESULT>","$element")
             //TODO(빈칸이 있으면 아예 처리를 안함)

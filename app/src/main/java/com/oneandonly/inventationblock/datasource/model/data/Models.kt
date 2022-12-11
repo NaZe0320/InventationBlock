@@ -9,9 +9,10 @@ data class Menu(
 )
 
 data class Recipe(
-    var stockName: String = "",
-    var stockAmount: String = "",
-    var stockUnit: String = ""
+    var name: String = "",
+    var amount: String = "",
+    var unit: String = "",
+    var sid: Int? = null
 )
 
 data class Stock(
