@@ -13,6 +13,7 @@ import com.oneandonly.inventationblock.databinding.ActivityStockBinding
 import com.oneandonly.inventationblock.datasource.model.data.History
 import com.oneandonly.inventationblock.datasource.model.data.Menu
 import com.oneandonly.inventationblock.datasource.model.data.Stock
+import com.oneandonly.inventationblock.datasource.model.data.UsedRecipe
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.ui.adapter.HistoryAdapter
 import com.oneandonly.inventationblock.ui.adapter.MenuAdapter
@@ -58,6 +59,7 @@ class StockActivity : AppCompatActivity() {
         setViewModel()
         uiSetting()
 
+        usedRecipeListObserver()
         historyListObserver()
     }
 
@@ -73,7 +75,7 @@ class StockActivity : AppCompatActivity() {
         textSetting()
         btnSetting()
         historyListSetting(stockViewModel)
-
+        usedRecipeListSetting(stockViewModel)
     }
 
     private fun toolbarSetting() {
@@ -135,9 +137,25 @@ class StockActivity : AppCompatActivity() {
         stockViewModel.historyList.observe(this,observer)
     }
 
-    private fun menuListSetting() {
+    private fun usedRecipeListSetting(stockViewModel: StockViewModel) {
+        binding.menuList.layoutManager = LinearLayoutManager(this)
+        menuAdapter = MenuAdapter(stockViewModel.usedRecipeList) //이 코드로 변경
 
+        binding.menuList.adapter = menuAdapter
+        CoroutineScope(Dispatchers.Main).launch {
+            stockViewModel.getUsedRecipeList(sid?:0)
+            Log.d("Used Recipe","sid $sid")
+        }
     }
+
+    private fun usedRecipeListObserver() {
+        val observer: Observer<ArrayList<UsedRecipe>> = Observer {
+            val adapter = MenuAdapter(stockViewModel.usedRecipeList)
+            binding.menuList.adapter = adapter
+        }
+        stockViewModel.usedRecipeList.observe(this,observer)
+    }
+
 
     override fun onBackPressed() {
         finish()

@@ -32,6 +32,9 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
     private val _historyList = MutableLiveData<ArrayList<History>>()
     val historyList: LiveData<ArrayList<History>> get() = _historyList
 
+    private val _usedRecipeList = MutableLiveData<ArrayList<UsedRecipe>>()
+    val usedRecipeList: LiveData<ArrayList<UsedRecipe>> get() = _usedRecipeList
+
     private val _error = MutableLiveData<String>()
     val errorList: LiveData<String> get() = _error
 
@@ -68,6 +71,31 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
 
     private fun setHistoryList(historyItems: ArrayList<History>) {
         _historyList.value = historyItems
+    }
+
+    fun getUsedRecipeList(sid: Int) {
+        try {
+            viewModelScope.launch {
+                val response = repo.getUsedRecipeList(sid)
+                val usedRecipeItem : ArrayList<UsedRecipe> = ArrayList()
+                when (response.code()) {
+                    200 -> {
+                        response.body()?.response?.forEachIndexed { index, stockResponses ->
+                            usedRecipeItem.add(UsedRecipe(stockResponses?.sid?:0,stockResponses?.name.toString()))
+                        }
+                        _usedRecipeList.value = usedRecipeItem
+
+                        Log.d("Response Test", "${response.code()} / ${response.body()?.response}")
+                    }
+                    else -> {
+                        Log.d("Response Test", "${response.code()} / ${response.body()?.response}")
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     fun getStockList(orderBy: Int) {

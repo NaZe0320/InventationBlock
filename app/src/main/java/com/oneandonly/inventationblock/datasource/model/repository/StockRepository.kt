@@ -1,6 +1,7 @@
 package com.oneandonly.inventationblock.datasource.model.repository
 
 import android.util.Log
+import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.datasource.model.data.StockModel
 import com.oneandonly.inventationblock.datasource.model.retrofit.RetrofitBuilder
 import retrofit2.Response
@@ -19,6 +20,10 @@ class StockRepository {
 
     suspend fun getHistoryList(token: String?, sid: Int?): Response<StockModel> {
         return RetrofitBuilder.stockAPI.getHistoryList(token,sid)
+    }
+
+    suspend fun getUsedRecipeList(sid: Int): Response<StockModel> {
+        return RetrofitBuilder.stockAPI.getUsedRecipeList(tokens , sid)
     }
 
     suspend fun setTogglePin(token: String?,sid: Int?): Response<StockModel> {

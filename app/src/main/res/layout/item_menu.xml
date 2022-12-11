@@ -5,7 +5,7 @@
     <data>
         <variable
             name="menu"
-            type="String" />
+            type="com.oneandonly.inventationblock.datasource.model.data.UsedRecipe" />
     </data>
 
     <RelativeLayout
@@ -19,7 +19,7 @@
             android:id="@+id/list_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{menu}"
+            android:text="@{menu.name}"
             android:textSize="14sp"
             android:textColor="@color/black"
             android:layout_centerVertical="true"

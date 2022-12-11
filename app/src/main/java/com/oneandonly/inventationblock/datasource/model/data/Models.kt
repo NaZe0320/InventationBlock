@@ -8,6 +8,11 @@ data class Menu(
     var recipe: List<RecipeElement>?
 )
 
+data class UsedRecipe(
+    var rid: Int,
+    var name: String
+)
+
 data class Recipe(
     var name: String = "",
     var amount: String = "",

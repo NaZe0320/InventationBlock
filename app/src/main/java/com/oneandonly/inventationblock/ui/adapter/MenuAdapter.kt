@@ -5,12 +5,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.oneandonly.inventationblock.databinding.ItemMenuBinding
+import com.oneandonly.inventationblock.datasource.model.data.UsedRecipe
 
-class MenuAdapter(private val items: LiveData<ArrayList<String>>):RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
+class MenuAdapter(private val items: LiveData<ArrayList<UsedRecipe>>):RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
     inner class MenuViewHolder(private val binding: ItemMenuBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(menu: String) {
+        fun bind(menu: UsedRecipe) {
             binding.menu = menu
         }
     }

@@ -24,6 +24,12 @@ interface StockAPI {
         @Path("sid") sid: Int?
     ): Response<StockModel>
 
+    @GET("/stock/usedRecipe/{sid}")
+    suspend fun getUsedRecipeList(
+        @Header("Token-key") token: String?,
+        @Path("sid") sid: Int?
+    ): Response<StockModel>
+
     @FormUrlEncoded
     @PATCH("/stock/{path}")
     suspend fun setStock(
