@@ -103,6 +103,7 @@
                         android:layout_below="@id/recipe_list"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:text="추가"
                         android:layout_marginTop="@dimen/layout_between_margin"
                         android:backgroundTint="#D4D4D4"/>
 
@@ -115,6 +116,7 @@
             android:id="@+id/enroll_btn"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:text="등록하기"
             android:layout_alignParentBottom="true"
             android:layout_margin="8dp" />
 
