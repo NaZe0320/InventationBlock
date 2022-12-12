@@ -33,7 +33,7 @@ class RegisterActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_register)
 
         val repo = UserRepository()
-        val vmFactory = UserFactory(repo)
+        val vmFactory = UserFactory(repo, this@RegisterActivity)
 
         userVM = ViewModelProvider(this@RegisterActivity, vmFactory)[UserViewModel::class.java]
 

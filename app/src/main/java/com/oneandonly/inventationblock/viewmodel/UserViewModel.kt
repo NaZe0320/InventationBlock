@@ -1,5 +1,6 @@
 package com.oneandonly.inventationblock.viewmodel
 
+import android.content.Context
 import android.system.ErrnoException
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -9,11 +10,14 @@ import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.datasource.model.data.State
 import com.oneandonly.inventationblock.datasource.model.data.USER
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
+import com.oneandonly.inventationblock.makeToast
 import kotlinx.coroutines.launch
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Response
 import java.io.IOException
 
-class UserViewModel(private val repository: UserRepository):ViewModel() {
+class UserViewModel(private val repository: UserRepository, val context:Context):ViewModel() {
 
     private val TAG = "User_ViewModel"
 
@@ -49,15 +53,24 @@ class UserViewModel(private val repository: UserRepository):ViewModel() {
             viewModelScope.launch {
                 val response = repository.postUser(params = params, users = "register")
 
-                Log.d(TAG,"${response.errorBody()?.string()} \n ${response.body()?.response}")
+                //Log.d(TAG,"${response.errorBody()?.string()} \n ${response.body()?.response}")
                 when (response.code()) {
                     200 -> {
                         Log.d(TAG,"회원가입 성공 ${response.body()}")
                         state.value = State.Success
                     }
                     400 -> {
-                        Log.d(TAG,"회원가입 실패 ${response.body()}")
-                        reason = response.body()?.message.toString()
+                        var jsonObject: JSONObject? = null
+
+                        try {
+                            jsonObject = JSONObject(response.errorBody()!!.string())
+                            val message = jsonObject.getString("message")
+                            context.makeToast(message)
+                            Log.d(TAG,"회원가입 실패 $message")
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+
                         state.value = State.Fail
                     }
                     else -> {

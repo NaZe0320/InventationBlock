@@ -8,20 +8,14 @@
             type="com.oneandonly.inventationblock.datasource.model.data.RegisterModel" />
     </data>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:errorEnabled="true">
-
         <EditText
             android:id="@+id/et_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:text="@{register.content}"
             android:hint="@{register.hint}"
             android:inputType="@{register.inputType}"
             android:background="@drawable/bg_edit_gray" />
 
-    </com.google.android.material.textfield.TextInputLayout>
 </layout>

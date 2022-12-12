@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
         val repository = UserRepository()
         val stockRepo = StockRepository()
 
-        val viewModelFactory = UserFactory(repository)
+        val viewModelFactory = UserFactory(repository,this@MainActivity)
         userViewModel = ViewModelProvider(this@MainActivity,viewModelFactory)[UserViewModel::class.java]
 
         val stockViewModelFactory = StockFactory(stockRepo)

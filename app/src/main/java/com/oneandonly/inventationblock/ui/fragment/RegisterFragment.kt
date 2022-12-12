@@ -1,11 +1,9 @@
 package com.oneandonly.inventationblock.ui.fragment
 
-import android.graphics.Typeface
 import android.graphics.Typeface.*
 import android.os.Bundle
 import android.text.InputType
 import android.text.SpannableStringBuilder
-import android.text.Spanned
 import android.text.Spanned.*
 import android.text.style.StyleSpan
 import android.util.Log
@@ -15,7 +13,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.oneandonly.inventationblock.Constants
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.FragmentRegisterBinding
 import com.oneandonly.inventationblock.datasource.model.data.RegisterModel
@@ -51,7 +48,7 @@ class RegisterFragment: ContainerFragment() {
         val view = binding.root
 
         val repo = UserRepository()
-        val vmFactory = UserFactory(repo)
+        val vmFactory = UserFactory(repo, requireActivity())
 
         userVM = ViewModelProvider(requireActivity(), vmFactory)[UserViewModel::class.java]
 
@@ -94,9 +91,10 @@ class RegisterFragment: ContainerFragment() {
 
                     }
                 }
-                null -> {
+                State.Null -> {
 
                 }
+                else -> {}
             }
 
         }
@@ -119,8 +117,8 @@ class RegisterFragment: ContainerFragment() {
 
     private fun setRegisterList() {
         registerList.add(RegisterModel("id","아이디",InputType.TYPE_CLASS_TEXT))
-        registerList.add(RegisterModel("password","비밀번호",81))
-        registerList.add(RegisterModel("passwordCheck","비밀번호 확인",81))
+        registerList.add(RegisterModel("password","비밀번호",InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD))
+        registerList.add(RegisterModel("passwordCheck","비밀번호 확인",InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD))
         registerList.add(RegisterModel("name","사용자명",InputType.TYPE_CLASS_TEXT))
         registerList.add(RegisterModel("email","이메일",InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS))
         registerList.add(RegisterModel("businessName","사업자명",InputType.TYPE_CLASS_TEXT))
