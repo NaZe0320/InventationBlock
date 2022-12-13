@@ -25,16 +25,16 @@ import com.oneandonly.inventationblock.databinding.NavHeaderMainBinding
 import com.oneandonly.inventationblock.datasource.model.data.Search
 import com.oneandonly.inventationblock.datasource.model.data.State
 import com.oneandonly.inventationblock.datasource.model.data.Stock
+import com.oneandonly.inventationblock.datasource.model.repository.RecipeRepository
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
 import com.oneandonly.inventationblock.makeToast
 import com.oneandonly.inventationblock.ui.adapter.SearchDropDownAdapter
 import com.oneandonly.inventationblock.ui.adapter.StockAdapter
-import com.oneandonly.inventationblock.viewmodel.AutoLoginViewModel
-import com.oneandonly.inventationblock.viewmodel.StockViewModel
+import com.oneandonly.inventationblock.viewmodel.*
+import com.oneandonly.inventationblock.viewmodel.RecipeViewModel.Companion.searchMenuList
 import com.oneandonly.inventationblock.viewmodel.StockViewModel.Companion.searchStockList
-import com.oneandonly.inventationblock.viewmodel.TokenViewModel
-import com.oneandonly.inventationblock.viewmodel.UserViewModel
+import com.oneandonly.inventationblock.viewmodel.factory.RecipeFactory
 import com.oneandonly.inventationblock.viewmodel.factory.StockFactory
 import com.oneandonly.inventationblock.viewmodel.factory.UserFactory
 import kotlinx.coroutines.CoroutineScope
@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var stockViewModel: StockViewModel
+    private lateinit var recipeViewModel: RecipeViewModel
 
     private lateinit var stockAdapter: StockAdapter
 
@@ -55,8 +56,11 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
     private var clickTime: Long = 0
 
+    val searchList: ArrayList<Search> = ArrayList()
+
     companion object {
-        val searchList: ArrayList<Search> = ArrayList()
+        val stockList: ArrayList<Search> = ArrayList()
+        val menuList: ArrayList<Search> = ArrayList()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,13 +124,23 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
     private fun observeSearchList() {
         searchStockList.observe(this@MainActivity, Observer {
-            searchList.clear()
+            stockList.clear()
             for ( i in it) {
-                searchList.add(i)
+                stockList.add(i)
             }
-            if (searchList.isNotEmpty()) {
+            if (stockList.isNotEmpty()) {
                 dropdownSetting()
-                Log.d("SearchList","SearchList 생성 $searchList")
+                Log.d("SearchList","StockList 생성 $stockList")
+            }
+        })
+        searchMenuList.observe(this@MainActivity, Observer {
+            menuList.clear()
+            for ( i in it) {
+                menuList.add(i)
+            }
+            if (menuList.isNotEmpty()) {
+                dropdownSetting()
+                Log.d("SearchList","menuList 생성 $menuList")
             }
         })
 
@@ -135,12 +149,16 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
     private fun setViewModel() {
         val repository = UserRepository()
         val stockRepo = StockRepository()
+        val recipeRepo = RecipeRepository()
 
         val viewModelFactory = UserFactory(repository,this@MainActivity)
         userViewModel = ViewModelProvider(this@MainActivity,viewModelFactory)[UserViewModel::class.java]
 
         val stockViewModelFactory = StockFactory(stockRepo)
         stockViewModel = ViewModelProvider(this@MainActivity,stockViewModelFactory)[StockViewModel::class.java]
+
+        val recipeViewModelFactory = RecipeFactory(recipeRepo)
+        recipeViewModel = ViewModelProvider(this@MainActivity,recipeViewModelFactory)[RecipeViewModel::class.java]
     }
 
     private fun onClickLogout() {
@@ -341,6 +359,10 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
     }
 
     private fun dropdownSetting() {
+        searchList.clear()
+        searchList.addAll(stockList)
+        searchList.addAll(menuList)
+
         val adapter = SearchDropDownAdapter(this,R.layout.item_dropdown, searchList)
 
         binding.mainSearchEdit.setAdapter(adapter)

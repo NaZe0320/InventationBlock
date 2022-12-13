@@ -28,7 +28,7 @@ class SearchDropDownAdapter(
     }
 
     override fun getItemId(position: Int): Long {
-        return list[position].sid.toLong()
+        return list[position].id.toLong()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -74,7 +74,7 @@ class SearchDropDownAdapter(
                 name.text = ddList.name
                 if (ddList.type == "stock") {
                     type.setImageResource(R.drawable.ic_stock_drop_down)
-                } else {
+                } else if (ddList.type == "menu"){
                     type.setImageResource(R.drawable.ic_main_menu_drop_down)
                 }
                 return view

@@ -8,8 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.oneandonly.inventationblock.datasource.model.data.*
 import com.oneandonly.inventationblock.datasource.model.repository.RecipeRepository
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
+
+    companion object {
+        val searchMenuList: MutableLiveData<ArrayList<Search>> = MutableLiveData<ArrayList<Search>>()
+        var searchMenu: ArrayList<Search> = ArrayList()
+    }
 
     private val _recipeList = MutableLiveData<ArrayList<RecipeElement>>()
     val recipeList: LiveData<ArrayList<RecipeElement>> get() = _recipeList
@@ -22,6 +28,10 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
 
     val loading : MutableLiveData<State> = MutableLiveData()
     val enroll : MutableLiveData<State> = MutableLiveData()
+
+    init {
+        getRecipeList()
+    }
 
     fun getRecipeList() {
         try {
@@ -48,6 +58,7 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
                         Log.d("getRecipe","${response.code()} / ${response.message()} / ${response.body()?.message}")
                     }
                 }
+                setSearchList(response)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -109,7 +120,31 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
 
+    private fun setSearchList(response: Response<RecipeModel>) {
+        val searchListItem: ArrayList<Search> = ArrayList()
+
+        if (response.body()?.response?.size != null) {
+            for (i in 0 until response.body()?.response?.size!!) {
+                response.body()?.response?.get(i).let {
+                    it!!
+                    searchListItem.add(
+                        Search(
+                            it.rid?:0,
+                            it.name ?: "0",
+                            "menu",
+                            null
+                        )
+                    )
+                }
+            }
+        } else {
+            Log.d("Response Test","Search List Error")
+        }
+
+        RecipeViewModel.searchMenuList.value = searchListItem
+        RecipeViewModel.searchMenu = searchListItem
     }
 
 }

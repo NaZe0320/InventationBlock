@@ -15,7 +15,7 @@ import com.oneandonly.inventationblock.databinding.ActivityStockAddBinding
 import com.oneandonly.inventationblock.datasource.model.data.Search
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.dateToString
-import com.oneandonly.inventationblock.ui.activity.MainActivity.Companion.searchList
+import com.oneandonly.inventationblock.ui.activity.MainActivity.Companion.stockList
 import com.oneandonly.inventationblock.ui.adapter.SearchDropDownAdapter
 import com.oneandonly.inventationblock.viewmodel.StockViewModel
 import com.oneandonly.inventationblock.viewmodel.factory.StockFactory
@@ -97,7 +97,7 @@ class StockAddActivity : AppCompatActivity() {
     }
 
     private fun setSearchEdit() {
-        val adapter = SearchDropDownAdapter(this, R.layout.item_dropdown2, searchList)
+        val adapter = SearchDropDownAdapter(this, R.layout.item_dropdown2, stockList)
         binding.stockSearchEdit.setAdapter(adapter)
         binding.stockSearchEdit.threshold = 1
 
@@ -105,7 +105,7 @@ class StockAddActivity : AppCompatActivity() {
             val selected = adapterView.adapter.getItem(i) as Search
             binding.stockSearchEdit.setText(selected.name)
             binding.unitSpinner.text = selected.unit
-            sid = selected.sid
+            sid = selected.id
             Log.d("stockSearchEdit","${selected.unit}")
 
             stockSelectedChange()

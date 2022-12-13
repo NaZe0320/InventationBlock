@@ -18,8 +18,8 @@ import kotlin.collections.ArrayList
 class StockViewModel(private val repo: StockRepository) : ViewModel() {
 
     companion object {
-        val searchStockList: MutableLiveData<ArrayList<Search>> = MutableLiveData<kotlin.collections.ArrayList<Search>>()
-        var searchStock: kotlin.collections.ArrayList<Search> = ArrayList()
+        val searchStockList: MutableLiveData<ArrayList<Search>> = MutableLiveData<ArrayList<Search>>()
+        var searchStock: ArrayList<Search> = ArrayList()
     }
 
     private val TAG = "Stock_ViewModel"
