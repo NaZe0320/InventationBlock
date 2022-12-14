@@ -116,13 +116,13 @@ class RegisterFragment: ContainerFragment() {
     }
 
     private fun setRegisterList() {
-        registerList.add(RegisterModel("id","아이디",InputType.TYPE_CLASS_TEXT))
-        registerList.add(RegisterModel("password","비밀번호",InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD))
-        registerList.add(RegisterModel("passwordCheck","비밀번호 확인",InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD))
-        registerList.add(RegisterModel("name","사용자명",InputType.TYPE_CLASS_TEXT))
-        registerList.add(RegisterModel("email","이메일",InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS))
-        registerList.add(RegisterModel("businessName","사업자명",InputType.TYPE_CLASS_TEXT))
-        registerList.add(RegisterModel("businessNum","사업자등록번호",InputType.TYPE_CLASS_NUMBER))
+        registerList.add(RegisterModel("id","아이디",InputType.TYPE_CLASS_TEXT, comment = "아이디"))
+        registerList.add(RegisterModel("password","비밀번호",InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD,comment = "비밀번호 * 특수문자 + 영소문자 + 숫자로 이루어진 8자리 이상"))
+        registerList.add(RegisterModel("passwordCheck","비밀번호 확인",InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD, comment = "비밀번호 확인"))
+        registerList.add(RegisterModel("name","사용자명",InputType.TYPE_CLASS_TEXT, comment = "사용자명"))
+        registerList.add(RegisterModel("email","이메일",InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS, comment = "이메일"))
+        registerList.add(RegisterModel("businessName","사업자명",InputType.TYPE_CLASS_TEXT ,comment = "사업자명"))
+        registerList.add(RegisterModel("businessNum","사업자등록번호",InputType.TYPE_CLASS_NUMBER, comment = "사업자등록번호 (10자리)"))
 
         //TODO(비밀번호 형식 지정안됨 수정 필요요)
     }

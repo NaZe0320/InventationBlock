@@ -4,5 +4,6 @@ data class RegisterModel(
     var id: String,
     var hint: String,
     var inputType: Int,
-    var content: String = ""
+    var content: String = "",
+    var comment: String = ""
 )
