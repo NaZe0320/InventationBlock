@@ -121,8 +121,6 @@ class MenuAddFragment: ContainerFragment(){
                 }
                 element.add(RecipeElement(null, recipe.name, stockAmount, recipe.unit))
             }
-            Log.d("<RESULT>","$element")
-            //TODO(빈칸이 있으면 아예 처리를 안함)
         }
 
         val min = if (binding.editMinimum.text.isEmpty()) 0 else binding.editMinimum.text.toString().toInt()

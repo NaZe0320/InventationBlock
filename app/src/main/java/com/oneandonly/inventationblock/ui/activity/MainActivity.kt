@@ -267,6 +267,17 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
     }
 
     private fun searchEditSetting() {
+        binding.mainSearchEdit.setOnItemClickListener { adapterView, view, i, l ->
+            val selected = adapterView.adapter.getItem(i) as Search
+            searchState = true
+            if(selected.type == "menu") {
+                recipeViewModel.getRecipeInfo(selected.id)
+            } else {
+                stockViewModel.getSearchList(binding.mainSearchEdit.text.toString())
+            }
+            changeStateSearch(false)
+        }
+
         binding.mainSearchEdit.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 changeStateSearch(true)
@@ -379,7 +390,6 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
         val stockObserver: Observer<ArrayList<Stock>> = Observer {
                 stockAdapter = StockAdapter(stockViewModel.stockList, stockViewModel, this)
                 binding.stockList.adapter = stockAdapter
-                Log.d("Main_Activity","4")
         }
         stockViewModel.stockList.observe(this,stockObserver)
     }
