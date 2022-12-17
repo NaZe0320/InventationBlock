@@ -9,13 +9,18 @@ import retrofit2.http.*
 interface RecipeAPI {
 
     @FormUrlEncoded
-    @POST("/recipe/{path}")
+    @POST("/recipe")
     suspend fun postRecipe(
         @Header("Token-key") token: String?,
-        @Path("path") path: String?,
         @FieldMap params: Map<String, @JvmSuppressWildcards Any>
     ) : Response<RecipeModel>
 
+    @FormUrlEncoded
+    @PATCH("/recipe")
+    suspend fun patchRecipe(
+        @Header("Token-key") token: String?,
+        @FieldMap params: Map<String, @JvmSuppressWildcards Any>
+    ) : Response<RecipeModel>
 
     @GET("/recipe/{path}")
     suspend fun getRecipe(

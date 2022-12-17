@@ -163,6 +163,6 @@ class MenuModifyFragment: ContainerFragment(){
         }
         val min = if (binding.editMinimum.text.isEmpty()) 0 else binding.editMinimum.text.toString().toInt()
 
-        recipeViewModel.setRecipeList(name, min, element )
+        recipeViewModel.setRecipeList(rid, name, min, element )
     }
 }

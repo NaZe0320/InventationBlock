@@ -28,7 +28,25 @@ class RecipeRepository {
             e.printStackTrace()
         }
 
-        return RetrofitBuilder.recipeAPI.postRecipe(tokens,"create",params)
+        return RetrofitBuilder.recipeAPI.postRecipe(tokens,params)
+    }
+
+    suspend fun modifyRecipeList(rid: Int, name: String, leastSell: Int, elements: ArrayList<RecipeElement>): Response<RecipeModel> {
+
+        val params = HashMap<String, Any>()
+        try {
+            val jsonData =
+                Gson().toJsonTree(elements, object : TypeToken<ArrayList<RecipeElement>>() {}.type)
+            val arrayData = jsonData.asJsonArray
+            params["rid"] = rid
+            params["name"] = name
+            params["leastSell"] = leastSell
+            params["elements"] = arrayData
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        return RetrofitBuilder.recipeAPI.patchRecipe(tokens,params)
     }
 
 

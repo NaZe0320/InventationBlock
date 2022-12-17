@@ -86,6 +86,26 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
         }
     }
 
+    fun setRecipeList(rid: Int, name: String, leastSell: Int, element: ArrayList<RecipeElement> ) {
+        try {
+            viewModelScope.launch {
+                val response = repo.modifyRecipeList(rid, name, leastSell, element)
+                when (response.code()) {
+                    200 -> {
+                        enroll.value = State.Success
+                        Log.d("Recipe Enroll","${response.code()} ${response.message()} ${response.body()?.message}")
+                    }
+                    400 -> {
+                        enroll.value = State.Fail
+                        Log.d("Recipe Enroll","${response.code()} ${response.errorBody()?.string()}")
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     fun getRecipeInfo(rid: Int) {
         try {
             viewModelScope.launch {
