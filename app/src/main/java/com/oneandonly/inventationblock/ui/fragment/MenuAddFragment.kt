@@ -119,7 +119,11 @@ class MenuAddFragment: ContainerFragment(){
                 } else {
                     recipe.amount.toInt()
                 }
-                element.add(RecipeElement(null, recipe.name, stockAmount, recipe.unit))
+                element.add(RecipeElement(sid = null, name = recipe.name,
+                    amount = stockAmount, unit = recipe.unit,
+                    amountTotal = null, date = null,
+                    safeStandard = null, pinned = null
+                ))
             }
         }
 

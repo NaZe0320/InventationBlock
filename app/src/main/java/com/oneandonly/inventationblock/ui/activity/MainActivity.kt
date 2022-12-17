@@ -22,9 +22,7 @@ import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.afterUpdate
 import com.oneandonly.inventationblock.databinding.ActivityMainBinding
 import com.oneandonly.inventationblock.databinding.NavHeaderMainBinding
-import com.oneandonly.inventationblock.datasource.model.data.Search
-import com.oneandonly.inventationblock.datasource.model.data.State
-import com.oneandonly.inventationblock.datasource.model.data.Stock
+import com.oneandonly.inventationblock.datasource.model.data.*
 import com.oneandonly.inventationblock.datasource.model.repository.RecipeRepository
 import com.oneandonly.inventationblock.datasource.model.repository.StockRepository
 import com.oneandonly.inventationblock.datasource.model.repository.UserRepository
@@ -56,7 +54,7 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
     private var clickTime: Long = 0
 
-    val searchList: ArrayList<Search> = ArrayList()
+    private val searchList: ArrayList<Search> = ArrayList()
 
     companion object {
         val stockList: ArrayList<Search> = ArrayList()
@@ -112,14 +110,6 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
                 super.onBackPressed()
             }
         }
-    }
-
-    private fun observeViewModel() {
-        userViewModel.user.observe(this@MainActivity, Observer { user ->
-            user?.let {
-
-            }
-        })
     }
 
     private fun observeSearchList() {
@@ -267,13 +257,17 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
     }
 
     private fun searchEditSetting() {
-        binding.mainSearchEdit.setOnItemClickListener { adapterView, view, i, l ->
+        Log.d("menuSearchTest","TEST")
+
+        binding.mainSearchEdit.setOnItemClickListener { adapterView, _, i, _ ->
             val selected = adapterView.adapter.getItem(i) as Search
             searchState = true
-            if(selected.type == "menu") {
-                recipeViewModel.getRecipeInfo(selected.id)
+            Log.d("menuSearchTest","elementToStock ${selected.type}")
+            binding.mainSearchEdit.setText(selected.name)
+            if(selected.type == "stock") {
+                search()
             } else {
-                stockViewModel.getSearchList(binding.mainSearchEdit.text.toString())
+                searchByMenu(selected.id)
             }
             changeStateSearch(false)
         }
@@ -306,6 +300,7 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
                 changeStateSearch(false)
                 stockViewModel.getStockList(0) //TODO
                 searchState = false
+                binding.mainListAlign.isInvisible = searchState
                 binding.mainSearchEdit.text.clear()
             } else {
                 changeStateSearch(false)
@@ -378,18 +373,15 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
         binding.mainSearchEdit.setAdapter(adapter)
         binding.mainSearchEdit.threshold = 1
-
-        binding.mainSearchEdit.setOnItemClickListener { adapterView, view, i, l ->
-            val selected = adapterView.adapter.getItem(i) as Search
-            binding.mainSearchEdit.setText(selected.name)
-            search()
-        }
     }
 
     private fun stockListObserver() {
         val stockObserver: Observer<ArrayList<Stock>> = Observer {
                 stockAdapter = StockAdapter(stockViewModel.stockList, stockViewModel, this)
                 binding.stockList.adapter = stockAdapter
+                if (stockViewModel.stockList.value?.size!! <= 0 ) {
+                    makeToast("검색된 내용이 없습니다")
+                }
         }
         stockViewModel.stockList.observe(this,stockObserver)
     }
@@ -399,6 +391,10 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
             makeToast(stockViewModel.errorList.value.toString())
         }
         stockViewModel.errorList.observe(this,errorObserver)
+    }
+
+    private fun menuSearchListToStockList() {
+
     }
 
     private fun changeStateSearch(state: Boolean) { //검색 모드 변경 시 체크
@@ -422,6 +418,22 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
         stockViewModel.getSearchList(binding.mainSearchEdit.text.toString())
         Log.d("Search","!")
         changeStateSearch(false) //검색하면 검색 중 종료
+        binding.mainListAlign.isInvisible = true
+    }
+
+    private fun searchByMenu(rid: Int) {
+        searchState = true
+        recipeViewModel.getRecipeInfoReturn(rid)
+
+        val recipeObserver: Observer<ArrayList<RecipeElement>> = Observer {
+            stockViewModel.elementToStock(recipeViewModel.recipeList)
+
+            Log.d("menuSearchTest","Observing")
+        }
+        recipeViewModel.recipeList.observe(this, recipeObserver)
+
+        changeStateSearch(false)
+        binding.mainListAlign.isInvisible = true
     }
 
     private fun hideKeyBoard() {
@@ -456,7 +468,7 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
     private fun resetList() {
         if (searchState) {
-            stockViewModel.getSearchList(binding.mainSearchEdit.text.toString())
+            //stockViewModel.getSearchList(binding.mainSearchEdit.text.toString())
         } else {
             stockViewModel.getStockList(0) //TODO(현재 스피너 값 가져오기)
         }

@@ -152,7 +152,11 @@ class MenuModifyFragment: ContainerFragment(){
                 } else {
                     recipe.amount.toInt()
                 }
-                element.add(RecipeElement(null,recipe.name, stockAmount, recipe.unit))
+                element.add(RecipeElement(sid = null, name = recipe.name,
+                    amount = stockAmount, unit = recipe.unit,
+                    amountTotal = null, date = null,
+                    safeStandard = null, pinned = null
+                ))
             }
             Log.d("<RESULT>","$element")
             //TODO(빈칸이 있으면 아예 처리를 안함)

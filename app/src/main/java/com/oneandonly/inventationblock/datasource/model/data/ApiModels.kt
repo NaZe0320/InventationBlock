@@ -68,7 +68,11 @@ data class RecipeElement(
     var sid: Int?,
     var name: String ?= "",
     var amount:Int ?= 0,
-    var unit: String ?=""
+    var unit: String ?="",
+    var amountTotal: Int?,
+    var date: Date?,
+    var safeStandard: Int?,
+    var pinned: Int?
 )
 
 enum class LoginState {

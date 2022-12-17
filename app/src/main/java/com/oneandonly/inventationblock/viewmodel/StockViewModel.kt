@@ -208,6 +208,31 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
         }
     }
 
+    fun elementToStock(element: LiveData<ArrayList<RecipeElement>>) {
+        val stockListItem: ArrayList<Stock> = ArrayList()
+
+        val today = Calendar.getInstance()
+
+        Log.d("menuSearchTest","elementToStock $element")
+        element.value?.forEachIndexed { index, i ->
+            stockListItem.add(
+                Stock(
+                    name = i.name ?: "",
+                    stockCurrent = i.amountTotal ?: 0,
+                    stockSafe = i.safeStandard ?: 0,
+                    fixed = (i.pinned ?: 0) != 0,
+                    sid = i.sid ?: 0,
+                    unit = i.unit ?: "",
+                    expired = (today.time.time - (i.date?.time
+                        ?: today.time.time)) / (24 * 60 * 60 * 1000) + 1
+                )
+            )
+        }
+        Log.d("menuSearchTest","elementToStock $stockListItem")
+
+        setStockList(stockListItem)
+    }
+
     fun addAmount(sid: Int, amount: Int, buyDate: String, reason: String) {
         try {
             viewModelScope.launch {

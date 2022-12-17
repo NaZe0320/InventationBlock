@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oneandonly.inventationblock.datasource.model.data.*
 import com.oneandonly.inventationblock.datasource.model.repository.RecipeRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -91,14 +92,14 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
                 val response = repo.getRecipeInformation(rid)
                 when (response.code()) {
                     200 -> {
-                        Log.d("setRecipeInfo","${response.code()} ${response.message()}")
+                        Log.d("getRecipeInfo","${response.code()} ${response.message()}")
                         val recipeInfo : ArrayList<RecipeElement> = ArrayList()
                         response.body()?.response?.elements?.let {
                             for (i in it.indices) {
                                 recipeInfo.add(it[i])
                             }
                         }
-                        Log.d("setRecipeInfo","$recipeInfo")
+                        Log.d("getRecipeInfo","$recipeInfo")
                         _recipeList.value = recipeInfo
 
 
@@ -112,7 +113,7 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
                     }
                     400 -> {
                         loading.value = State.Fail
-                        Log.d("setRecipeInformation","${response.code()} ${response.message()} ${response.body()?.message}")
+                        Log.d("getRecipeInformation","${response.code()} ${response.message()} ${response.body()?.message}")
                         loading.value = State.Null
                     }
                 }
@@ -120,6 +121,42 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    fun getRecipeInfoReturn(rid: Int): ArrayList<RecipeElement>? {
+        val recipeInfo : ArrayList<RecipeElement> = ArrayList()
+        try {
+            viewModelScope.launch {
+                val response = repo.getRecipeInformation(rid)
+                when (response.code()) {
+                    200 -> {
+                        Log.d("setRecipeInfoReturn","${response.code()} ${response.message()}")
+
+                        response.body()?.response?.elements?.let {
+                            for (i in it.indices) {
+                                recipeInfo.add(it[i])
+                            }
+                        }
+                        Log.d("menuSearchTest","getRecipeInfoReturn $recipeInfo")
+                        _recipeList.value = recipeInfo
+
+                        loading.value = State.Success
+                        loading.value = State.Null
+                    }
+                    400 -> {
+                        loading.value = State.Fail
+                        Log.d("setRecipeInformation","${response.code()} ${response.message()} ${response.body()?.message}")
+                        loading.value = State.Null
+                    }
+                }
+                delay(1000L)
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return recipeInfo
     }
 
     private fun setSearchList(response: Response<RecipeModel>) {
