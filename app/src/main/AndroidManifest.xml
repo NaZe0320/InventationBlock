@@ -11,20 +11,27 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InventationBlock"
         android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="stateAlwaysHidden"
         tools:targetApi="31">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".ui.activity.StockAddActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".ui.activity.MenuActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.activity.StockActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.activity.RegisterActivity"
             android:exported="false">

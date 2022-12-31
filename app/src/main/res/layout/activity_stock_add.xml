@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="date"
+            type="com.oneandonly.inventationblock.ui.fragment.MenuListFragment" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        tools:context=".ui.activity.StockAddActivity">
+
+        <include
+            android:id="@+id/menu_tool_bar"
+            layout="@layout/item_tool_bar"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/menu_tool_bar"
+            android:layout_marginStart="@dimen/layout_margin"
+            android:layout_marginTop="@dimen/layout_margin"
+            android:layout_marginEnd="@dimen/layout_margin"
+            android:layout_marginBottom="@dimen/layout_margin">
+
+            <RelativeLayout
+                android:id="@+id/layout_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/stock_tv"
+                    style="@style/MenuTextStyle"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:backgroundTint="@color/primary_color"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:text="식자재 이름"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/stock_tv"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:backgroundTint="@color/white">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/stock_search_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/edittext_height"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/bg_edit_search"
+                        android:hint="이름 검색을 통해 선택하세요."
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:textSize="@dimen/text_size">
+
+                    </AutoCompleteTextView>
+
+                    <ImageButton
+                        android:id="@+id/stock_search_btn"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/ic_search_btn">
+
+                    </ImageButton>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_2"
+                android:layout_width="match_parent"
+                android:layout_marginTop="12dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_1">
+
+                <TextView
+                    android:id="@+id/amount_tv"
+                    style="@style/MenuTextStyle"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:backgroundTint="@color/primary_color"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:text="구입량"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/amount_tv"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal"
+                    android:backgroundTint="@color/white"
+                    android:weightSum="4">
+
+                    <EditText
+                        android:id="@+id/amount_edit"
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_edit_search"
+                        android:hint="입력하세요"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:textSize="@dimen/text_size">
+                    </EditText>
+
+                    <TextView
+                        android:id="@+id/unit_spinner"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="-2.5dp"
+                        android:paddingStart="8dp"
+                        android:background="@drawable/bg_spinner_unit"
+                        android:text="g"
+                        android:gravity="center_vertical"
+                        android:textSize="14sp"/>
+
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/layout_2">
+
+                <TextView
+                    android:id="@+id/date_tv"
+                    style="@style/MenuTextStyle"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:backgroundTint="@color/primary_color"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:text="구입일자"
+                    android:textStyle="bold" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*구입일 수정이 필요할 경우, 아래 칸을 클릭하세요."
+                    android:textSize="8sp"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@id/date_tv"
+                    android:layout_alignBottom="@+id/date_tv"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/date_tv"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal"
+                    android:backgroundTint="@color/white">
+
+                    <TextView
+                        android:id="@+id/date_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_edit_search"
+                        android:text="2022.11.28.월"
+                        android:inputType="text"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:textSize="@dimen/text_size">
+                    </TextView>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/add_btn_stock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/layout_margin"
+            android:layout_marginEnd="@dimen/layout_margin"
+            android:layout_marginBottom="30dp"
+            android:text="등록하기"
+            android:enabled="false"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/update_time"
+            style="@style/UpdateTimeText"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/layout_margin"
+            android:layout_marginTop="@dimen/layout_margin"
+            android:layout_marginEnd="@dimen/layout_margin"
+            android:layout_marginBottom="@dimen/layout_margin"/>
+
+    </RelativeLayout>
+</layout>

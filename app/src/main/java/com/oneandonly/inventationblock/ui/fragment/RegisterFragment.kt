@@ -1,11 +1,9 @@
 package com.oneandonly.inventationblock.ui.fragment
 
-import android.graphics.Typeface
 import android.graphics.Typeface.*
 import android.os.Bundle
 import android.text.InputType
 import android.text.SpannableStringBuilder
-import android.text.Spanned
 import android.text.Spanned.*
 import android.text.style.StyleSpan
 import android.util.Log
@@ -15,7 +13,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.oneandonly.inventationblock.Constants
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.databinding.FragmentRegisterBinding
 import com.oneandonly.inventationblock.datasource.model.data.RegisterModel
@@ -51,7 +48,7 @@ class RegisterFragment: ContainerFragment() {
         val view = binding.root
 
         val repo = UserRepository()
-        val vmFactory = UserFactory(repo)
+        val vmFactory = UserFactory(repo, requireActivity())
 
         userVM = ViewModelProvider(requireActivity(), vmFactory)[UserViewModel::class.java]
 
@@ -69,7 +66,7 @@ class RegisterFragment: ContainerFragment() {
             //TODO(회원가입 상태 확인)
             when (it) {
                 State.Loading -> {
-                    registerList.forEachIndexed { index, register ->
+                    registerList.forEachIndexed { _, register ->
                         Log.d("Register_Fragment","${register.hint} - ${register.content}")
                         params[register.id] = register.content
                     }
@@ -94,6 +91,10 @@ class RegisterFragment: ContainerFragment() {
 
                     }
                 }
+                State.Null -> {
+
+                }
+                else -> {}
             }
 
         }
@@ -108,20 +109,20 @@ class RegisterFragment: ContainerFragment() {
 
     private fun setupRegisterRecyclerView(){
         setRegisterList()
-        registerAdapter = RegisterAdapter(registerList)
+        registerAdapter = RegisterAdapter(registerList = registerList)
 
         binding.rvRegister.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false )
         binding.rvRegister.adapter = registerAdapter
     }
 
     private fun setRegisterList() {
-        registerList.add(RegisterModel("id","아이디",InputType.TYPE_CLASS_TEXT))
-        registerList.add(RegisterModel("password","비밀번호",81))
-        registerList.add(RegisterModel("passwordCheck","비밀번호 확인",81))
-        registerList.add(RegisterModel("name","사용자명",InputType.TYPE_CLASS_TEXT))
-        registerList.add(RegisterModel("email","이메일",InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS))
-        registerList.add(RegisterModel("businessName","사업자명",InputType.TYPE_CLASS_TEXT))
-        registerList.add(RegisterModel("businessNum","사업자등록번호",InputType.TYPE_CLASS_NUMBER))
+        registerList.add(RegisterModel("id","아이디",InputType.TYPE_CLASS_TEXT, comment = "아이디"))
+        registerList.add(RegisterModel("password","비밀번호",InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD,comment = "비밀번호 * 특수문자 + 영소문자 + 숫자로 이루어진 8자리 이상"))
+        registerList.add(RegisterModel("passwordCheck","비밀번호 확인",InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD, comment = "비밀번호 확인"))
+        registerList.add(RegisterModel("name","사용자명",InputType.TYPE_CLASS_TEXT, comment = "사용자명"))
+        registerList.add(RegisterModel("email","이메일",InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS, comment = "이메일"))
+        registerList.add(RegisterModel("businessName","사업자명",InputType.TYPE_CLASS_TEXT ,comment = "사업자명"))
+        registerList.add(RegisterModel("businessNum","사업자등록번호",InputType.TYPE_CLASS_NUMBER, comment = "사업자등록번호 (10자리)"))
 
         //TODO(비밀번호 형식 지정안됨 수정 필요요)
     }

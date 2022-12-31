@@ -20,11 +20,10 @@ interface UserAPI {
         @FieldMap params: HashMap<String, String>
     ): Response<USER>
 
-/*
+
     @GET("/user/information")
-    fun getInformation(
-        @Header("Token-key") token:String?): InformationResult
+    suspend fun getInformation(
+        @Header("Token-key") token:String?): Response<USER>
     //토큰을 전송하고, 해당 정보 받아오기
-*/
 
 }

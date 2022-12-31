@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="user"
+            type="com.oneandonly.inventationblock.viewmodel.UserViewModel" />
+    </data>
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/background_content">
+
+        <TextView
+            android:id="@+id/header_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/app_name"
+            android:textColor="@color/primary_color"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/header_store_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.user.response.businessName}"
+            android:textColor="@color/text_color_gray"
+            android:textSize="12sp"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/header_app_name"
+            android:layout_alignBottom="@+id/header_app_name"
+            tools:text="가게명" />
+
+    </RelativeLayout>
+</layout>

@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.loginResult.observe(this) {
             when (it) {
                 LoginState.Loading -> {
-                    Log.d("LoginCheck","Loading")
+                    Log.d("LoginCheck","loading")
 
                     showLoading()
                 }
@@ -91,8 +91,6 @@ class LoginActivity : AppCompatActivity() {
         autoLoginViewModel.getAutoLogin()
         if (autoLoginViewModel.isAutoLogin){
             moveToMain()
-            //TODO(토큰 받아오기)
-            tokenViewModel.getToken() //토큰 받아오기
         }
     }
 
@@ -102,7 +100,7 @@ class LoginActivity : AppCompatActivity() {
             isEnabled = false
         }
 
-        Log.d("Loading","로딩창 보여주기")
+        Log.d("loading","로딩창 보여주기")
     }
 
     private fun stopLoading() {
@@ -110,11 +108,12 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.apply {
             isEnabled = true
         }
-        Log.d("Loading","로딩창 닫기")
+        Log.d("loading","로딩창 닫기")
     }
 
     private fun moveToMain() {
         Log.d("Splash","moveToMain")
+        tokenViewModel.getToken()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
@@ -127,7 +126,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onClickLogin() {
-        Log.d("LoginCheck","login button click")
+        Log.d("Login_Check","login button click")
         try {
             CoroutineScope(Dispatchers.Main).launch {
                 loginViewModel.postLogin(binding.editId.text.toString(),binding.editPw.text.toString())

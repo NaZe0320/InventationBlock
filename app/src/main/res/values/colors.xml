@@ -9,10 +9,20 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primary_color">#FFA6D500</color>
+    <color name="primary_color_80">#CCA6D500</color>
     <color name="primary_color_variant">#dbff4f</color>
     <color name="disable_color">#c4c4c4</color>
     <color name="background">#FFF5F5F5</color>
     <color name="background_content">#FFFFFFFF</color>
 
+    <color name="text_color_black">#FF000000</color>
+    <color name="text_color_white">#FFFFFFFF</color>
+    <color name="text_color_gray">#FF888888</color>
+
+    <color name="text_view_gray">#FFC4C4C4</color>
+
     <color name="stroke_grey">#54888888</color>
+
+    <color name="red">#FFFF0000</color>
+    <color name="blue">#FF094EFF</color>
 </resources>

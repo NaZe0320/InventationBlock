@@ -37,5 +37,4 @@ class UpdateTimeSetting(private val context: Context) {
             return@map it[UPDATE_TIME]?:"0"
         }
 
-
 }

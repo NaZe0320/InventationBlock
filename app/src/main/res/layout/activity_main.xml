@@ -5,34 +5,267 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="main"
-            type="com.oneandonly.inventationblock.ui.activity.MainActivity" />
-        <variable
-            name="time"
-            type="com.oneandonly.inventationblock.viewmodel.UpdateViewModel" />
+    <variable
+        name="user"
+        type="com.oneandonly.inventationblock.viewmodel.UserViewModel" />
+    <variable
+        name="time"
+        type="com.oneandonly.inventationblock.viewmodel.UpdateViewModel" />
     </data>
 
-    <LinearLayout
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/main_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activity.MainActivity"
-        android:orientation="vertical">
+        android:background="@color/background"
+        tools:openDrawer="left">
 
-        <include layout="@layout/item_tool_bar"
-            android:id="@+id/tool_bar"
-            app:title="@{@string/title}">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        </include>
+            <include
+                android:id="@+id/main_tool_bar"
+                layout="@layout/item_main_tool_bar"/>
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="로그아웃"/>
+            <TextView
+                android:id="@+id/update_time"
+                style="@style/UpdateTimeText"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/layout_margin"
+                android:layout_marginTop="@dimen/layout_margin"
+                android:layout_marginEnd="@dimen/layout_margin"
+                android:layout_marginBottom="@dimen/layout_margin"/>
 
+            <RelativeLayout
+                android:id="@+id/main_search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_tool_bar"
+                android:layout_marginTop="@dimen/layout_margin"
+                android:layout_marginStart="@dimen/layout_margin"
+                android:layout_marginEnd="@dimen/layout_margin">
+                
+                <RelativeLayout
+                    android:id="@+id/main_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edittext_height"
+                    android:backgroundTint="@color/white">
 
+                    <ImageButton
+                        android:id="@+id/main_icon"
+                        android:layout_width="48dp"
+                        android:layout_height="@dimen/edittext_height"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_btn_search_icon"
+                        android:paddingEnd="8dp"
+                        android:clickable="false"
+                        android:src="@drawable/ic_logo"
+                        android:backgroundTint="@color/primary_color"
+                        tools:ignore="RtlSymmetry">
 
-    </LinearLayout>
+                    </ImageButton>
+
+                    <AutoCompleteTextView
+                        android:id="@+id/main_search_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/main_icon"
+                        android:background="@drawable/bg_edit_search"
+                        android:hint="검색"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:layout_marginStart="-8dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:textSize="@dimen/text_size">
+
+                    </AutoCompleteTextView>
+
+                    <ImageButton
+                        android:id="@+id/main_search_btn"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/ic_search_btn">
+
+                    </ImageButton>
+
+                </RelativeLayout>
+
+                <Spinner
+                    android:id="@+id/main_list_align"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/main_search"
+                    android:layout_alignEnd="@+id/main_search"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/layout_between_margin"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="@drawable/bg_spinner_unit"
+                    android:elevation="4dp"
+                    android:entries="@array/align_list"
+                    android:textSize="11sp">
+
+                </Spinner>
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/stock_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/main_fab"
+                android:layout_below="@+id/main_search_layout"
+                android:layout_alignStart="@+id/main_search_layout"
+                android:layout_alignEnd="@+id/main_search_layout"
+                android:layout_marginBottom="@dimen/layout_between_margin"
+                android:layout_marginTop="@dimen/layout_between_margin">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <LinearLayout
+                android:id="@+id/sticker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E3424242"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+            </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                style="@style/FabStyle"
+                android:id="@+id/main_fab"
+                android:layout_width="@dimen/fab_size"
+                android:layout_height="@dimen/fab_size"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/ic_fab_btn"
+                android:layout_marginEnd="@dimen/layout_margin"
+                android:layout_marginBottom="@dimen/layout_margin"/>
+
+            <RelativeLayout
+                android:id="@+id/fab_layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/main_fab"
+                android:layout_alignEnd="@+id/main_fab"
+                android:layout_marginBottom="@dimen/fab_between_margin"
+                android:visibility="invisible">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_1"
+                    android:layout_width="@dimen/fab_size"
+                    android:layout_height="@dimen/fab_size"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="@color/primary_color"
+                    android:src="@drawable/img_fab1"
+                    style="@style/FabStyle"
+                    app:maxImageSize="30dp">
+
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/fab_1"
+                    android:layout_marginEnd="@dimen/fab_text_margin"
+                    android:text="직접 입력"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_text_size" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fab_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/fab_layout1"
+                android:layout_alignEnd="@+id/main_fab"
+                android:layout_marginBottom="@dimen/fab_between_margin"
+                android:visibility="invisible">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_2"
+                    android:layout_width="@dimen/fab_size"
+                    android:layout_height="@dimen/fab_size"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="@color/primary_color"
+                    android:src="@drawable/img_fab2"
+                    style="@style/FabStyle"
+                    app:maxImageSize="30dp">
+
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/fab_2"
+                    android:text="영수증/명세표"
+                    android:layout_marginEnd="@dimen/fab_text_margin"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_text_size" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fab_layout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/fab_layout2"
+                android:layout_alignEnd="@+id/main_fab"
+                android:layout_marginBottom="@dimen/fab_between_margin"
+                android:visibility="invisible">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_3"
+                    android:layout_width="@dimen/fab_size"
+                    android:layout_height="@dimen/fab_size"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="@color/primary_color"
+                    android:src="@drawable/img_fab3"
+                    style="@style/FabStyle"
+                    app:maxImageSize="30dp">
+
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/fab_3"
+                    android:text="바코드 인식"
+                    android:layout_marginEnd="@dimen/fab_text_margin"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_text_size" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/main_nav_view"
+            android:layout_width="256dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/background"
+            app:headerLayout="@layout/nav_header_main"
+            app:menu="@menu/nav_main_menu_list">
+
+        </com.google.android.material.navigation.NavigationView>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
 
 </layout>

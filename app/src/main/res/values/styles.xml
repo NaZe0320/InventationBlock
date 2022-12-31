@@ -8,6 +8,18 @@
         <item name="background">@drawable/bg_edit</item>
     </style>
 
+    <style name="DatePickerStyle" parent="Theme.AppCompat.Light.Dialog">
+        <!-- 상단 색 변경 -->
+        <item name="colorAccent">@color/primary_color</item>
+        <!-- dialog의 배경 변경 -->
+<!--        <item name="background">@drawable/dialog_white_roundcorner</item>-->
+        <!-- 선택한 날짜를 표시할 색상 -->
+        <item name="colorControlActivated">@color/primary_color</item>
+        <item name="colorControlHighlight">@color/primary_color</item>
+        <!-- 취소/확인버튼 색상 -->
+        <item name="android:textColor">@color/primary_color</item>
+    </style>
+
     <style name="DefaultButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/bg_btn</item>
         <item name="android:backgroundTint">@color/button_background_color</item>
@@ -17,6 +29,78 @@
     <style name="CheckButtonStyle" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:buttonTint">@color/primary_color</item>
         <item name="android:buttonTintMode">src_atop</item>
+    </style>
+
+    <style name="ImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="android:backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="UpdateTimeText" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:text">"업데이트 일시"</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textColor">@color/text_color_gray</item>
+        <item name="android:textSize">10sp</item>
+
+    </style>
+
+    <style name="ColorBackgroundImageButton" parent="Widget.AppCompat.ImageButton">
+
+    </style>
+    
+    <style name="FabStyle" parent="Widget.Design.FloatingActionButton">
+        <item name="android:width">@dimen/fab_size</item>
+        <item name="android:height">@dimen/fab_size</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="borderWidth">0dp</item>
+        <item name="fabCustomSize">48dp</item>
+        <item name="maxImageSize">48dp</item>
+
+    </style>
+    
+    <style name="MenuTextStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minWidth">88dp</item>
+        <item name="android:background">@drawable/bg_tv</item>
+        <item name="android:textSize">@dimen/sub_text_size</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="RedButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minWidth">88dp</item>
+        <item name="android:background">@drawable/bg_red_btn</item>
+        <item name="android:textSize">@dimen/sub_text_size</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:textColor">@color/menu_add_btn_text_color</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/primary_color</item>
+        <item name="buttonBarNegativeButtonStyle">@style/buttonBarButtonStyle.Negative</item>
+        <item name="buttonBarPositiveButtonStyle">@style/buttonBarButtonStyle.Positive</item>
+    </style>
+
+    <style name="buttonBarButtonStyle.Negative" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/primary_color</item>
+    </style>
+
+    <style name="buttonBarButtonStyle.Positive" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/primary_color</item>
     </style>
 
 </resources>

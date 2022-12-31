@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="recipe"
+            type="com.oneandonly.inventationblock.datasource.model.data.Recipe" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/enroll_btn">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/layout_margin">
+
+                <TextView
+                    android:id="@+id/comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="* 메뉴를 직접 추가하는 페이지입니다."/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/comment"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_menu_name"
+                        style="@style/MenuTextStyle"
+                        android:backgroundTint="@color/primary_color"
+                        android:text="메뉴 이름 입력"
+                        android:layout_marginTop="20dp"/>
+
+                    <EditText
+                        android:id="@+id/edit_menu_name"
+                        android:background="@drawable/bg_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/menu_add_height"
+                        android:layout_below="@id/text_menu_name"
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:layout_marginTop="@dimen/layout_between_margin"/>
+
+                    <TextView
+                        android:id="@+id/text_minimum"
+                        style="@style/MenuTextStyle"
+                        android:backgroundTint="@color/primary_color"
+                        android:text="최소 판매 희망 건수"
+                        android:layout_below="@id/edit_menu_name"
+                        android:layout_marginTop="20dp"/>
+
+                    <EditText
+                        android:id="@+id/edit_minimum"
+                        android:background="@drawable/bg_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/menu_add_height"
+                        android:layout_below="@id/text_minimum"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        android:layout_marginTop="@dimen/layout_between_margin"/>
+
+                    <TextView
+                        android:id="@+id/text_main_menu"
+                        style="@style/MenuTextStyle"
+                        android:backgroundTint="@color/primary_color"
+                        android:layout_below="@id/edit_minimum"
+                        android:text="주메뉴 식자재"
+                        android:layout_marginTop="20dp"/>
+
+                    <include
+                        android:id="@+id/recipe_title"
+                        android:layout_below="@id/text_main_menu"
+                        layout="@layout/item_recipe_title"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recipe_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/recipe_title"
+                        tools:listitem="@layout/item_recipe">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <Button
+                        android:id="@+id/list_add_btn"
+                        android:layout_below="@id/recipe_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="추가"
+                        android:layout_marginTop="@dimen/layout_between_margin"
+                        android:backgroundTint="#D4D4D4"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/enroll_btn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="등록하기"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="8dp" />
+
+    </RelativeLayout>
+
+
+
+</layout>

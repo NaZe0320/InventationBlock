@@ -8,11 +8,20 @@
             type="com.oneandonly.inventationblock.datasource.model.data.RegisterModel" />
     </data>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_item"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorEnabled="true">
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{register.comment}"
+            android:textColor="@color/text_color_gray"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:paddingStart="4dp"/>
 
         <EditText
             android:id="@+id/et_item"
@@ -21,7 +30,8 @@
             android:text="@{register.content}"
             android:hint="@{register.hint}"
             android:inputType="@{register.inputType}"
-            android:background="@drawable/bg_edit_grey" />
+            android:background="@drawable/bg_edit_gray" />
+    </LinearLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+
 </layout>

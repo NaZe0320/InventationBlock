@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/enroll_btn">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/layout_margin">
+
+                <TextView
+                    android:id="@+id/comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="* 메뉴별 레시피를 입력/확인하는 화면입니다."/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/comment"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_minimum"
+                        style="@style/MenuTextStyle"
+                        android:backgroundTint="@color/primary_color"
+                        android:text="최소 판매 희망 건수"
+                        android:layout_marginTop="20dp"/>
+
+                    <EditText
+                        android:id="@+id/edit_minimum"
+                        android:background="@drawable/bg_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/menu_add_height"
+                        android:layout_below="@id/text_minimum"
+                        android:layout_marginTop="@dimen/layout_between_margin"/>
+
+                    <TextView
+                        android:id="@+id/text_main_menu"
+                        style="@style/MenuTextStyle"
+                        android:backgroundTint="@color/primary_color"
+                        android:layout_below="@id/edit_minimum"
+                        android:text="주메뉴 식자재"
+                        android:layout_marginTop="20dp"/>
+
+                    <include
+                        android:id="@+id/recipe_title"
+                        android:layout_below="@id/text_main_menu"
+                        layout="@layout/item_recipe_title"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recipe_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/recipe_title"
+                        tools:listitem="@layout/item_recipe">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <Button
+                        android:id="@+id/list_add_btn"
+                        android:layout_below="@id/recipe_list"
+                        android:layout_width="match_parent"
+                        android:text="추가"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="@dimen/layout_between_margin"
+                        android:backgroundTint="#D4D4D4"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/enroll_btn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="수정하기"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp" />
+    </RelativeLayout>
+</layout>

@@ -12,13 +12,17 @@
         <item name="android:fontFamily">@font/notosanskr</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:textColor">@color/black</item>
+
         <!-- Customize your theme here. -->
+
         <item name="editTextStyle">@style/EditTextStyle</item>
         <item name="buttonStyle">@style/DefaultButtonStyle</item>
         <item name="checkboxStyle">@style/CheckButtonStyle</item>
+        <item name="imageButtonStyle">@style/ImageButtonStyle</item>
+
     </style>
 
-    <style name="Calendar" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="CalendarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/teal_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -31,6 +35,15 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
         <item name="android:textSize">40sp</item>
+    </style>
+
+
+    <style name="DialogTheme">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
     </style>
 
 </resources>

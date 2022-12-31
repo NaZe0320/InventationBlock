@@ -25,6 +25,7 @@
 
         <Button
             android:id="@+id/btn_register"
+            android:backgroundTint="@color/login_button_background_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="확인"

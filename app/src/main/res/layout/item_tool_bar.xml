@@ -9,16 +9,27 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height">
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@color/background_content">
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <ImageButton
+            android:id="@+id/tool_bar_back_btn"
+            android:layout_width="@dimen/toolbar_button_dimen"
+            android:layout_height="@dimen/toolbar_button_dimen"
+            android:layout_marginStart="8dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back"/>
 
         <TextView
-            android:id="@+id/title_bar"
+            android:id="@+id/tool_bar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{title}"/>
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:text="재고명"
+            android:layout_toEndOf="@+id/tool_bar_back_btn"
+            android:textSize="@dimen/text_size_tool_bar_title"/>
+
+
     </RelativeLayout>
 </layout>

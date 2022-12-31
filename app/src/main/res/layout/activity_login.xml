@@ -55,6 +55,7 @@
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/bg_edit"
                     android:hint="ID"
+                    android:text="test12"
                     android:inputType="text"
                     android:autofillHints="" />
 
@@ -64,6 +65,7 @@
                     android:layout_height="@dimen/edittext_height"
                     android:background="@drawable/bg_edit"
                     android:hint="PW"
+                    android:text="!test123"
                     android:inputType="textPassword"
                     android:autofillHints="" />
 
@@ -95,6 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="로그인"
+                    android:backgroundTint="@color/login_button_background_color"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 

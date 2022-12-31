@@ -3,4 +3,7 @@
 
     <string name="title">테스트</string>
     <string name="register_text">아래의 순서에 따라\n회원가입을 진행해주세요.</string>
+    <string name="unit_format">%d %s</string>
+    <string name="expired_format">구입한지 %d 일째</string>
+    <string name="amount_format">%,2d %s</string>
 </resources>

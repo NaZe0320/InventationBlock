@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_background"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:orientation="horizontal"
+    android:background="@android:color/transparent"
+    android:weightSum="22">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:text="식자재명"
+        android:gravity="center"
+        android:layout_marginEnd="1dp"
+        android:textColor="@color/primary_color"
+        android:background="@drawable/bg_tv"
+        android:backgroundTint="@color/white"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="7"
+        android:text="식자재량"
+        android:gravity="center"
+        android:layout_marginEnd="1dp"
+        android:layout_marginStart="1dp"
+        android:textColor="@color/primary_color"
+        android:background="@drawable/bg_tv"
+        android:backgroundTint="@color/white" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:text="단위"
+        android:gravity="center"
+        android:layout_marginStart="1dp"
+        android:textColor="@color/primary_color"
+        android:background="@drawable/bg_tv"
+        android:backgroundTint="@color/white" />
+
+</LinearLayout>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="false" android:color="@color/disable_color"/>
-    <item android:state_pressed="true" android:color="@color/primary_color_variant"/>
-    <item android:state_selected="true" android:color="@color/primary_color_variant" />
-
+    <item android:state_pressed="true" android:color="#CCD9FF4F"/>
+    <item android:state_selected="true" android:color="#CCD9FF4F" />
+    <item android:state_enabled="false" android:color="@color/text_view_gray"/>
     <item android:color="@color/primary_color"/>
 </selector>
