@@ -63,7 +63,6 @@ data class RecipeResponse2(
     var elements: List<RecipeElement>?
 )
 
-
 data class RecipeElement(
     var sid: Int?,
     var name: String ?= "",
