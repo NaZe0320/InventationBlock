@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
                 LoginState.Fail -> {
                     Log.d("LoginCheck","Fail")
                     stopLoading()
-                    makeToast("아이디나 비밀번호를 화인해 주세요")
+                    makeToast("아이디나 비밀번호를 확인해 주세요")
 
                     loginViewModel.loginResult.value = LoginState.Null
                 }

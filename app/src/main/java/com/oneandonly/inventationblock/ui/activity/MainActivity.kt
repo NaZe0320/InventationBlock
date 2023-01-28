@@ -1,5 +1,6 @@
 package com.oneandonly.inventationblock.ui.activity
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -38,6 +39,9 @@ import com.oneandonly.inventationblock.viewmodel.factory.RecipeFactory
 import com.oneandonly.inventationblock.viewmodel.factory.StockFactory
 import com.oneandonly.inventationblock.viewmodel.factory.UserFactory
 import kotlinx.coroutines.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
@@ -55,6 +59,8 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
     private var clickTime: Long = 0
 
     private val searchList: ArrayList<Search> = ArrayList()
+
+    private var mCurrentTime = Calendar.getInstance()
 
     companion object {
         val stockList: ArrayList<Search> = ArrayList()
@@ -195,8 +201,8 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
             //recipeViewModel.setRecipeUse()
             makeToast("제육볶음 2인분 판매")
             CoroutineScope(Dispatchers.Main).launch {
-                delay(1500)
-                stockViewModel.getSearchList("")
+                delay(500)
+                stockViewModel.getStockList(0)
                 Log.d("TEST_!@#","!@#!@#@#")
             }
         }
@@ -497,7 +503,7 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
         if (result != null) {
             if (result.contents != null) {
-                makeToast(result.contents)
+                showDialog("양파", 40)
             } else {
                 makeToast("scan failed")
             }
@@ -506,4 +512,31 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
         }
 
     }
+
+    private fun showDialog(string: String, n: Int) {
+        AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert)
+            .setTitle("충원 재고 등록")
+            .setMessage("${string}을 등록하시겠습니까?")
+            .setNegativeButton("등록하기") { p0, p1 ->
+                Log.d("dialog", "positive $p0 $p1")
+                val format = SimpleDateFormat("yyyy-MM-dd")
+                stockViewModel.addAmount(
+                    sid = 106,
+                    amount = Integer.parseInt("40"),
+                    buyDate = format.format(mCurrentTime.time),
+                    reason = "바코드 등록")
+                CoroutineScope(Dispatchers.Main) .launch {
+                    delay(500)
+                    stockViewModel.getStockList(0)
+                    Log.d("TEST_!@#","!@#!@#@#")
+                }
+                clickFab(false)
+            }
+            .setPositiveButton("취소하기") { p0, p1 ->
+                Log.d("dialog", "neutral $p0 $p1")
+            }
+            .create()
+            .show()
+    }
+
 }
