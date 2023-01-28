@@ -1,6 +1,5 @@
 package com.oneandonly.inventationblock.datasource.model.data
 
-import com.google.gson.annotations.SerializedName
 import java.util.Date
 
 data class USER(
@@ -29,7 +28,7 @@ data class StockResponses(
     var sid: Int?,
     var name: String?,
     var amount: Int?,
-    var addDate: Date?,
+    var oldestDate: Date?,
     var unit: String?,
     var safeStandard: Int?,
     var pinned: Int?,

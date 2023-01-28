@@ -264,6 +264,7 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
             for (i in 0 until response.body()?.response?.size!!) {
                 response.body()?.response?.get(i).let {
                     it!!
+                    Log.d("Stock_Adapter","${it.oldestDate?.time}")
                     stockListItem.add(
                         Stock(
                             it.name ?: "0",
@@ -271,7 +272,7 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
                             it.safeStandard ?: 0,
                             (it.pinned ?: 0) != 0,
                             it.unit ?: "",
-                            (today.time.time - (it.addDate?.time ?:today.time.time))/(24 * 60 * 60 * 1000)+1,
+                            (today.time.time - (it.oldestDate?.time ?:today.time.time))/(24 * 60 * 60 * 1000)+1,
                             it.sid ?: 0
                         )
                     )
