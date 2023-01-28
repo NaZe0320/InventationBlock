@@ -17,6 +17,8 @@ import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.zxing.integration.android.IntentIntegrator
+import com.google.zxing.integration.android.IntentResult
 import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.R
 import com.oneandonly.inventationblock.afterUpdate
@@ -335,7 +337,12 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
         }
 
         binding.fab3.setOnClickListener {
-            afterUpdate()
+            run {
+                val integrator = IntentIntegrator(this);
+
+                integrator.setOrientationLocked(false); //세로
+                integrator.initiateScan();
+            }
         }
 
         binding.sticker.setOnClickListener {
@@ -485,4 +492,18 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        var result: IntentResult?= IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+
+        if (result != null) {
+            if (result.contents != null) {
+                makeToast(result.contents)
+            } else {
+                makeToast("scan failed")
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+
+    }
 }

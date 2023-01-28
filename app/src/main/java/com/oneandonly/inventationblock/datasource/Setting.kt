@@ -2,11 +2,12 @@ package com.oneandonly.inventationblock.datasource
 
 import android.app.Application
 import androidx.datastore.core.DataStore
+import androidx.multidex.MultiDexApplication
 import com.oneandonly.inventationblock.datasource.setting.LoginSetting
 import com.oneandonly.inventationblock.datasource.setting.TokenSetting
 import com.oneandonly.inventationblock.datasource.setting.UpdateTimeSetting
 
-class Setting: Application() {
+class Setting: MultiDexApplication() {
     private lateinit var loginDataStore: LoginSetting
     private lateinit var updateTimeDataStore: UpdateTimeSetting
     private lateinit var tokenDataStore: TokenSetting

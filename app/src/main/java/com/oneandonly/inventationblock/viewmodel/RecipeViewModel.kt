@@ -209,5 +209,4 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
         repo.setRecipeUse(8)
     }
 
-
 }
