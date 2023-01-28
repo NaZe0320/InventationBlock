@@ -73,6 +73,16 @@ data class RecipeElement(
     var pinned: Int?
 )
 
+data class UpdateModel(
+    var result: Int?,
+    var message: String?,
+    var response: Update?
+)
+data class Update(
+    var date: Date?,
+    var toString: String?
+)
+
 enum class LoginState {
     Loading(),
     Success(),

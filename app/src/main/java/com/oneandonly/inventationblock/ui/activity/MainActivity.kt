@@ -80,16 +80,16 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
         val navBind: NavHeaderMainBinding = NavHeaderMainBinding.bind(binding.mainNavView.getHeaderView(0))
         navBind.user = userViewModel //실시간 변경이 안됨 //TODO(수정 필요)
         binding.user = userViewModel
+        binding.time = stockViewModel
         binding.mainToolBar.user = userViewModel
 
         //UI
         uiSetting()
-
         //Observer
         stockListObserver()
         errorObserver()
         observeSearchList()
-
+        stockViewModel.getUpdate()
     }
 
     override fun onStart() {

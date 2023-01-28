@@ -3,6 +3,8 @@ package com.oneandonly.inventationblock.datasource.model.repository
 import android.util.Log
 import com.oneandonly.inventationblock.Constants.tokens
 import com.oneandonly.inventationblock.datasource.model.data.StockModel
+import com.oneandonly.inventationblock.datasource.model.data.Update
+import com.oneandonly.inventationblock.datasource.model.data.UpdateModel
 import com.oneandonly.inventationblock.datasource.model.retrofit.RetrofitBuilder
 import retrofit2.Response
 import java.util.Date
@@ -48,6 +50,9 @@ class StockRepository {
         return RetrofitBuilder.stockAPI.setStock(token,"add",params)
     }
 
+    suspend fun setUpdate(): Response<UpdateModel> {
+        return RetrofitBuilder.stockAPI.setUpdate(tokens)
+    }
 
     //TODO(수정 필요)
 }

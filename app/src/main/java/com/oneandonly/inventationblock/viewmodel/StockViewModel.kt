@@ -38,6 +38,8 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
     private val _error = MutableLiveData<String>()
     val errorList: LiveData<String> get() = _error
 
+    var date: MutableLiveData<String> = MutableLiveData<String>("2023-01-28 15:15:37")
+
     val ing : MutableLiveData<State> = MutableLiveData()
 
     private fun setSearchList(response: Response<StockModel>) {
@@ -67,10 +69,12 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
 
     private fun setStockList(stockItems: ArrayList<Stock>) {
         _stockList.value = stockItems
+        getUpdate()
     }
 
     private fun setHistoryList(historyItems: ArrayList<History>) {
         _historyList.value = historyItems
+        getUpdate()
     }
 
     fun getUsedRecipeList(sid: Int) {
@@ -85,12 +89,13 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
                         }
                         _usedRecipeList.value = usedRecipeItem
 
-                        Log.d("Response Test", "${response.code()} / ${response.body()?.response}")
+                        Log.d("Response Test", "${response.code()} / ${response.body()}")
                     }
                     else -> {
                         Log.d("Response Test", "${response.code()} / ${response.body()?.response}")
                     }
                 }
+                getUpdate()
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -103,11 +108,24 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
             viewModelScope.launch {
                 val response = repo.getList(tokens, orderBy)
 
-                Log.d("Response Test", "${response.body()?.response}")
+                Log.d("Response Test", "${response.body()}")
                 responseToStock(response) //데이터 변환
                 setSearchList(response) // 검색 리스트 생성
             }
+            getUpdate()
         } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun getUpdate() {
+        try {
+            viewModelScope.launch {
+                val response = repo.setUpdate()
+                date.value = response.body()?.response?.toString.toString()
+                Log.d("Update!@#","${date.value}/ ${response.body()?.response} ")
+            }
+        } catch (e: Exception){
             e.printStackTrace()
         }
     }
@@ -125,6 +143,7 @@ class StockViewModel(private val repo: StockRepository) : ViewModel() {
                 }
                 Log.d("Search_Test","${response.body()}")
                 responseToStock(response)
+                getUpdate()
             }
         } catch (e: Exception) {
             e.printStackTrace()

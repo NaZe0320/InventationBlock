@@ -1,6 +1,8 @@
 package com.oneandonly.inventationblock.datasource.model.retrofit
 
 import com.oneandonly.inventationblock.datasource.model.data.StockModel
+import com.oneandonly.inventationblock.datasource.model.data.Update
+import com.oneandonly.inventationblock.datasource.model.data.UpdateModel
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -38,4 +40,8 @@ interface StockAPI {
         @FieldMap param: HashMap<String, Any>
     ): Response<StockModel>
 
+    @GET("/stock/lastUpdateAt")
+    suspend fun setUpdate(
+        @Header("Token-key") token: String?
+    ): Response<UpdateModel>
 }

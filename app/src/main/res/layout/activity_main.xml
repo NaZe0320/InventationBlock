@@ -10,7 +10,7 @@
         type="com.oneandonly.inventationblock.viewmodel.UserViewModel" />
     <variable
         name="time"
-        type="com.oneandonly.inventationblock.viewmodel.UpdateViewModel" />
+        type="com.oneandonly.inventationblock.viewmodel.StockViewModel" />
     </data>
 
 
@@ -30,14 +30,25 @@
                 layout="@layout/item_main_tool_bar"/>
 
             <TextView
-                android:id="@+id/update_time"
+                android:id="@+id/update_time2"
                 style="@style/UpdateTimeText"
+                android:text="업데이트 일시 : "
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="@dimen/layout_margin"
                 android:layout_marginTop="@dimen/layout_margin"
-                android:layout_marginEnd="@dimen/layout_margin"
                 android:layout_marginBottom="@dimen/layout_margin"/>
+
+            <TextView
+                android:id="@+id/update_time"
+                style="@style/UpdateTimeText"
+                android:text="@={time.date}"
+                android:layout_toEndOf="@+id/update_time2"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/layout_margin"
+                android:layout_marginBottom="@dimen/layout_margin"
+                tools:text="Tlqkf"/>
+
 
             <RelativeLayout
                 android:id="@+id/main_search_layout"
@@ -256,9 +267,8 @@
                 android:id="@+id/test_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
                 android:backgroundTint="@android:color/transparent"
-                android:layout_above="@+id/update_time">
+                android:visibility="visible">
 
             </Button>
 
