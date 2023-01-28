@@ -204,4 +204,10 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
         RecipeViewModel.searchMenu = searchListItem
     }
 
+    fun setRecipeUse() {
+        repo.setRecipeUse(8)
+        repo.setRecipeUse(8)
+    }
+
+
 }

@@ -35,9 +35,7 @@ import com.oneandonly.inventationblock.viewmodel.StockViewModel.Companion.search
 import com.oneandonly.inventationblock.viewmodel.factory.RecipeFactory
 import com.oneandonly.inventationblock.viewmodel.factory.StockFactory
 import com.oneandonly.inventationblock.viewmodel.factory.UserFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
@@ -185,8 +183,21 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
         toolBarSetting()
         stockListSetting(stockViewModel)
         searchEditSetting()
+        btnSetting()
         fabSetting()
         spinnerSetting()
+    }
+
+    private fun btnSetting() {
+        binding.testBtn.setOnClickListener {
+            //recipeViewModel.setRecipeUse()
+            makeToast("제육볶음 2인분 판매")
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(1500)
+                stockViewModel.getSearchList("")
+                Log.d("TEST_!@#","!@#!@#@#")
+            }
+        }
     }
 
     private fun drawerSetting() {

@@ -55,7 +55,7 @@
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/bg_edit"
                     android:hint="ID"
-                    android:text="test12"
+                    android:text="jac07185"
                     android:inputType="text"
                     android:autofillHints="" />
 
