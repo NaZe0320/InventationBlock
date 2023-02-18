@@ -6,4 +6,5 @@
     <string name="unit_format">%d %s</string>
     <string name="expired_format">구입한지 %d 일째</string>
     <string name="amount_format">%,2d %s</string>
+    <string name="title_activity_compose_ex">ComposeExActivity</string>
 </resources>
