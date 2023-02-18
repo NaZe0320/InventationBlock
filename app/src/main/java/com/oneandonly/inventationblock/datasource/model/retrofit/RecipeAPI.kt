@@ -35,7 +35,7 @@ interface RecipeAPI {
     ): Response<RecipeModel2>
 
     @FormUrlEncoded
-    @PATCH("/recipe/use/{rid}")
+    @PATCH("/recipe/use/52")
     suspend fun setRecipeUse(
         @Header("Token-key") token: String?,
         @FieldMap params: Map<String, @JvmSuppressWildcards Any>

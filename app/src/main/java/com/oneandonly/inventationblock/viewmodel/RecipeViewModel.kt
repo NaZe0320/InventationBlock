@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oneandonly.inventationblock.datasource.model.data.*
 import com.oneandonly.inventationblock.datasource.model.repository.RecipeRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -205,8 +207,11 @@ class RecipeViewModel(private val repo: RecipeRepository): ViewModel() {
     }
 
     fun setRecipeUse() {
-        repo.setRecipeUse(8)
-        repo.setRecipeUse(8)
+        CoroutineScope(Dispatchers.Main).launch {
+            repo.setRecipeUse(52)
+            repo.setRecipeUse(52)
+        }
+
     }
 
 }

@@ -198,10 +198,10 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
     private fun btnSetting() {
         binding.testBtn.setOnClickListener {
-            //recipeViewModel.setRecipeUse()
+            recipeViewModel.setRecipeUse()
             makeToast("제육볶음 2인분 판매")
             CoroutineScope(Dispatchers.Main).launch {
-                delay(500)
+                delay(1000)
                 stockViewModel.getStockList(0)
                 Log.d("TEST_!@#","!@#!@#@#")
             }
@@ -503,7 +503,8 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
         if (result != null) {
             if (result.contents != null) {
-                showDialog("양파", 40)
+                val intent = Intent(this@MainActivity, StockBarcodeActivity::class.java)
+                startActivity(intent)
             } else {
                 makeToast("scan failed")
             }
@@ -513,30 +514,6 @@ class MainActivity : AppCompatActivity(), StockAdapter.OnClick {
 
     }
 
-    private fun showDialog(string: String, n: Int) {
-        AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert)
-            .setTitle("충원 재고 등록")
-            .setMessage("${string}을 등록하시겠습니까?")
-            .setNegativeButton("등록하기") { p0, p1 ->
-                Log.d("dialog", "positive $p0 $p1")
-                val format = SimpleDateFormat("yyyy-MM-dd")
-                stockViewModel.addAmount(
-                    sid = 106,
-                    amount = Integer.parseInt("40"),
-                    buyDate = format.format(mCurrentTime.time),
-                    reason = "바코드 등록")
-                CoroutineScope(Dispatchers.Main) .launch {
-                    delay(500)
-                    stockViewModel.getStockList(0)
-                    Log.d("TEST_!@#","!@#!@#@#")
-                }
-                clickFab(false)
-            }
-            .setPositiveButton("취소하기") { p0, p1 ->
-                Log.d("dialog", "neutral $p0 $p1")
-            }
-            .create()
-            .show()
-    }
+
 
 }

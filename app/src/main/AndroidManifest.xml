@@ -40,6 +40,9 @@
         <activity
             android:name=".ui.activity.MenuActivity"
             android:exported="false" />
+        <activity android:name=".ui.activity.StockBarcodeActivity">
+
+        </activity>
         <activity
             android:name=".ui.activity.StockActivity"
             android:exported="false" />

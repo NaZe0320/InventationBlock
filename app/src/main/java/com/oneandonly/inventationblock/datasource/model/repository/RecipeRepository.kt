@@ -58,10 +58,11 @@ class RecipeRepository {
         return RetrofitBuilder.recipeAPI.getRecipeInformation(tokens,rid)
     }
 
-    fun setRecipeUse(rid: Int) {
+    suspend fun setRecipeUse(rid: Int) {
         val params = HashMap<String, Any>()
         try {
             params["rid"] = rid
+            RetrofitBuilder.recipeAPI.setRecipeUse(tokens,params)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
